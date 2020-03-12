@@ -1,0 +1,23 @@
+{
+  "name": "waves-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "prod": "node ./bin/www"
+  },
+  "dependencies": {
+    "@waves/ts-lib-crypto": "^1.4.3",
+    "@waves/waves-transactions": "^3.25.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

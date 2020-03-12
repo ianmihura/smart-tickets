@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css?family=Helvetica");
+
+:root {
+  --logo-font: "Helvetica", sans-serif;
+  --header-font: "Helvetica", sans-serif;
+  --core-font: "Helvetica", sans-serif;
+
+  --primary: #ffffff;
+  --bg-color: #121212;
+  --bg-color-secondary: #333333;
+  --highlight: #ff5252;
+  --highlight-hover: #ff3a3a;
+
+  --ui-shawdow: 0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+  fill: rgba(0, 0, 0, 0.54);
+  --ui-shawdow-border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  color: var(--primary);
+  
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgb(207, 207, 207);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--header-font);
+  
+  padding: 0;
+  margin: 0;
+
+  color: var(--primary);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.View {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  height: 100%;
+  width: 100%;
+
+  padding: 20px;
+
+  background-size: cover;
+
+  font-family: var(--core-font);
+}
+
+.Banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  border-radius: 5px;
+
+  overflow: hidden;
+  background: var(--bg-color-secondary);
+  padding: 15px;
+
+  font-family: var(--logo-font);
+
+  border-bottom: var(--ui-shawdow-border);
+  box-shadow: var(--ui-shawdow);
+}
+
+.Message {
+  color: var(--primary);
+
+
+  background: var(--bg-color-secondary);
+  padding: 30px;
+  border-bottom: var(--ui-shawdow-border);
+  box-shadow: var(--ui-shawdow);
+}
+
+.Message > .Title {
+  padding-bottom: 20px;
+}
+
+.Message > .Details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5em;
+}
+
+.WelcomeView {
+  background: var(--bg-color);
+  background-size: cover;
+}
+
+.UserView {
+  background: url("https://cdn.auth0.com/blog/whatabyte/patio.png") left bottom;
+  background-size: cover;
+}
+
+.NewEventForm {
+  display: block;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.FullEventForm {
+  display: block;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  min-width: 150px;
+  padding: 20px;
+  border-radius: 30px;
+
+  background: var(--highlight);
+
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--primary);
+
+  cursor: pointer;
+
+  text-transform: capitalize;
+
+  border-bottom: var(--ui-shawdow-border);
+  box-shadow: var(--ui-shawdow);
+}
+
+.Button:hover {
+  background: var(--highlight-hover); 
+}
+
+input,
+textarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 55px;
+  min-width: 150px;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 30px;
+
+  overflow: hidden;
+  resize: none;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  background-color: var(--bg-color-secondary);
+  color: var(--primary);
+}
+
+.TextareaDescription {
+  min-width: 30em;
+}
+
+.Hide {
+  display: none;
+}

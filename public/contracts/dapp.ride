@@ -1,0 +1,255 @@
+{-# STDLIB_VERSION 3 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+###
+#Base variables and functions
+###
+#Variables
+let address = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf"
+let keyEventPrefix = "event_"
+let keyEventDataPrefix = "data_"
+let keyEventPricePrefix = "price_"
+let keyEventDatePrefix = "date_"
+let keyEventAttendeePrefix = "attendee_"
+let keyProducerBalancePrefix = "balance_"
+let keyEventAmountTicketPrefix = "amountTickets_"
+let keyEventCanceledPrefix = "canceled_"
+let NONE = "none"
+
+#Base read by key
+func getNumberByKey(key: String) = {
+    let num = match getInteger(this, key) {
+        case a:Int => a
+        case _ => 0
+    }
+    num
+}
+func getStrByKey(key: String) = {
+    let str = match getString(this, key) {
+        case a:String => a
+        case _ => NONE
+    }
+    str
+}
+func getBoolByKey(key: String) = {
+    let bool = match getBoolean(this, key) {
+        case a:Boolean => a
+        case _ => false
+    }
+    bool
+}
+
+###
+#Market functions
+###
+#Event Key
+func getEventKey(producer: String, title: String) = {
+    keyEventPrefix + toBase58String(sha256(toBytes(producer + title)))
+}
+#Data Key
+func getEventDataKey(event: String) = {
+    keyEventDataPrefix + event
+}
+#Price Key
+func getEventPriceKey(event: String) = {
+    keyEventPricePrefix + event
+}
+#Date Key
+func getEventDateKey(event: String) = {
+    keyEventDatePrefix + event
+}
+#Event Attendee Key
+func getEventAttendeeKey(user: String, event: String) = {
+    keyEventAttendeePrefix + user + "_" + event
+}
+#Producer Balance Key
+func getProducerBalanceKey(account: String) = {
+    keyProducerBalancePrefix + account
+}
+#Amount of Tickets Key
+func getEventAmountTicketsKey(event: String) = {
+    keyEventAmountTicketPrefix + event
+}
+#Event Canceled Key
+func getEventCanceledKey(event: String) = {
+    keyEventCanceledPrefix + event
+}
+
+# Event Value => Event creator address
+func getEventValueById(item: String) = {
+    getStrByKey(item)
+}
+func getEventValue(producer: String, title: String) = {
+    getStrByKey(getEventKey(producer, title))
+}
+# Price Value
+func getEventPriceValue(event: String) = {
+    getNumberByKey(getEventPriceKey(event))
+}
+# Date Value
+func getEventDateValue(event: String) = {
+    getNumberByKey(getEventDateKey(event))
+}
+#Event Attendee Value
+func getEventAttendeeValue(user: String, event: String) = {
+    getNumberByKey(getEventAttendeeKey(user, event))
+}
+#Producer Balance Value
+func getProducerBalanceValue(account: String) = {
+    getNumberByKey(getProducerBalanceKey(account))
+}
+#Amount of Tickets Value
+func getEventAmountTicketsValue(event: String) = {
+    getNumberByKey(getEventAmountTicketsKey(event))
+}
+#Event Canceled Value
+func getEventCanceledValue(event: String) = {
+    getBoolByKey(getEventCanceledKey(event))
+}
+
+
+###
+#Martket Callables
+###
+#Add Event declaration
+@Callable(i)
+func createEvent(title: String, price: Int, data: String, date: Int, amountTickets: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+    let event = getEventKey(producerAddress, title)
+	
+    if (price < 0)
+        then throw("Price cannot be negative")
+    else if (getEventValue(producerAddress, title) != NONE) 
+        then throw("The event already exist")
+    else {
+        WriteSet([
+            DataEntry(getEventKey(producerAddress, title), producerAddress),
+            DataEntry(getEventPriceKey(event), price),
+            DataEntry(getEventDataKey(event), data),
+            DataEntry(getEventDateKey(event), date),
+            DataEntry(getEventAmountTicketsKey(event), amountTickets)
+        ])
+    }
+}
+
+#Purchase Item declaration
+@Callable(i)
+func purchase(event: String, amount: Int) = {
+	let pmt = extract(i.payment)
+	if (isDefined(pmt.assetId)) then throw("can use WAVES only at the moment")
+	else {
+		let userAddress = toBase58String(i.caller.bytes)
+		let price = getEventPriceValue(event)
+        let supplierAddress = getEventValueById(event)
+        let amountTicket = getEventAmountTicketsValue(event)
+
+		if (pmt.amount < price * amount) then throw("You did not send enough money. You sent: " + pmt.amount.toString() + ". Expected: " + (amount * price).toString())
+		else if (pmt.amount > price * amount) then throw("You send too much money. You sent: " + pmt.amount.toString() + ". Expected price: " + price.toString())
+		else if (supplierAddress == NONE) then throw("supplier does not exist")
+        else if (amountTicket <= 0) then throw("No tickets left")
+        else if (getEventCanceledValue(event)) then throw("This event was canceled")
+        else ScriptResult(
+            WriteSet([
+				DataEntry(getEventAttendeeKey(userAddress, event), getEventAttendeeValue(userAddress, event) + amount),
+				DataEntry(getProducerBalanceKey(supplierAddress), getProducerBalanceValue(supplierAddress) + pmt.amount),
+                DataEntry(getEventAmountTicketsKey(event), getEventAmountTicketsValue(event) - amount)
+            ]),
+            TransferSet([
+                ScriptTransfer(addressFromStringValue(address), pmt.amount, unit)
+            ])
+        )
+	}
+}
+
+#End ticket sale declaration
+@Callable(i)
+func endTicketSale(title: String) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+    let event = getEventKey(producerAddress, title)
+
+    if (getEventValueById(event) != producerAddress)
+        then throw("You have not created any Event yet!")
+    else if (getEventCanceledValue(event))
+        then throw("This event was canceled")
+    else {
+        WriteSet([
+            DataEntry(getEventAmountTicketsKey(event), 0)
+        ])
+    }
+}
+
+#Check-in Attendee Validator declaration
+@Callable(i)
+func checkin(event: String, attendeeAddress: String, amount: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+    
+    if (getEventAttendeeValue(attendeeAddress, event) <= amount)
+        then throw("You don't have enough tickets.")
+    else if (getEventCanceledValue(event))
+        then throw("This event was canceled. You can redeem your ticket using refundTicket function")
+    else if (getEventValueById(event) != producerAddress)
+        then throw("You have not created any Event yet!")
+    else {
+        WriteSet([
+            DataEntry(getEventAttendeeKey(attendeeAddress, event), getEventAttendeeValue(attendeeAddress, event) - amount)
+        ])
+    }
+}
+
+#Cancel Event declaration
+@Callable(i)
+func cancelEvent(event: String, dateNow: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+
+    if (getEventValueById(event) != producerAddress)
+        then throw("You have not created any Event yet!")
+    else if (getEventDateValue(event) <= dateNow)
+        then throw("This event has already happened")
+    else if (getEventCanceledValue(event))
+        then throw("This event was already canceled")
+    else {
+        WriteSet([
+            DataEntry(getEventCanceledKey(event), true)
+        ])
+    }
+}
+
+#Redeem / Refund Ticket Price declaration
+@Callable(i)
+func refundTicket(event: String, amount: Int) = {
+    let attendeeAddress = toBase58String(i.caller.bytes)
+    
+    if (getEventAttendeeValue(attendeeAddress, event) <= 0)
+        then throw("You have no registered ticket with this address")
+    else ScriptResult(
+        WriteSet([
+            DataEntry(getEventAttendeeKey(attendeeAddress, event), getEventAttendeeValue(attendeeAddress, event) - amount)
+        ]),
+        TransferSet([
+            ScriptTransfer(addressFromStringValue(attendeeAddress), amount * getEventAttendeeValue(attendeeAddress, event), unit)
+        ])
+    )
+}
+
+#Producer Withdraw balance declaration
+@Callable(i)
+func withdraw(event: String, dateNow: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+    let balance = getProducerBalanceValue(producerAddress)
+    
+    if (balance <= 0)
+        then throw("Insufficient balance")  
+    else if (getEventDateValue(event) >= dateNow)
+        then throw("Event has not yet taken place. Withdraw funds when event takes place.")
+    else if (getEventCanceledValue(event))
+        then throw("Event has been canceled")
+    else ScriptResult(
+        WriteSet([
+            DataEntry(getProducerBalanceKey(producerAddress), 0)
+        ]),
+        TransferSet([
+            ScriptTransfer(addressFromStringValue(producerAddress), balance, unit)
+        ])
+    )
+}

@@ -1,0 +1,20 @@
+extends layout
+
+block layout-content
+    div.View.WelcomeView
+        h1.Banner SmartTickets.
+        div.Message
+            div.Title
+                h1 Smart Events.
+            span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
+        div.NewEventForm
+            textarea#eventId(placeholder="Event ID")
+            Button.Button.SubmitForm.Hide(onclick="OnGetEventData()") Check Event
+            <br>
+            span#eventDetails
+            <br>
+            textarea#amount(placeholder="Amount of tickets")
+            span#price(placeholder="Price")
+            Button.Button.SubmitForm.Hide(onclick="OnBuyTicket()") Buy
+            // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
+            
