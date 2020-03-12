@@ -6,7 +6,7 @@ function OnGetAttendeeDetails() {
     var attendee = document.getElementById("attendee").value;
     
     eventId = !eventId ? "event_HkLoTQGXFsdZixE1uWUKajj4mPoWEZiTxeuwtDTKqa3Z" : eventId;
-    GetEventAttendee(eventId, attendee, GetEventAttendeeCallback);
+    GetEventAttendeeService(eventId, attendee, GetEventAttendeeCallback);
 }
 
 function GetEventAttendeeCallback(data) {

@@ -1,15 +1,17 @@
 // Client-side Javascript
 // DOM elements manipulation & event listeners
 
-function GetEventDataService() {
+function OnGetEventData() {
     var eventId = document.getElementById("eventId").value;
     
     eventId = !eventId ? "data_event_HkLoTQGXFsdZixE1uWUKajj4mPoWEZiTxeuwtDTKqa3Z" : eventId;
-    GetEventData(eventId, GetEventDataCallback);
+    GetEventDataService(eventId, GetEventDataCallback);
 }
 
 function GetEventDataCallback(data) {
-    var eventDetails = JSON.parse(data.value);
+    console.log(data);
+
+    var eventDetails = typeof data.value == "object" ? data.value : JSON.parse(data.value);
     console.log(eventDetails);
 
     document.getElementById("eventDetails").innerHTML = eventDetails.title + ", " + eventDetails.location + "<br>" + eventDetails.description;
@@ -19,7 +21,12 @@ function GetEventDataCallback(data) {
 function OnBuyTicket() {
     var eventId = document.getElementById("eventId").value;
     var amount = document.getElementById("amount").value;
-    var totalPrice = amount * 1;
+    var price = Number(document.getElementById("price").innerHTML);
+    var totalPrice = amount * price;
 
-    BuyTickets(eventId, amount, totalPrice);
+    BuyTickets(eventId, amount, totalPrice, BuyTicketCallback);
+}
+
+function BuyTicketCallback(data) {
+    console.log(data);
 }

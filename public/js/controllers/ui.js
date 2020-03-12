@@ -20,14 +20,3 @@ document.addEventListener("readystatechange", function(event) {
 //     var FullEventForm = document.getElementsByClassName("SubmitForm")[0];
 //     FullEventForm.className = "Button";
 // }
-
-function OnCreateEvent() {
-    var title = document.getElementById("nameOfEvent").value;
-    var description = document.getElementById("description").value;
-    var date = document.getElementById("date").value;
-    var location = document.getElementById("location").value;
-    var price = document.getElementById("price").value;
-    var amount = document.getElementById("amount").value;
-    
-    CreateEvent(title, description, date, price, amount, location);
-}

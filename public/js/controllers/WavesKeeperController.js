@@ -12,7 +12,7 @@ function WavesKeeperAuth() {
     })
 }
 
-function CreateEvent(title, description, date, price, amount, location) {
+function CreateEvent(title, description, date, price, amount, location, callback) {
     try {
         CreateEventService({
             type: 16,
@@ -40,13 +40,13 @@ function CreateEvent(title, description, date, price, amount, location) {
                         ]},
             payment: []
             }
-        });
+        }, callback);
     } catch (err) {
         _errorHandler(err);
     }
 }
 
-function BuyTickets(event, amount, totalPrice) {
+function BuyTickets(event, amount, totalPrice, callback) {
     try {
         BuyTicketService({
             type: 16,
@@ -59,7 +59,7 @@ function BuyTickets(event, amount, totalPrice) {
                 call:{
                     function:"purchase",
                     args:[
-                        {type: "string", value: event},
+                        {type: "string", value: "event_" + event},
                         {type: "integer", value: amount}
                     ]},
                 payment: [{
@@ -67,7 +67,7 @@ function BuyTickets(event, amount, totalPrice) {
                     amount: totalPrice
                 }]
             }
-        });
+        }, callback);
     } catch (err) {
         _errorHandler(err);
     }
@@ -86,7 +86,7 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, callback) {
                 call:{
                     function:"checkin",
                     args:[
-                        {type: "string", value: eventId},
+                        {type: "string", value: "event_" + eventId},
                         {type: "string", value: attendee},
                         {type: "integer", value: ticketsToCheckin}
                     ]},

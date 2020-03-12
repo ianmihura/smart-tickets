@@ -6,7 +6,12 @@ function GetEventDataService(eventId, callback) {
         (data) => callback(data));
 }
 
-function GetEventAttendee(eventId, attendee, callback) {
+function GetEventAttendeeService(eventId, attendee, callback) {
     $.get("/checkin/eventId/" + eventId + "/" + attendee, 
+        (data) => callback(data));
+}
+
+function GetTxStateById(txid, callback) {
+    $.get("/txstatebyid/" + txid, 
         (data) => callback(data));
 }

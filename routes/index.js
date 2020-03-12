@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var MainService = require('../service/main')
 
 var responseIndexData = {
   title: "Expressive"
@@ -8,6 +9,16 @@ var responseIndexData = {
 // GET home page
 router.get('/', function(req, res, next) {
   res.render('index', responseIndexData);
+});
+
+// GET TX by Id
+router.get('/txstatebyid/:txid', function(req, res, next) {
+  try{
+    MainService.GetTxStateById(req.params.txid, res, 
+      (res, wResp) => res.send(wResp))
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

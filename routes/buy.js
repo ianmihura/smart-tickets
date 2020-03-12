@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 // GET event details
 router.get(['/eventId/:eventId'], function(req, res) {
   try{
-    BuyService.GetEventDetailsService(req.params.eventId, res, 
+    BuyService.GetEventDataService(req.params.eventId, res, 
       (res, wResp) => res.send(wResp))
   } catch (err) {
     console.log(err);

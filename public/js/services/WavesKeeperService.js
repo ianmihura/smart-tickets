@@ -8,18 +8,18 @@ function WavesKeeperAuthService() {
     })
 }
 
-function CreateEventService(txData) {
-    WavesKeeper.signAndPublishTransaction(txData).then(data => {
-        console.log("Success!", data);
-    }).catch(err => {
+function CreateEventService(txData, callback) {
+    WavesKeeper.signAndPublishTransaction(txData)
+    .then(data => callback(data))
+    .catch(err => {
         console.log("Event creation failed.", err)
     })
 }
 
-function BuyTicketsService(txData) {
-    WavesKeeper.signAndPublishTransaction(txData).then(data => {
-        console.log("Success!", data);
-    }).catch(err => {
+function BuyTicketService(txData, callback) {
+    WavesKeeper.signAndPublishTransaction(txData)
+    .then(data => callback(data))
+    .catch(err => {
         console.log("Couldn't buy tickets.", err);
     })
 }
