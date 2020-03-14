@@ -12,4 +12,18 @@ function GetTxStateById(txid, res, callback) {
     }
 }
 
-module.exports = { GetTxStateById : GetTxStateById };
+function GetEventDataService(eventId, res, callback) {
+    try {
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        nodeInteraction.accountDataByKey("data_" + eventId, dapp, nodeUrl)
+            .then(wResp => callback(res, wResp))
+            .catch(err => console.log(err));
+    } catch(err) {
+        console.log("Couldn't fetch the requested event.", err);
+    }
+}
+
+module.exports = { 
+    GetTxStateById : GetTxStateById,
+    GetEventDataService : GetEventDataService
+};

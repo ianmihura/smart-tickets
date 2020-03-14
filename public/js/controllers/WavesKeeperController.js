@@ -1,5 +1,6 @@
 // Client-side Javascript
 // Waves Keeper Controller - txData construction
+const SmartTicketsDapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
 
 function _errorHandler(err) {
     console.log("Probably no Waves Keeper installed.", err);
@@ -12,16 +13,16 @@ function WavesKeeperAuth() {
     })
 }
 
-function CreateEvent(title, description, date, price, amount, location, callback) {
+function CreateEvent(title, description, date, price, amount, location, requiresId, callback) {
     try {
-        CreateEventService({
+        WavesKeeperTransactionService({
             type: 16,
             data: {
               fee: {
                 assetId: "WAVES",
                 tokens: "0.005"
               },
-              dApp: "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf",
+              dApp: SmartTicketsDapp,
               call:{
                         function:"createEvent",
                         args:[
@@ -33,10 +34,12 @@ function CreateEvent(title, description, date, price, amount, location, callback
                                 date: date,
                                 location: location,
                                 price: price,
-                                amountOfTickets: amount
+                                amountOfTickets: amount,
+                                requiresId: requiresId
                             })},
                             {type: "integer", value: date},
                             {type: "integer", value: amount},
+                            {type: "boolean", value: requiresId}
                         ]},
             payment: []
             }
@@ -46,21 +49,23 @@ function CreateEvent(title, description, date, price, amount, location, callback
     }
 }
 
-function BuyTickets(event, amount, totalPrice, callback) {
+function BuyTickets(eventId, amount, totalPrice, id, callback) {
     try {
-        BuyTicketService({
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
             type: 16,
             data: {
                 fee: {
                     assetId: "WAVES",
                     tokens: "0.005"
                 },
-                dApp: "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf",
+                dApp: SmartTicketsDapp,
                 call:{
                     function:"purchase",
                     args:[
-                        {type: "string", value: "event_" + event},
-                        {type: "integer", value: amount}
+                        {type: "string", value: eventId},
+                        {type: "integer", value: amount},
+                        {type: "string", value: id}
                     ]},
                 payment: [{
                     assetId: "WAVES",
@@ -73,22 +78,75 @@ function BuyTickets(event, amount, totalPrice, callback) {
     }
 }
 
-function CheckinAttendee(eventId, attendee, ticketsToCheckin, callback) {
+function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, callback) {
     try {
-        CheckinAttendeeService({
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
             type: 16,
             data: {
                 fee: {
                     assetId: "WAVES",
                     tokens: "0.005"
                 },
-                dApp: "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf",
+                dApp: SmartTicketsDapp,
                 call:{
                     function:"checkin",
                     args:[
-                        {type: "string", value: "event_" + eventId},
+                        {type: "string", value: eventId},
                         {type: "string", value: attendee},
-                        {type: "integer", value: ticketsToCheckin}
+                        {type: "integer", value: ticketsToCheckin},
+                        {type: "string", value: personalId}
+                    ]},
+                payment: []
+            }
+        }, callback);
+    } catch (err) {
+        _errorHandler(err);
+    }
+}
+
+function RefundTicket(eventId, amount, personalId, callback) {
+    try {
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
+            type: 16,
+            data: {
+                fee: {
+                    assetId: "WAVES",
+                    tokens: "0.005"
+                },
+                dApp: SmartTicketsDapp,
+                call:{
+                    function:"refundTicket",
+                    args:[
+                        {type: "string", value: eventId},
+                        {type: "integer", value: amount},
+                        {type: "string", value: personalId}
+                    ]},
+                payment: []
+            }
+        }, callback);
+    } catch (err) {
+        _errorHandler(err);
+    }
+}
+
+function CancelEvent(eventId, callback) {
+    try {
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
+            type: 16,
+            data: {
+                fee: {
+                    assetId: "WAVES",
+                    tokens: "0.005"
+                },
+                dApp: SmartTicketsDapp,
+                call:{
+                    function:"cancelEvent",
+                    args:[
+                        {type: "string", value: eventId},
+                        {type: "integer", value: amount}
                     ]},
                 payment: []
             }

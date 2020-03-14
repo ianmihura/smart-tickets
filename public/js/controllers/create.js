@@ -4,12 +4,13 @@
 function OnCreateEvent() {
     var title = document.getElementById("nameOfEvent").value;
     var description = document.getElementById("description").value;
-    var date = document.getElementById("date").value;
+    var date = new Date(document.getElementById("date").value).getTime();
     var location = document.getElementById("location").value;
     var price = document.getElementById("price").value;
     var amount = document.getElementById("amount").value;
+    var requiresId = document.getElementById("requiresId").checked;
     
-    CreateEvent(title, description, date, price, amount, location, CreateEventCallback);
+    CreateEvent(title, description, date, price, amount, location, requiresId, CreateEventCallback);
 }
 
 function CreateEventCallback(data) {

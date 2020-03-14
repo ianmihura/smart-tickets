@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
 });
 
 // GET attendee
-router.get(['/eventId/:eventId/:attendee'], function(req, res) {
+router.get(['/eventId/:eventId/:attendee/:personalId'], function(req, res) {
   try{
-    CheckinService.GetEventAttendeeService(req.params.eventId, req.params.attendee, res, 
+    CheckinService.GetEventAttendeeService(req.params.eventId, req.params.attendee, req.params.personalId, res, 
       (res, wResp) => res.send(wResp))
   } catch (err) {
     console.log(err);

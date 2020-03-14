@@ -4,9 +4,10 @@
 function OnGetAttendeeDetails() {
     var eventId = document.getElementById("eventId").value;
     var attendee = document.getElementById("attendee").value;
+    var personalId = document.getElementById("personalId").value;
+    personalId = personalId ? personalId : "undefined"
     
-    eventId = !eventId ? "event_HkLoTQGXFsdZixE1uWUKajj4mPoWEZiTxeuwtDTKqa3Z" : eventId;
-    GetEventAttendeeService(eventId, attendee, GetEventAttendeeCallback);
+    GetEventAttendeeService(eventId, attendee, personalId, GetEventAttendeeCallback);
 }
 
 function GetEventAttendeeCallback(data) {
@@ -20,11 +21,12 @@ function OnCheckin() {
     var ticketsLeft = Number(document.getElementById("attendeeDetails").innerHTML);
     var eventId = document.getElementById("eventId").value;
     var attendee = document.getElementById("attendee").value;
+    var personalId = document.getElementById("personalId").value;
     
     if (ticketsLeft == NaN || ticketsLeft <= 0)
         console.log("You don't have tickets left");
     else
-        CheckinAttendee(eventId, attendee, ticketsToCheckin, CheckinCallback);
+        CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, CheckinCallback);
 }
 
 function CheckinCallback(data) {

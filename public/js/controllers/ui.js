@@ -9,14 +9,3 @@ document.addEventListener("readystatechange", function(event) {
         _errorHandler(err)
     };
 });
-
-// function showFullForm() {
-//     var FullEventForm = document.getElementsByClassName("ShowFullForm")[0];
-//     FullEventForm.className = "Hide";
-
-//     var FullEventForm = document.getElementsByClassName("FullEventForm")[0];
-//     FullEventForm.className = "FullEventForm";
-
-//     var FullEventForm = document.getElementsByClassName("SubmitForm")[0];
-//     FullEventForm.className = "Button";
-// }

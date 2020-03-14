@@ -10,11 +10,4 @@ router.get('/', function(req, res, next) {
   res.render('create', responseIndexData);
 });
 
-// POST new event
-// router.post('/', function(req, res, next) {
-//   CreateService.CreateEventService(req, res, (res) => {
-//     res.render('index', responseIndexData);
-//   });
-// });
-
 module.exports = router;

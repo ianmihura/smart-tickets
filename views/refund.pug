@@ -8,14 +8,11 @@ block layout-content
                 h1 Smart Events.
             span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
         div.NewEventForm
-            textarea#nameOfEvent(placeholder="Name of Event")
-            div.Button.ShowFullForm(onclick="showFullForm()") Create your Event!
-        div.FullEventForm.Hide
-            textarea#description(placeholder="Description")
-            textarea#date(placeholder="Date")
-            textarea#location(placeholder="Location")
-            textarea#price(placeholder="Price")
+            textarea#eventId(placeholder="Event Id")
             textarea#amount(placeholder="Amount of Tickets")
-            Button.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
+            textarea#personalId(placeholder="Personal ID (only if required at purchase)")
+            Button.Button.SubmitForm.Hide(onclick="OnRefund()") Refund Tickets
+            <br>
+            span#result
             // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
             

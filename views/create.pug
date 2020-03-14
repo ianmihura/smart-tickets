@@ -12,10 +12,13 @@ block layout-content
             div.Button.ShowFullForm(onclick="showFullForm()") Create your Event!
         div.FullEventForm.Hide
             textarea#description(placeholder="Description")
-            textarea#date(placeholder="Date")
+            input#date(type="datetime-local")
             textarea#location(placeholder="Location")
             textarea#price(placeholder="Price")
             textarea#amount(placeholder="Amount of Tickets")
+            input#requiresId(type="checkbox")
+            label(for="requiresId") Requires Id
+            <br>
             Button.Button.SubmitForm.Hide(onclick="OnCreateEvent()") Submit
             <br>
             span#newEvent

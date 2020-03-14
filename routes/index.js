@@ -21,4 +21,14 @@ router.get('/txstatebyid/:txid', function(req, res, next) {
   }
 });
 
+// GET event details
+router.get(['/eventId/:eventId'], function(req, res) {
+  try{
+    MainService.GetEventDataService(req.params.eventId, res, 
+      (res, wResp) => res.send(wResp))
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

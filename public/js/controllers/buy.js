@@ -1,6 +1,8 @@
 // Client-side Javascript
 // DOM elements manipulation & event listeners
 
+var requiresId = false;
+
 function OnGetEventData() {
     var eventId = document.getElementById("eventId").value;
     
@@ -14,8 +16,13 @@ function GetEventDataCallback(data) {
     var eventDetails = typeof data.value == "object" ? data.value : JSON.parse(data.value);
     console.log(eventDetails);
 
-    document.getElementById("eventDetails").innerHTML = eventDetails.title + ", " + eventDetails.location + "<br>" + eventDetails.description;
+    requiresId = eventDetails.requiresId;
+    var requiresIdText = requiresId ? "Event requires personal ID to purchase" : "No personal ID required"
     document.getElementById("price").innerHTML = eventDetails.price;
+
+    document.getElementById("eventDetails").innerHTML = eventDetails.title + ", " + eventDetails.location 
+        + "<br>" + eventDetails.description
+        + "<br>" + requiresIdText;
 }
 
 function OnBuyTicket() {
@@ -24,7 +31,9 @@ function OnBuyTicket() {
     var price = Number(document.getElementById("price").innerHTML);
     var totalPrice = amount * price;
 
-    BuyTickets(eventId, amount, totalPrice, BuyTicketCallback);
+    var id = requiresId ? document.getElementById("personalId").value : ""; 
+
+    BuyTickets(eventId, amount, totalPrice, id, BuyTicketCallback);
 }
 
 function BuyTicketCallback(data) {
