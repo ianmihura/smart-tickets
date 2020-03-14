@@ -145,8 +145,31 @@ function CancelEvent(eventId, callback) {
                 call:{
                     function:"cancelEvent",
                     args:[
-                        {type: "string", value: eventId},
-                        {type: "integer", value: amount}
+                        {type: "string", value: eventId}
+                    ]},
+                payment: []
+            }
+        }, callback);
+    } catch (err) {
+        _errorHandler(err);
+    }
+}
+
+function WithdrawFunds(eventId, callback) {
+    try {
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
+            type: 16,
+            data: {
+                fee: {
+                    assetId: "WAVES",
+                    tokens: "0.005"
+                },
+                dApp: SmartTicketsDapp,
+                call:{
+                    function:"withdraw",
+                    args:[
+                        {type: "string", value: eventId}
                     ]},
                 payment: []
             }

@@ -29,7 +29,7 @@ function GetFinishedCallback(data) {
 }
 
 function OnCancelEvent() {
-    // still missing
+    CancelEvent(eventId, CancelEventCallback);
 }
 
 function CancelEventCallback(data) {
@@ -37,7 +37,7 @@ function CancelEventCallback(data) {
 }
 
 function OnWithdrawFunds() {
-    // still missing
+    WithdrawFunds(eventId, WithdrawFundsCallback);
 }
 
 function WithdrawFundsCallback(data) {
