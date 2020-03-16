@@ -7,20 +7,33 @@ block layout-content
             div.Title
                 h1 Smart Events.
             span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-        div.NewEventForm
-            textarea#nameOfEvent(placeholder="Name of Event")
-            div.Button.ShowFullForm(onclick="showFullForm()") Create your Event!
-        div.FullEventForm.Hide
-            textarea#description(placeholder="Description")
-            input#date(type="datetime-local")
-            textarea#location(placeholder="Location")
-            textarea#price(placeholder="Price")
-            textarea#amount(placeholder="Amount of Tickets")
-            input#requiresId(type="checkbox")
-            label(for="requiresId") Requires Id
-            <br>
-            Button.Button.SubmitForm.Hide(onclick="OnCreateEvent()") Submit
-            <br>
+        div
+            div.input-field
+                input#nameOfEvent.validate(type="text")
+                label(for="nameOfEvent") Name of Event
+            div.input-field
+                input#description.validate(type="text")
+                label(for="description") Description
+            div.input-field
+                input#date.datepicker(type="text")
+                label(for="date") Date
+            div.input-field
+                input#time.timepicker(type="text")
+                label(for="time") Start Time
+            div.input-field
+                input#location.validate(type="text")
+                label(for="location") Location
+            div.input-field
+                input#price.validate(type="text")
+                label(for="price") Price
+            div.input-field
+                input#amount.validate(type="text")
+                label(for="amount") Amount of tickets
+            label
+                input#requiresId(type="checkbox")
+                span Requires Id
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCreateEvent()") Submit
+            br
             span#newEvent
-            // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
             

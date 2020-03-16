@@ -7,21 +7,21 @@ block layout-content
             div.Title
                 h1 Smart Events.
             span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-        div.NewEventForm
-            textarea#eventId(placeholder="Event Id")
-            <br>
-            Button.ShowFullForm(onclick="OnGetEventDataEdit()") Fetch your event data
-        div.FullEventForm.Hide
+        div
+            div.input-field
+                input#eventId.validate(type="text")
+                label(for="eventId") Event Id
+            br
+            a.waves-effect.waves-light.btn(onclick="OnGetEventDataEdit()") Fetch your event data
             span#eventDetails
-            <br>
+            br
             span#ticketsLeft
-            <br>
+            br
             span#canceled
-            <br>
+            br
             span#finished
-            <br>
-            Button.Button.SubmitForm.Hide(onclick="OnCancelEvent()") Cancel Event
-            <br>
-            Button.Button.SubmitForm.Hide(onclick="OnWithdrawFunds()") Withdraw funds
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
+            a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
             // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
             

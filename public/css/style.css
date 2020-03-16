@@ -1,10 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Helvetica");
-
 :root {
-  --logo-font: "Helvetica", sans-serif;
-  --header-font: "Helvetica", sans-serif;
-  --core-font: "Helvetica", sans-serif;
-
   --primary: #ffffff;
   --bg-color: #121212;
   --bg-color-secondary: #333333;
@@ -19,13 +13,6 @@
 
 * {
   box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
 }
 
 body {
@@ -47,7 +34,6 @@ h3 {
   font-family: var(--header-font);
   
   padding: 0;
-  margin: 0;
 
   color: var(--primary);
 }
@@ -63,11 +49,6 @@ a {
   user-select: none;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-}
-
 .View {
   flex: 1;
   display: flex;
@@ -81,6 +62,7 @@ a {
   padding: 20px;
 
   background-size: cover;
+  background: var(--bg-color);
 
   font-family: var(--core-font);
 }
@@ -123,85 +105,4 @@ a {
   display: flex;
   flex-direction: column;
   line-height: 1.5em;
-}
-
-.WelcomeView {
-  background: var(--bg-color);
-  background-size: cover;
-}
-
-.UserView {
-  background: url("https://cdn.auth0.com/blog/whatabyte/patio.png") left bottom;
-  background-size: cover;
-}
-
-.NewEventForm {
-  display: block;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.FullEventForm {
-  display: block;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.Button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 55px;
-  min-width: 150px;
-  padding: 20px;
-  border-radius: 30px;
-
-  background: var(--highlight);
-
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--primary);
-
-  cursor: pointer;
-
-  text-transform: capitalize;
-
-  border-bottom: var(--ui-shawdow-border);
-  box-shadow: var(--ui-shawdow);
-}
-
-.Button:hover {
-  background: var(--highlight-hover); 
-}
-
-input,
-textarea {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 55px;
-  min-width: 150px;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 30px;
-
-  overflow: hidden;
-  resize: none;
-
-  font-size: 16px;
-  font-weight: bold;
-
-  background-color: var(--bg-color-secondary);
-  color: var(--primary);
-}
-
-.TextareaDescription {
-  min-width: 30em;
-}
-
-.Hide {
-  display: none;
 }

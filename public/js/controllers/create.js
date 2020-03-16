@@ -1,10 +1,18 @@
 // Client-side Javascript
 // UI elements - DOM elements manipulation & event listeners
+$(document).ready(function(){
+    M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+        format: "dd mmm, yyyy"
+    });
+    
+    M.Timepicker.init(document.querySelectorAll('.timepicker'));
+});
 
 function OnCreateEvent() {
     var title = document.getElementById("nameOfEvent").value;
     var description = document.getElementById("description").value;
-    var date = new Date(document.getElementById("date").value).getTime();
+    var date = new Date(document.getElementById("date").value 
+        + " " + document.getElementById("time").value).getTime();
     var location = document.getElementById("location").value;
     var price = document.getElementById("price").value;
     var amount = document.getElementById("amount").value;

@@ -16,13 +16,15 @@ function GetEventDataCallback(data) {
     var eventDetails = typeof data.value == "object" ? data.value : JSON.parse(data.value);
     console.log(eventDetails);
 
-    requiresId = eventDetails.requiresId;
-    var requiresIdText = requiresId ? "Event requires personal ID to purchase" : "No personal ID required"
     document.getElementById("price").innerHTML = eventDetails.price;
+    
+    requiresId = eventDetails.requiresId;
+    var personalId = document.getElementById("personalId");
+    if (!requiresId)
+        personalId.setAttributeNode(document.createAttribute("disabled"));
 
     document.getElementById("eventDetails").innerHTML = eventDetails.title + ", " + eventDetails.location 
-        + "<br>" + eventDetails.description
-        + "<br>" + requiresIdText;
+        + "<br>" + eventDetails.description;
 }
 
 function OnBuyTicket() {
@@ -30,7 +32,7 @@ function OnBuyTicket() {
     var amount = document.getElementById("amount").value;
     var price = Number(document.getElementById("price").innerHTML);
     var totalPrice = amount * price;
-
+    
     var id = requiresId ? document.getElementById("personalId").value : ""; 
 
     BuyTickets(eventId, amount, totalPrice, id, BuyTicketCallback);

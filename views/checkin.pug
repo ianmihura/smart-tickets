@@ -7,16 +7,23 @@ block layout-content
             div.Title
                 h1 Smart Events.
             span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-        div.FullEventForm.Hide
-            textarea#eventId(placeholder="Event Id")
-            textarea#attendee(placeholder="Attendee")
-            textarea#personalId(placeholder="Personal ID")
-            Button.Button.SubmitForm.Hide(onclick="OnGetAttendeeDetails()") Validate Tickets
-            <br>
-            <br>
+        div
+            div.input-field
+                input#eventId.validate(type="text")
+                label(for="eventId") Event Id
+            div.input-field
+                input#attendee.validate(type="text")
+                label(for="attendee") Attendee
+            div.input-field
+                input#personalId.validate(type="text")
+                label(for="personalId") Personal ID
+            a.waves-effect.waves-light.btn(onclick="OnGetAttendeeDetails()") Validate Tickets
+            br
+            br
             span#attendeeDetails 0 tickets
-            <br>
-            textarea#ticketsToCheckin(placeholder="Tickets to checkin")
-            <br>
-            Button.Button.SubmitForm.Hide(onclick="OnCheckin()") Checkin
-            <br>
+            br
+            div.input-field
+                input#ticketsToCheckin.validate(type="text")
+                label(for="ticketsToCheckin") Tickets to checkin
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCheckin()") Checkin

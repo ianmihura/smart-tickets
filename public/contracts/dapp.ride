@@ -217,6 +217,7 @@ func checkin(event: String, attendeeAddress: String, amount: Int, id: String) = 
         then throw("You don't have enough tickets.")
     else if (getEventCanceledValue(event))
         then throw("This event was canceled. You can redeem your ticket using refundTicket function")
+    #testing purposes
     #else if (getEventDateValue(event) > lastBlock.timestamp + 15000000) 
     #    then throw("This event has not yet happened")
         
@@ -276,8 +277,9 @@ func withdraw(event: String) = {
         then throw("Event does not exist, or you don't have the credentials to perform this action")
     else if (balance <= 0)
         then throw("Insufficient balance")
-    else if (getEventDateValue(event) > lastBlock.timestamp - 1000000)
-        then throw("Event has not yet taken place. Withdraw funds when event takes place.")
+    #testing purposes
+    #else if (getEventDateValue(event) > lastBlock.timestamp - 1000000)
+    #    then throw("Event has not yet taken place. Withdraw funds when event takes place.")
     else if (getEventCanceledValue(event))
         then throw("Event has been canceled")
     else ScriptResult(
