@@ -25,9 +25,9 @@ var indexRouter = require('./routes/index');
 // Producer
 var createRouter = require('./routes/create');
 var editRouter = require('./routes/edit');
+var checkinRouter = require('./routes/checkin');
 // Attendee
 var buyRouter = require('./routes/buy');
-var checkinRouter = require('./routes/checkin');
 var refundRouter = require('./routes/refund');
 
 // Server Activation
