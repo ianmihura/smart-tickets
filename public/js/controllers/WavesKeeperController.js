@@ -1,6 +1,7 @@
 // Client-side Javascript
 // Waves Keeper Controller - txData construction
 const SmartTicketsDapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
+const txFee = "0.005";
 
 function _errorHandler(err) {
     console.log("Probably no Waves Keeper installed.", err);
@@ -13,14 +14,14 @@ function WavesKeeperAuth() {
     })
 }
 
-function CreateEvent(title, description, date, price, amount, location, requiresId, callback) {
+function CreateEvent(title, description, date, price, amount, location, requiresId, maxTicketsAmount, callback) {
     try {
         WavesKeeperTransactionService({
             type: 16,
             data: {
               fee: {
                 assetId: "WAVES",
-                tokens: "0.005"
+                tokens: txFee
               },
               dApp: SmartTicketsDapp,
               call:{
@@ -35,11 +36,13 @@ function CreateEvent(title, description, date, price, amount, location, requires
                                 location: location,
                                 price: price,
                                 amountOfTickets: amount,
-                                requiresId: requiresId
+                                requiresId: requiresId,
+                                maxTicketsAmount: maxTicketsAmount
                             })},
                             {type: "integer", value: date},
                             {type: "integer", value: amount},
-                            {type: "boolean", value: requiresId}
+                            {type: "boolean", value: requiresId},
+                            {type: "integer", value: maxTicketsAmount}
                         ]},
             payment: []
             }
@@ -57,7 +60,7 @@ function BuyTickets(eventId, amount, totalPrice, id, callback) {
             data: {
                 fee: {
                     assetId: "WAVES",
-                    tokens: "0.005"
+                    tokens: txFee
                 },
                 dApp: SmartTicketsDapp,
                 call:{
@@ -86,7 +89,7 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, callba
             data: {
                 fee: {
                     assetId: "WAVES",
-                    tokens: "0.005"
+                    tokens: txFee
                 },
                 dApp: SmartTicketsDapp,
                 call:{
@@ -113,7 +116,7 @@ function RefundTicket(eventId, amount, personalId, callback) {
             data: {
                 fee: {
                     assetId: "WAVES",
-                    tokens: "0.005"
+                    tokens: txFee
                 },
                 dApp: SmartTicketsDapp,
                 call:{
@@ -139,13 +142,38 @@ function CancelEvent(eventId, callback) {
             data: {
                 fee: {
                     assetId: "WAVES",
-                    tokens: "0.005"
+                    tokens: txFee
                 },
                 dApp: SmartTicketsDapp,
                 call:{
                     function:"cancelEvent",
                     args:[
                         {type: "string", value: eventId}
+                    ]},
+                payment: []
+            }
+        }, callback);
+    } catch (err) {
+        _errorHandler(err);
+    }
+}
+
+function EditAvailableTickets(eventId, newAmount, callback) {
+    try {
+        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
+        WavesKeeperTransactionService({
+            type: 16,
+            data: {
+                fee: {
+                    assetId: "WAVES",
+                    tokens: txFee
+                },
+                dApp: SmartTicketsDapp,
+                call:{
+                    function:"editEventTickets",
+                    args:[
+                        {type: "string", value: eventId},
+                        {type: "integer", value: newAmount}
                     ]},
                 payment: []
             }
@@ -163,7 +191,7 @@ function WithdrawFunds(eventId, callback) {
             data: {
                 fee: {
                     assetId: "WAVES",
-                    tokens: "0.005"
+                    tokens: txFee
                 },
                 dApp: SmartTicketsDapp,
                 call:{

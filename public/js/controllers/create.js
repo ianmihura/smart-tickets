@@ -17,8 +17,9 @@ function OnCreateEvent() {
     var price = document.getElementById("price").value;
     var amount = document.getElementById("amount").value;
     var requiresId = document.getElementById("requiresId").checked;
+    var maxTicketsAmount = document.getElementById("maxTicketsAmount").value;
     
-    CreateEvent(title, description, date, price, amount, location, requiresId, CreateEventCallback);
+    CreateEvent(title, description, date, price, amount, location, requiresId, maxTicketsAmount, CreateEventCallback);
 }
 
 function CreateEventCallback(data) {

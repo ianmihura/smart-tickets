@@ -28,6 +28,12 @@ function GetFinishedCallback(data) {
     // document.getElementById("finished").innerHTML = data ? ;
 }
 
+function OnEditAvailableTickets() {
+    var newAmount = document.getElementById("newAmount").value;
+
+    EditAvailableTickets(eventId, newAmount, CancelEventCallback);
+}
+
 function OnCancelEvent() {
     CancelEvent(eventId, CancelEventCallback);
 }

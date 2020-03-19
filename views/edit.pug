@@ -21,6 +21,11 @@ block layout-content
             br
             span#finished
             br
+            div.input-field
+                input#newAmound.validate(type="text")
+                label(for="newAmound") New Amount of tickets
+            br
+            a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
             a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
             a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
             // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
