@@ -1,29 +1,33 @@
 var { nodeInteraction } = require('@waves/waves-transactions');
+var { base58Encode, sha256, stringToBytes } = require('@waves/ts-lib-crypto');
 const nodeUrl = "https://testnodes.wavesnodes.com";
-const dapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
+const dapp = "3MzKq9FC8GAeYxYMGZqPZzrXmRwyyK9eRtU";
+const oldDapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
 
-function GetTxStateById(txid, res, callback) {
-    try {
-        nodeInteraction.stateChanges(txid, nodeUrl)
-            .then(wResp => callback(res, wResp))
-            .catch(err => console.log(err));
-    } catch(err) {
-        console.log("Couldn't fetch the requested transaction.", err);
-    }
+function GetTxStateById(req, res) {
+	try {
+		nodeInteraction.stateChanges(req.params.txid, nodeUrl)
+			.then(wResp => res.send(wResp))
+			.catch(err => console.log(err));
+	} catch (err) {
+		console.log("Couldn't fetch the requested transaction.", err);
+	}
 }
 
-function GetEventDataService(eventId, res, callback) {
-    try {
-        eventId = eventId[1] == "_" ? eventId : "e_" + eventId;
-        nodeInteraction.accountDataByKey("data_" + eventId, dapp, nodeUrl)
-            .then(wResp => callback(res, wResp))
-            .catch(err => console.log(err));
-    } catch(err) {
-        console.log("Couldn't fetch the requested event.", err);
-    }
+function GetEventId(eventId) {
+	return eventId[1] == "_" ? eventId : "e_" + eventId;
 }
 
-module.exports = { 
-    GetTxStateById : GetTxStateById,
-    GetEventDataService : GetEventDataService
+function GetAttendeeId(attendee, personalId) {
+	personalId = personalId == "undefined" ? "" : personalId;
+	return base58Encode(sha256(stringToBytes(attendee + personalId)));
+}
+
+module.exports = {
+	GetTxStateById: GetTxStateById,
+	GetEventId: GetEventId,
+	GetAttendeeId: GetAttendeeId,
+	dapp: dapp,
+	oldDapp: oldDapp,
+	nodeUrl: nodeUrl
 };

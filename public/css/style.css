@@ -47,6 +47,7 @@ a {
   text-decoration: none;
   cursor: pointer;
   user-select: none;
+  color: var(--primary);
 }
 
 .View {
@@ -90,7 +91,6 @@ a {
 .Message {
   color: var(--primary);
 
-
   background: var(--bg-color-secondary);
   padding: 30px;
   border-bottom: var(--ui-shawdow-border);
@@ -105,4 +105,8 @@ a {
   display: flex;
   flex-direction: column;
   line-height: 1.5em;
+}
+
+input {
+  color: var(--primary);
 }

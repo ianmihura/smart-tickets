@@ -3,49 +3,49 @@
 var eventId = "";
 
 function OnGetEventDataEdit() {
-    eventId = document.getElementById("eventId").value;
-    
-    GetEventDataService(eventId, GetEventDataEditCallback);
-    GetAmountOfTickets(eventId, GetAmountOfTicketsCallback);
-    GetCanceled(eventId, GetCanceledCallback);
-    GetFinished(eventId, GetFinishedCallback);
+	eventId = document.getElementById("eventId").value;
+
+	GetEventData(eventId, GetEventDataEditCallback);
+	GetAmountOfTickets(eventId, GetAmountOfTicketsCallback);
+	GetCanceled(eventId, GetCanceledCallback);
+	GetFinished(eventId, GetFinishedCallback);
 }
 
 function GetEventDataEditCallback(data) {
-    document.getElementById("eventDetails").innerHTML = JSON.parse(data.value).title;
+	document.getElementById("eventDetails").innerHTML = JSON.parse(data.value).title;
 }
 
 function GetAmountOfTicketsCallback(data) {
-    document.getElementById("ticketsLeft").innerHTML = data.value + " tickets left";
+	document.getElementById("ticketsLeft").innerHTML = data.value + " tickets left";
 }
 
 function GetCanceledCallback(data) {
-    document.getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
+	document.getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
 }
 
 function GetFinishedCallback(data) {
-    console.log(data);
-    // document.getElementById("finished").innerHTML = data ? ;
+	console.log(data);
+	// document.getElementById("finished").innerHTML = data ? ;
 }
 
 function OnEditAvailableTickets() {
-    var newAmount = document.getElementById("newAmount").value;
+	var newAmount = document.getElementById("newAmount").value;
 
-    EditAvailableTickets(eventId, newAmount, CancelEventCallback);
+	EditAvailableTickets(eventId, newAmount, CancelEventCallback);
 }
 
 function OnCancelEvent() {
-    CancelEvent(eventId, CancelEventCallback);
+	CancelEvent(eventId, CancelEventCallback);
 }
 
 function CancelEventCallback(data) {
-    console.log(data);
+	console.log(data);
 }
 
 function OnWithdrawFunds() {
-    WithdrawFunds(eventId, WithdrawFundsCallback);
+	WithdrawFunds(eventId, WithdrawFundsCallback);
 }
 
 function WithdrawFundsCallback(data) {
-    console.log(data);
+	console.log(data);
 }

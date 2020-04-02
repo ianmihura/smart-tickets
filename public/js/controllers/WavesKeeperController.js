@@ -1,6 +1,6 @@
 // Client-side Javascript
 // Waves Keeper Controller - txData construction
-const SmartTicketsDapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
+const SmartTicketsDapp = "3MzKq9FC8GAeYxYMGZqPZzrXmRwyyK9eRtU";
 const txFee = "0.005";
 
 function _errorHandler(err) {
@@ -14,7 +14,7 @@ function WavesKeeperAuth() {
     })
 }
 
-function CreateEvent(title, description, date, price, amount, location, requiresId, maxTicketsAmount, callback) {
+function CreateEvent(title, data, date, requiresId, callback) {
     try {
         WavesKeeperTransactionService({
             type: 16,
@@ -25,25 +25,41 @@ function CreateEvent(title, description, date, price, amount, location, requires
               },
               dApp: SmartTicketsDapp,
               call:{
-                        function:"createEvent",
-                        args:[
-                            {type: "string", value: title},
-                            {type: "integer", value: price},
-                            {type: "string", value: JSON.stringify({
-                                title: title,
-                                description: description,
-                                date: date,
-                                location: location,
-                                price: price,
-                                amountOfTickets: amount,
-                                requiresId: requiresId,
-                                maxTicketsAmount: maxTicketsAmount
-                            })},
-                            {type: "integer", value: date},
-                            {type: "integer", value: amount},
-                            {type: "boolean", value: requiresId},
-                            {type: "integer", value: maxTicketsAmount}
-                        ]},
+                function:"createEvent",
+                args:[
+                    {type: "string", value: title},
+                    {type: "string", value: JSON.stringify(data)},
+                    {type: "integer", value: date},
+                    {type: "boolean", value: requiresId}
+                ]},
+            payment: []
+            }
+        }, callback);
+    } catch (err) {
+        _errorHandler(err);
+    }
+}
+
+function CreateEventTicket(eventId, ticketId, price, description, amount, maxTicketsAmount, callback) {
+    try {
+        WavesKeeperTransactionService({
+            type: 16,
+            data: {
+              fee: {
+                assetId: "WAVES",
+                tokens: txFee
+              },
+              dApp: SmartTicketsDapp,
+              call:{
+                function:"createEventTicket",
+                args:[
+                    {type: "string", value: eventId},
+                    {type: "integer", value: ticketId},
+                    {type: "integer", value: price},
+                    {type: "string", value: description},
+                    {type: "integer", value: amount},
+                    {type: "integer", value: maxTicketsAmount}
+                ]},
             payment: []
             }
         }, callback);

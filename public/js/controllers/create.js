@@ -14,17 +14,21 @@ function OnCreateEvent() {
     var date = new Date(document.getElementById("date").value 
         + " " + document.getElementById("time").value).getTime();
     var location = document.getElementById("location").value;
-    var price = document.getElementById("price").value;
-    var amount = document.getElementById("amount").value;
     var requiresId = document.getElementById("requiresId").checked;
-    var maxTicketsAmount = document.getElementById("maxTicketsAmount").value;
     
-    CreateEvent(title, description, date, price, amount, location, requiresId, maxTicketsAmount, CreateEventCallback);
+    CreateEvent(title, {
+		title: title,
+		date: date,
+        description: description,
+        location: location
+    }, date, requiresId, CreateEventCallback);
 }
 
 function CreateEventCallback(data) {
     console.log(data);
     GetCreatedTransactionStateById(data.id);
+    
+    // create tickets for the event
 }
 
 function GetCreatedTransactionStateById(txid) {
@@ -32,5 +36,6 @@ function GetCreatedTransactionStateById(txid) {
 }
 
 function CreatedTransactionStateByIdCallback(data) {
+	console.log(data);
     document.getElementById("newEvent").innerHTML = data.data[0].key;
 }
