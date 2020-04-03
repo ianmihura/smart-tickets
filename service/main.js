@@ -8,7 +8,7 @@ const oldDapp = "3NBdqVGWfdqV3UJ8S1xsz5qoBRGTEsLioLf";
 function GetTxStateById(req, res) {
     try {
         nodeInteraction.stateChanges(req.params.txid, nodeUrl)
-            .then(wResp => res.send(wResp))
+            .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
         console.log("Couldn't fetch the requested transaction.", err);

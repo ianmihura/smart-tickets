@@ -155,7 +155,7 @@ function CancelEvent(eventId, callback) {
     }, callback);
 }
 
-function EditAvailableTickets(eventId, newAmount, callback) {
+function EditAvailableTickets(eventId, ticketId, newAmount, callback) {
     WavesKeeperTransactionService({
         type: 16,
         data: {
@@ -168,6 +168,7 @@ function EditAvailableTickets(eventId, newAmount, callback) {
                 function: "editEventTickets",
                 args: [
                     { type: "string", value: _getEventId(eventId) },
+                    { type: "integer", value: ticketId },
                     { type: "integer", value: newAmount }
                 ]
             },

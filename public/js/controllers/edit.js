@@ -2,50 +2,74 @@
 // UI elements - DOM elements manipulation & event listeners
 var eventId = "";
 
-function OnGetEventDataEdit() {
-	eventId = document.getElementById("eventId").value;
+function OnGetEventData() {
+    eventId = document.getElementById("eventId").value;
 
-	GetEventData(eventId, GetEventDataEditCallback);
-	GetAmountOfTickets(eventId, GetAmountOfTicketsCallback);
-	GetCanceled(eventId, GetCanceledCallback);
-	GetFinished(eventId, GetFinishedCallback);
+    GetEventDataService(eventId, GetEventDataCallback);
+    GetEventTicketsService(eventId, GetEventTicketsCallback);
+    GetEventCanceledService(eventId, GetCanceledCallback);
 }
 
-function GetEventDataEditCallback(data) {
-	document.getElementById("eventDetails").innerHTML = JSON.parse(data.value).title;
+function GetEventDataCallback(data) {
+    if (!data) {
+        document.getElementById("eventDetails").innerHTML = "Event does not exist";
+        return;
+    }
+
+    data = JSON.parse(data.value);
+    document.getElementById("eventDetails").innerHTML = data.title + "<br>"
+        + data.description + "<br>"
+        + data.location + "<br>"
+        + new Date(data.date) + "<br>";
 }
 
-function GetAmountOfTicketsCallback(data) {
-	document.getElementById("ticketsLeft").innerHTML = data.value + " tickets left";
+function GetEventTicketsCallback(tickets) {
+    var totalTickets = tickets["tickets_" + eventId].value;
+    $("#tickets").empty();
+
+    for (var i = 0; i < totalTickets; i++) {
+        $("#tickets").append('<li class="collection - item">'
+            + "<b>(" + i + ")</b> => "
+            + tickets["ticketDescription_" + i + "_" + eventId].value + "; "
+            + tickets["ticketPrice_" + i + "_" + eventId].value + " Waves; "
+            + tickets["ticketAmount_" + i + "_" + eventId].value + " available tickets; "
+            + tickets["ticketMax_" + i + "_" + eventId].value + " max tickets per attendee"
+            + '</li>');
+    }
 }
 
 function GetCanceledCallback(data) {
-	document.getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
-}
+    if (!data)
+        return;
 
-function GetFinishedCallback(data) {
-	console.log(data);
-	// document.getElementById("finished").innerHTML = data ? ;
+    document.getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
 }
 
 function OnEditAvailableTickets() {
-	var newAmount = document.getElementById("newAmount").value;
+    var ticketId = document.getElementById("ticketId").value;
+    var newAmount = document.getElementById("newAmount").value;
 
-	EditAvailableTickets(eventId, newAmount, CancelEventCallback);
+    EditAvailableTickets(eventId, ticketId, newAmount, CancelEventCallback);
+}
+
+function EditTicketsCallback(data) {
+    if (data)
+        GetEventTicketsService(eventId, GetEventTicketsCallback);
 }
 
 function OnCancelEvent() {
-	CancelEvent(eventId, CancelEventCallback);
+    CancelEvent(eventId, CancelEventCallback);
 }
 
 function CancelEventCallback(data) {
-	console.log(data);
+    document.getElementById("canceled").innerHTML = "Event was canceled";
 }
 
 function OnWithdrawFunds() {
-	WithdrawFunds(eventId, WithdrawFundsCallback);
+    WithdrawFunds(eventId, WithdrawFundsCallback);
 }
 
+// TODO show withdraw success and fail
 function WithdrawFundsCallback(data) {
-	console.log(data);
+    console.log(data);
 }

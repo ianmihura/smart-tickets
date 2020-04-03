@@ -45,20 +45,36 @@ function CreateEventCallback(data) {
 
 function GetTxStateByIdCallback(data) {
     try {
-        var HTMLeventId = document.getElementById("eventId");
-        HTMLeventId.value = data.data[0].key;
-        HTMLeventId.parentElement.children[1].classList.add("active");
-        HTMLeventId.setAttribute("disabled");
-
+        document.getElementById("eventId").innerHTML = data.data[0].key;
+        document.getElementById("tEventId").value = data.data[0].key;
     } catch (e) {
         console.log(e);
+        document.getElementById("eventId").innerHTML = "There was an error with the eventId retrieval. Here is the result: " + data;;
+    }
+}
 
-        document.getElementById("eventId").value = "There was an error with the eventId retrieval. Here is the result: " + data;;
+function OnShowAllTickets() {
+    var eventId = document.getElementById("tEventId").value;
+
+    GetEventTicketsService(eventId, ShowTicketsCallback);
+}
+
+function ShowTicketsCallback(tickets) {
+    var eventId = document.getElementById("tEventId").value;
+    var totalTickets = tickets["tickets_" + eventId].value;
+    document.getElementById("ticketList").innerHTML = "";
+
+    for (var i = 0; i < totalTickets; i++) {
+        _addTicketToHTML(
+            tickets["ticketDescription_" + i + "_" + eventId].value,
+            tickets["ticketPrice_" + i + "_" + eventId].value,
+            tickets["ticketAmount_" + i + "_" + eventId].value,
+            tickets["ticketMax_" + i + "_" + eventId].value);
     }
 }
 
 function OnCreateTicketEvent() {
-    var eventId = document.getElementById("eventId").value;
+    var eventId = document.getElementById("tEventId").value;
     var ticketDescription = document.getElementById("ticketDescription").value;
     var price = document.getElementById("price").value;
     var ticketAmount = document.getElementById("ticketAmount").value;
@@ -70,15 +86,22 @@ function OnCreateTicketEvent() {
 function CreateTicketEventCallback(data) {
     console.log(data);
 
-    document.getElementById("ticketList").innerHTML += "<br> "
-        + document.getElementById("ticketDescription").value + "; "
-        + document.getElementById("price").value + " Waves; "
-        + document.getElementById("ticketAmount").value + " available tickets; "
-        + document.getElementById("ticketMax").value + " max tickets per attendee";
+    _addTicketToHTML(
+        document.getElementById("ticketDescription").value,
+        document.getElementById("price").value,
+        document.getElementById("ticketAmount").value,
+        document.getElementById("ticketMax").value);
 
     document.getElementById("ticketDescription").value = "";
     document.getElementById("price").value = "";
     document.getElementById("ticketAmount").value = "";
     document.getElementById("ticketMax").value = "";
-    // show message "create next one if your want"
+}
+
+function _addTicketToHTML(ticketDescription, price, ticketAmount, ticketMax) {
+    document.getElementById("ticketList").innerHTML += "<br> "
+        + ticketDescription + "; "
+        + price + " Waves; "
+        + ticketAmount + " available tickets; "
+        + ticketMax + " max tickets per attendee";
 }

@@ -29,9 +29,8 @@ block layout-content
             div.col.s6
                 p Your txid
                 span#txid ---
-                div.input-field
-                    input#eventId.validate(type="text")
-                    label(for="eventId") Event Id
+                p Your Event Id
+                span#eventId ---
                 h4 Wait for confirmation
                 p Once your event is created, create the tickets
                 p Pleace, create them one at a time
@@ -41,7 +40,7 @@ block layout-content
             div.col.6s
                 div.input-field
                     input#ticketDescription.validate(type="text")
-                    label(for="ticketDescription") Description
+                    label(for="ticketDescription") Ticket Description
                 div.input-field
                     input#price(type="number")
                     label(for="price") Price (WAVES)
@@ -55,6 +54,10 @@ block layout-content
                 a.waves-effect.waves-light.btn(onclick="OnCreateTicketEvent()") Submit
                 br
             div.col.6s
+                div.input-field
+                    input#tEventId.validate(type="text")
+                    label(for="tEventId") Event Id
+                a.waves-effect.waves-light.btn(onclick="OnShowAllTickets()") Show all available tickets
                 h4 Your tickets
                 span#ticketList
                 br

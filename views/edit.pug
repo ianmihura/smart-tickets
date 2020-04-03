@@ -3,30 +3,34 @@ extends layout
 block layout-content
     div.View.WelcomeView
         h1.Banner SmartTickets.
-        div.Message
-            div.Title
-                h1 Smart Events.
-            span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-        div
-            div.input-field
-                input#eventId.validate(type="text")
-                label(for="eventId") Event Id
-            br
-            a.waves-effect.waves-light.btn(onclick="OnGetEventDataEdit()") Fetch your event data
-            span#eventDetails
-            br
-            span#ticketsLeft
-            br
-            span#canceled
-            br
-            span#finished
-            br
-            div.input-field
-                input#newAmound.validate(type="text")
-                label(for="newAmound") New Amount of tickets
-            br
-            a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
-            a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
-            a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
-            // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
-            
+        div.row
+            div.col.s6
+                div.input-field
+                    input#ticketId.validate(type="text")
+                    label(for="ticketId") Ticket ID
+                div.input-field
+                    input#newAmount.validate(type="text")
+                    label(for="newAmount") New Amount of tickets
+                br
+                a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
+                // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
+            div.col.s6
+                div.input-field
+                    input#eventId.validate(type="text")
+                    label(for="eventId") Event Id
+                a.waves-effect.waves-light.btn(onclick="OnGetEventData()") Fetch your event data
+                h4 Your Event
+                br
+                span#eventDetails
+                ul#tickets.collection
+                br
+                h5#canceled
+                br
+                p You can edit the availability of any ticket
+                p You can cancel the event - you will not be able to withdraw the funds
+                p You can withdraw the funds only after the event finished
+                p To create new tickets go to the create page
+                br
+                a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
+                br
+                a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
