@@ -110,3 +110,16 @@ a {
 input {
   color: var(--primary);
 }
+
+hr {
+    height: 1px;
+    width: 50%;
+}
+
+input[type=text]:not(.browser-default):disabled {
+  color: rgba(255,255,255, 0.4);
+}
+
+input[type=text]:not(.browser-default):disabled+label {
+  color: rgba(255,255,255, 0.4);
+}

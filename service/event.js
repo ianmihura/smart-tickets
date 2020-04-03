@@ -4,7 +4,7 @@ var main = require('./main.js');
 //TODO regex for all events, with their relevant (list) information
 function GetEvents(req, res, callback) {
 	try {
-		nodeInteraction.accountDataByKey("data_" + eventId, main.dapp, main.nodeUrl)
+		nodeInteraction.accountDataByKey("NOTHING_HERE", main.dapp, main.nodeUrl)
 			.then(wResp => callback(res, wResp))
 			.catch(err => console.log(err));
 	} catch (err) {

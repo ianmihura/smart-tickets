@@ -6,16 +6,16 @@
 #Base variables and functions
 ###
 #Variables
-let address = "3MzKq9FC8GAeYxYMGZqPZzrXmRwyyK9eRtU"
+let address = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ"
 let keyEventPrefix = "e_"
 let keyEventDataPrefix = "data_"
-let keyEventTicketPricePrefix = "price_"
+let keyEventTicketPricePrefix = "ticketPrice_"
 let keyEventDatePrefix = "date_"
 let keyEventAttendeePrefix = "a_"
 let keyProducerBalancePrefix = "balance_"
-let keyEventAmountTicketPrefix = "amountTickets_"
+let keyEventAmountTicketPrefix = "ticketAmount_"
 let keyEventCanceledPrefix = "canceled_"
-let keyEventTicketMaxPrefix = "max_"
+let keyEventTicketMaxPrefix = "ticketMax_"
 let keyEventRequiresIdPrefix = "requiresId_"
 let keyEventTicketDescriptionPrefix = "ticketDescription_"
 let keyEventTicketsPrefix = "tickets_"

@@ -6,7 +6,6 @@ var requiresId = false;
 function OnGetEventData() {
 	var eventId = document.getElementById("eventId").value;
 
-	eventId = !eventId ? "data_event_HkLoTQGXFsdZixE1uWUKajj4mPoWEZiTxeuwtDTKqa3Z" : eventId;
 	GetEventData(eventId, GetEventDataCallback);
 }
 

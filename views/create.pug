@@ -3,31 +3,60 @@ extends layout
 block layout-content
     div.View.WelcomeView
         h1.Banner SmartTickets.
-        div.Message
-            div.Title
-                h1 Smart Events.
-            span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-        div
-            div.input-field
-                input#nameOfEvent.validate(type="text")
-                label(for="nameOfEvent") Name of Event
-            div.input-field
-                input#description.validate(type="text")
-                label(for="description") Description
-            div.input-field
-                input#date.datepicker(type="text")
-                label(for="date") Date
-            div.input-field
-                input#time.timepicker(type="text")
-                label(for="time") Start Time
-            div.input-field
-                input#location.validate(type="text")
-                label(for="location") Location
-            div.input-field
-                input#requiresId(type="checkbox")
-                span Requires Id
-            br
-            a.waves-effect.waves-light.btn(onclick="OnCreateEvent()") Submit
-            br
-            span#newEvent
-            
+        div.row
+            div.col.s6
+                div.input-field
+                    input#nameOfEvent.validate(type="text")
+                    label(for="nameOfEvent") Name of Event
+                div.input-field
+                    input#description.validate(type="text")
+                    label(for="description") Description
+                div.input-field
+                    input#date.datepicker(type="text")
+                    label(for="date") Date
+                div.input-field
+                    input#time.timepicker(type="text")
+                    label(for="time") Start Time
+                div.input-field
+                    input#location.validate(type="text")
+                    label(for="location") Location
+                div.input-field
+                    input#requiresId(type="checkbox")
+                    span Requires Id
+                br
+                a.waves-effect.waves-light.btn(onclick="OnCreateEvent()") Submit
+                br
+            div.col.s6
+                p Your txid
+                span#txid ---
+                div.input-field
+                    input#eventId.validate(type="text")
+                    label(for="eventId") Event Id
+                h4 Wait for confirmation
+                p Once your event is created, create the tickets
+                p Pleace, create them one at a time
+                p Wait for the transaction to confirm in each case
+        hr
+        div.row
+            div.col.6s
+                div.input-field
+                    input#ticketDescription.validate(type="text")
+                    label(for="ticketDescription") Description
+                div.input-field
+                    input#price(type="number")
+                    label(for="price") Price (WAVES)
+                div.input-field
+                    input#ticketAmount.validate(type="text")
+                    label(for="ticketAmount") Amount of tickets
+                div.input-field
+                    input#ticketMax.validate(type="text")
+                    label(for="ticketMax") Max amount per purchase
+                br
+                a.waves-effect.waves-light.btn(onclick="OnCreateTicketEvent()") Submit
+                br
+            div.col.6s
+                h4 Your tickets
+                span#ticketList
+                br
+                p You can edit the availability of tickets at edit page
+                p You can also come back later and add further tickets
