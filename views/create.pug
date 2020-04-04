@@ -20,9 +20,10 @@ block layout-content
                 div.input-field
                     input#location.validate(type="text")
                     label(for="location") Location
-                div.input-field
+                label
                     input#requiresId(type="checkbox")
                     span Requires Id
+                br
                 br
                 a.waves-effect.waves-light.btn(onclick="OnCreateEvent()") Submit
                 br
@@ -30,7 +31,9 @@ block layout-content
                 p Your txid
                 span#txid ---
                 p Your Event Id
-                span#eventId ---
+                span#tEventId ---
+                br
+                a.waves-effect.waves-light.btn(onclick="OnGetEventId()") Get Event Id from txid
                 h4 Wait for confirmation
                 p Once your event is created, create the tickets
                 p Pleace, create them one at a time
@@ -54,13 +57,7 @@ block layout-content
                 a.waves-effect.waves-light.btn(onclick="OnCreateTicketEvent()") Submit
                 br
             div.col.6s
-                div.input-field
-                    input#tEventId.validate(type="text")
-                    label(for="tEventId") Event Id
-                a.waves-effect.waves-light.btn(onclick="OnShowAllTickets()") Show all available tickets
-                h4 Your tickets
-                span#ticketList
-                br
+                include includes/event.pug
                 p You can edit the availability of tickets at edit page
                 p You can also come back later and add further tickets
     script(src="js/controllers/create.js")

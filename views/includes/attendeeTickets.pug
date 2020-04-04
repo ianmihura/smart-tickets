@@ -1,0 +1,13 @@
+div.input-field
+    input#address.validate(type="text")
+    label(for="address") Attendee Address
+div.input-field
+    input#personalId.validate(type="text")
+    label(for="personalId") Personal ID
+a.waves-effect.waves-light.btn(onclick="OnGetAttendeeTickets()") Check your tickets
+h4 Your Tickets
+br
+ul#attendeeTickets.collection.with-heather
+    li.collection-header (Ticket ID) => Ticket details
+br
+h5#result

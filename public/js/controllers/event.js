@@ -1,13 +1,16 @@
+// Client-side Javascript
+// Event object controller
+
 var eventId = "";
-var requiresId = "";
+var requiresId;
 var ticketPrices = [];
 
 function OnGetEventData() {
     eventId = document.getElementById("eventId").value;
 
-    GetEventDataService(eventId, GetEventDataCallback);
-    GetEventTicketsService(eventId, GetEventTicketsCallback);
-    GetEventCanceledService(eventId, GetCanceledCallback);
+    GetEventDataService(this.eventId, GetEventDataCallback);
+    GetEventTicketsService(this.eventId, GetEventTicketsCallback);
+    GetEventCanceledService(this.eventId, GetCanceledCallback);
 }
 
 function GetEventDataCallback(data) {
@@ -17,29 +20,30 @@ function GetEventDataCallback(data) {
     }
 
     data = JSON.parse(data.value);
-    requiresId = data.requiresId ? "Please bring your personal ID to the event" : "Event does not require personal ID";
+    requiresId = data.requiresId;
+    var requiresIdText = data.requiresId ? "Please bring your personal ID to the event" : "Event does not require personal ID";
 
     document.getElementById("eventDetails").innerHTML = data.title + "<br>"
         + data.description + "<br>"
         + data.location + "<br>"
         + new Date(data.date) + "<br>"
-        + requiresId + "<br>";
+        + requiresIdText + "<br>";
 }
 
 function GetEventTicketsCallback(tickets) {
-    var totalTickets = tickets["tickets_" + eventId].value;
+    var totalTickets = tickets["tickets_" + this.eventId].value;
     $("#tickets").empty();
     $("#tickets").append('<li class="collection-header"><b>(Ticket ID)</b> => Ticket details</li>');
 
     for (var i = 0; i < totalTickets; i++) {
-        ticketPrices[i] = tickets["ticketPrice_" + i + "_" + eventId].value;
+        ticketPrices[i] = tickets["ticketPrice_" + i + "_" + this.eventId].value;
 
         $("#tickets").append('<li class="collection - item">'
             + "<b>(" + i + ")</b> => "
-            + tickets["ticketDescription_" + i + "_" + eventId].value + "; "
+            + tickets["ticketDescription_" + i + "_" + this.eventId].value + "; "
             + ticketPrices[i] + " Waves; "
-            + tickets["ticketAmount_" + i + "_" + eventId].value + " available tickets; "
-            + tickets["ticketMax_" + i + "_" + eventId].value + " max tickets per attendee"
+            + tickets["ticketAmount_" + i + "_" + this.eventId].value + " available tickets; "
+            + tickets["ticketMax_" + i + "_" + this.eventId].value + " max tickets per attendee"
             + '</li>');
     }
 }

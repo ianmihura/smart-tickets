@@ -30,52 +30,32 @@ function CreateEventCallback(data) {
         var txid = JSON.parse(data).id;
     } catch (e) {
         console.log(e);
-        err(data);
+        document.getElementById("txid").innerHTML = "There was an error with the transaction. Here is the result: " + data;
     }
 
-    if (txid) {
-        document.getElementById("txid").innerHTML = txid;
+    document.getElementById("txid").innerHTML = txid;
 
-        GetTxStateById(txid, GetTxStateByIdCallback);
-    } else err(data);
+    GetTxStateById(txid, GetTxStateByIdCallback);
+}
 
-    function err(data) {
-        document.getElementById("txid").innerHTML = "There was an error with the transaction. Here is the result: " + data;;
-    }
+function OnGetEventId() {
+    GetTxStateById($("#txid")[0].innerHTML, GetTxStateByIdCallback);
 }
 
 function GetTxStateByIdCallback(data) {
     try {
-        document.getElementById("eventId").innerHTML = data.data[0].key;
-        document.getElementById("tEventId").value = data.data[0].key;
+        document.getElementById("tEventId").innerHTML = data.data[0].key;
+        document.getElementById("eventId").value = data.data[0].key;
+
+        this.OnGetEventData();
     } catch (e) {
         console.log(e);
         document.getElementById("eventId").innerHTML = "There was an error with the eventId retrieval. Here is the result: " + data;;
     }
 }
 
-function OnShowAllTickets() {
-    var eventId = document.getElementById("tEventId").value;
-
-    GetEventTicketsService(eventId, ShowTicketsCallback);
-}
-
-function ShowTicketsCallback(tickets) {
-    var eventId = document.getElementById("tEventId").value;
-    var totalTickets = tickets["tickets_" + eventId].value;
-    document.getElementById("ticketList").innerHTML = "";
-
-    for (var i = 0; i < totalTickets; i++) {
-        _addTicketToHTML(
-            tickets["ticketDescription_" + i + "_" + eventId].value,
-            tickets["ticketPrice_" + i + "_" + eventId].value,
-            tickets["ticketAmount_" + i + "_" + eventId].value,
-            tickets["ticketMax_" + i + "_" + eventId].value);
-    }
-}
-
 function OnCreateTicketEvent() {
-    var eventId = document.getElementById("tEventId").value;
+    var eventId = document.getElementById("eventId").value;
     var ticketDescription = document.getElementById("ticketDescription").value;
     var price = document.getElementById("price").value;
     var ticketAmount = document.getElementById("ticketAmount").value;
@@ -85,22 +65,5 @@ function OnCreateTicketEvent() {
 }
 
 function CreateTicketEventCallback(data) {
-    _addTicketToHTML(
-        document.getElementById("ticketDescription").value,
-        document.getElementById("price").value,
-        document.getElementById("ticketAmount").value,
-        document.getElementById("ticketMax").value);
-
-    document.getElementById("ticketDescription").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("ticketAmount").value = "";
-    document.getElementById("ticketMax").value = "";
-}
-
-function _addTicketToHTML(ticketDescription, price, ticketAmount, ticketMax) {
-    document.getElementById("ticketList").innerHTML += "<br> "
-        + ticketDescription + "; "
-        + price + " Waves; "
-        + ticketAmount + " available tickets; "
-        + ticketMax + " max tickets per attendee";
+    OnGetEventData();
 }

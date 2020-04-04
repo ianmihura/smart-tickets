@@ -15,6 +15,7 @@ function GetEvents(req, res) {
 //TODO get whole event -- need this?
 function GetEvent(req, res) {
     try {
+        console.log(req.headers);
         var eventId = main.GetEventId(req.params.eventId);
         nodeInteraction.accountDataByKey(eventId, main.dapp, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))

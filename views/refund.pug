@@ -5,22 +5,13 @@ block layout-content
         h1.Banner SmartTickets.
         div.row
             div.col.s6
-                div.input-field
-                    input#address.validate(type="text")
-                    label(for="address") Attendee Address
-                div.input-field
-                    input#personalId.validate(type="text")
-                    label(for="personalId") Personal ID
-                a.waves-effect.waves-light.btn(onclick="OnGetAttendeeTickets()") Check your tickets
+                include includes/attendeeTickets.pug
             div.col.s6
                 h4 Your Tickets
                 br
-                ul#attendeeTickets.collection.with-heather
-                    li.collection-header (Ticket ID) => Ticket details
-                br
-                h5#result
-                br
-                p Please fill in the Event ID underneath if you wish to refund
+                p If there is an event selected below, it will only show the tickets for that event
+                p Please fill in the form below if you wish to refund
+                p You can fetch the details of the event by using "Fetch Event"
                 p Tickets of past events are non-refundable
         hr
         div.row

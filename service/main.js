@@ -16,11 +16,17 @@ function GetTxStateById(req, res) {
 }
 
 function GetEventId(eventId) {
-    return eventId[1] == "_" ? eventId : "e_" + eventId;
+    if (!eventId || eventId == "null" || eventId == "undefined")
+        return "";
+    else
+        return eventId[1] == "_" ? eventId : "e_" + eventId;
 }
 
 function GetAttendeeId(attendee, personalId) {
-    personalId = personalId == "null" ? "" : personalId;
+    personalId = personalId == "null"
+        || personalId == "undefined"
+        || !personalId
+        ? "" : personalId;
     return "a_" + base58Encode(sha256(stringToBytes(attendee + personalId)));
 }
 

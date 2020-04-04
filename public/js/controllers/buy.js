@@ -16,5 +16,4 @@ function BuyTicketCallback(data) {
     GetEventTicketsService(eventId, GetEventTicketsCallback);
 
     document.getElementById("result").innerHTML = "Succesfully bought tickets";
-    // show succesfull message
 }

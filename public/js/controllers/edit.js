@@ -5,16 +5,16 @@ function OnEditAvailableTickets() {
     var ticketId = document.getElementById("ticketId").value;
     var newAmount = document.getElementById("newAmount").value;
 
-    EditAvailableTickets(eventId, ticketId, newAmount, EditTicketsCallback);
+    EditAvailableTickets(this.eventId, ticketId, newAmount, EditTicketsCallback);
 }
 
 function EditTicketsCallback(data) {
     if (data)
-        GetEventTicketsService(eventId, GetEventTicketsCallback);
+        GetEventTicketsService(this.eventId, GetEventTicketsCallback);
 }
 
 function OnCancelEvent() {
-    CancelEvent(eventId, CancelEventCallback);
+    CancelEvent(this.eventId, CancelEventCallback);
 }
 
 function CancelEventCallback(data) {
@@ -22,7 +22,7 @@ function CancelEventCallback(data) {
 }
 
 function OnWithdrawFunds() {
-    WithdrawFunds(eventId, WithdrawFundsCallback);
+    WithdrawFunds(this.eventId, WithdrawFundsCallback);
 }
 
 function WithdrawFundsCallback(data) {
