@@ -20,7 +20,8 @@ function OnCreateEvent() {
         title: title,
         date: date,
         description: description,
-        location: location
+        location: location,
+        requiresId: requiresId
     }, date, requiresId, CreateEventCallback);
 }
 
@@ -84,8 +85,6 @@ function OnCreateTicketEvent() {
 }
 
 function CreateTicketEventCallback(data) {
-    console.log(data);
-
     _addTicketToHTML(
         document.getElementById("ticketDescription").value,
         document.getElementById("price").value,

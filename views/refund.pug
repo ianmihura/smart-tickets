@@ -3,18 +3,35 @@ extends layout
 block layout-content
     div.View.WelcomeView
         h1.Banner SmartTickets.
-        div
-            div.input-field
-                input#eventId.validate(type="text")
-                label(for="eventId") Event Id
-            div.input-field
-                input#amount.validate(type="text")
-                label(for="amount") Amount of Tickets
-            div.input-field
-                input#personalId.validate(type="text")
-                label(for="personalId") Personal ID
-            a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund Tickets
-            br
-            span#result
-            // Input.Button.SubmitForm.Hide(onclick="SubmitForm()") Submit
-            
+        div.row
+            div.col.s6
+                div.input-field
+                    input#address.validate(type="text")
+                    label(for="address") Attendee Address
+                div.input-field
+                    input#personalId.validate(type="text")
+                    label(for="personalId") Personal ID
+                a.waves-effect.waves-light.btn(onclick="OnGetAttendeeTickets()") Check your tickets
+            div.col.s6
+                h4 Your Tickets
+                br
+                ul#attendeeTickets.collection.with-heather
+                    li.collection-header (Ticket ID) => Ticket details
+                br
+                h5#result
+                br
+                p Please fill in the Event ID underneath if you wish to refund
+                p Tickets of past events are non-refundable
+        hr
+        div.row
+            div.col.s6
+                div.input-field
+                    input#ticketId.validate(type="text")
+                    label(for="ticketId") Ticket ID to refund
+                div.input-field
+                    input#amount.validate(type="text")
+                    label(for="amount") Amount of tickets to refund
+                a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
+            div.col.s6
+                include includes/event.pug
+    script(src="js/controllers/refund.js")

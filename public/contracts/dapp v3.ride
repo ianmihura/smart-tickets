@@ -202,7 +202,7 @@ func purchase(event: String, ticketId: Int, amount: Int, id: String) = {
     let price = getEventTicketPriceValue(event, ticketId)
     let producerAddress = getEventValueById(event)
     let ticketsLeft = getEventTicketAmountValue(event, ticketId)
-    let attendeeKey = ""
+    let totalPrice = amount * price
 
     ### cant buy if
     # max tickets per buyer
@@ -210,10 +210,10 @@ func purchase(event: String, ticketId: Int, amount: Int, id: String) = {
         then throw("can use WAVES only at the moment")
     else if (producerAddress == NONE) 
         then throw("Event does not exist")
-    else if (pmt.amount < price * amount) 
-        then throw("You did not send enough money. You sent: " + pmt.amount.toString() + ". Expected: " + (amount * price).toString())
-    else if (pmt.amount > price * amount) 
-        then throw("You send too much money. You sent: " + pmt.amount.toString() + ". Total price: " + (amount * price).toString())
+    else if (pmt.amount < totalPrice) 
+        then throw("You did not send enough money. You sent: " + pmt.amount.toString() + ". Expected: " + totalPrice.toString())
+    else if (pmt.amount > totalPrice) 
+        then throw("You send too much money. You sent: " + pmt.amount.toString() + ". Total price: " + totalPrice.toString())
     else if ((ticketsLeft - amount) < 0 ) 
         then throw("Not enough tickets left")
     else if (getEventDateValue(event) < lastBlock.timestamp + 15000000) 
@@ -222,7 +222,7 @@ func purchase(event: String, ticketId: Int, amount: Int, id: String) = {
         then throw("This event was canceled")
     else if (getEventRequiresIdValue(event) && id == "")
         then throw("This event requires that you register with a personal ID")
-    else if (getEventTicketMaxValue(event, ticketId) > getEventAttendeeValue(userAddress, id, ticketId, event) + amount)
+    else if (getEventTicketMaxValue(event, ticketId) < getEventAttendeeValue(userAddress, id, ticketId, event) + amount)
         then throw("Amount of Tickets exceeds maximum amount per attendee")
     
     else ScriptResult(
@@ -303,7 +303,8 @@ func refundTicket(event: String, amount: Int, id: String, ticketId: Int) = {
 
     else ScriptResult(
         WriteSet([
-			DataEntry(getEventAttendeeKey(attendeeAddress, id, ticketId, event), attendeeValue - amount)
+			DataEntry(getEventAttendeeKey(attendeeAddress, id, ticketId, event), attendeeValue - amount),
+			DataEntry(getEventTicketAmountKey(event, ticketId), getEventTicketAmountValue(event, ticketId) + amount)
 		]),
 		TransferSet([
         	ScriptTransfer(addressFromStringValue(attendeeAddress), amount * attendeeValue, unit)

@@ -14,22 +14,13 @@ function GetEventAttendee(req, res) {
     }
 }
 
-function GetAttendee(req, res, callback) {
-    _getAttendee(main.GetAttendeeId(req.params.attendee, req.params.personalId), res,
-        wResp => _getAttendee(main.GetAttendeeId(req.params.attendee, ""), res, callback, wResp)
-    );
-}
-
-// test this shit
-function _getAttendee(attendeeId, res, aditionalPayload) {
+function GetAttendee(req, res) {
     try {
         nodeInteraction.accountData({
-            address: main.oldDapp,
-            match: attendeeId + ".*"
+            address: main.dapp,
+            match: main.GetAttendeeId(req.params.attendee, req.params.personalId) + ".*"
         }, main.nodeUrl)
-            .then(wResp => callback(res, {
-                1: wResp, 2: aditionalPayload
-            }))
+            .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
         console.log("Couldn't fetch the requested attendee.", err);

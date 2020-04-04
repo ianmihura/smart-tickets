@@ -35,7 +35,6 @@ function GetEventData(req, res) {
     }
 }
 
-//TODO event tickets regex :: "ticket" _anything_ eventId
 function GetEventTickets(req, res) {
     try {
         var eventId = main.GetEventId(req.params.eventId);
@@ -43,6 +42,17 @@ function GetEventTickets(req, res) {
             address: main.dapp,
             match: "ticket.*" + eventId
         }, main.nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => console.log(err));
+    } catch (err) {
+        console.log("Couldn't fetch the requested attendee.", err);
+    }
+}
+
+function GetTicketDescription(req, res) {
+    try {
+        var key = "ticketDescription_" + req.params.ticketId + "_" + main.GetEventId(req.params.eventId);
+        nodeInteraction.accountDataByKey(key, main.dapp, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
@@ -66,5 +76,6 @@ module.exports = {
     GetEvent: GetEvent,
     GetEventData: GetEventData,
     GetEventTickets: GetEventTickets,
+    GetTicketDescription: GetTicketDescription,
     GetCanceled: GetCanceled
 };

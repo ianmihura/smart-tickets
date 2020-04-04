@@ -37,24 +37,25 @@ app.get('/api/event/', eventService.GetEvents);
 app.get('/api/event/:eventId', eventService.GetEvent);
 app.get('/api/event/data/:eventId', eventService.GetEventData);
 app.get('/api/event/tickets/:eventId', eventService.GetEventTickets);
+app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTicketDescription);
 app.get('/api/event/canceled/:eventId', eventService.GetCanceled);
 app.get('/api/attendee/:attendee/:personalId', attendeeService.GetAttendee);
 app.get('/api/attendee/:eventId/:attendee/:personalId', attendeeService.GetEventAttendee);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-	next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

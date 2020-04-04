@@ -20,8 +20,8 @@ function GetEventId(eventId) {
 }
 
 function GetAttendeeId(attendee, personalId) {
-    personalId = personalId == "undefined" ? "" : personalId;
-    return base58Encode(sha256(stringToBytes(attendee + personalId)));
+    personalId = personalId == "null" ? "" : personalId;
+    return "a_" + base58Encode(sha256(stringToBytes(attendee + personalId)));
 }
 
 module.exports = {

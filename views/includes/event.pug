@@ -1,0 +1,11 @@
+div.input-field
+    input#eventId.validate(type="text")
+    label(for="eventId") Event Id
+a.waves-effect.waves-light.btn(onclick="OnGetEventData()") Fetch Event Data
+h4 Your Event
+br
+span#eventDetails
+ul#tickets.collection.with-heather
+    li.collection-header (Ticket ID) => Ticket details
+br
+h5#canceled

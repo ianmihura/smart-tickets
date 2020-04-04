@@ -21,6 +21,11 @@ function GetEventTicketsService(eventId, callback) {
         (data) => callback(data));
 }
 
+function GetEventTicketDescriptionService(eventId, ticketId, callback) {
+    $.get("/api/event/ticket/description/" + eventId + "/" + ticketId,
+        (data) => callback(data));
+}
+
 function GetEventCanceledService(eventId, callback) {
     $.get("/api/event/canceled/" + eventId,
         (data) => callback(data));

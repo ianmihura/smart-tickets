@@ -65,7 +65,7 @@ function CreateEventTicket(eventId, price, ticketDescription, ticketAmount, tick
     }, callback);
 }
 
-function BuyTickets(eventId, amount, totalPrice, id, callback) {
+function BuyTickets(eventId, ticketId, amount, totalPrice, personalId, callback) {
     WavesKeeperTransactionService({
         type: 16,
         data: {
@@ -78,8 +78,9 @@ function BuyTickets(eventId, amount, totalPrice, id, callback) {
                 function: "purchase",
                 args: [
                     { type: "string", value: _getEventId(eventId) },
+                    { type: "integer", value: ticketId },
                     { type: "integer", value: amount },
-                    { type: "string", value: id }
+                    { type: "string", value: personalId }
                 ]
             },
             payment: [{
@@ -113,7 +114,7 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, callba
     }, callback);
 }
 
-function RefundTicket(eventId, amount, personalId, callback) {
+function RefundTicket(eventId, amount, personalId, ticketId, callback) {
     WavesKeeperTransactionService({
         type: 16,
         data: {
@@ -127,7 +128,8 @@ function RefundTicket(eventId, amount, personalId, callback) {
                 args: [
                     { type: "string", value: _getEventId(eventId) },
                     { type: "integer", value: amount },
-                    { type: "string", value: personalId }
+                    { type: "string", value: personalId },
+                    { type: "integer", value: ticketId }
                 ]
             },
             payment: []
