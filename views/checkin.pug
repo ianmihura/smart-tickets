@@ -1,38 +1,36 @@
 extends layout
 
 block layout-content
-    div.View.WelcomeView
-        h1.Banner SmartTickets.
-        div.row
-            div.col.s6
-                include includes/attendeeTickets.pug
-            div.col.s6
-                div.input-field
-                    input#ticketId.validate(type="text")
-                    label(for="ticketId") Ticket ID
-                div.input-field
-                    input#ticketsToCheckin.validate(type="text")
-                    label(for="ticketsToCheckin") Tickets to checkin
-                br
-                a.waves-effect.waves-light.btn(onclick="OnCheckin()") Checkin
-                h5#checkinResult
-                p You can only checkin one ticketId at a time
-                p If there is an event selected below, it will only show the tickets for that event
-        hr
-        div.row
-            div.col.s6
-                include includes/event.pug
-            div.col.s6
-                div.input-field
-                    input#producerAddress.validate(type="text")
-                    label(for="producerAddress") Producer Address
-                div.input-field
-                    input#producerSeed.validate(type="text")
-                    label(for="producerSeed") Producer Seed
-                a.waves-effect.waves-light.btn(onclick="OnLogin()") Event Login
-                p You can login with the wallet used to create the event
-                p We will store the seed in the server for as long as the checkin process lasts
-                p This is risky, but will make the checkin process faster
-                p You can end the checkin process with the following button
-                a.waves-effect.waves-light.btn(onclick="OnEndCheckin()") End Checkin
+    div.row
+        div.col.s6
+            include includes/attendeeTickets.pug
+        div.col.s6
+            div.input-field
+                input#ticketId.validate(type="text")
+                label(for="ticketId") Ticket ID
+            div.input-field
+                input#ticketsToCheckin.validate(type="text")
+                label(for="ticketsToCheckin") Tickets to checkin
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCheckin()") Checkin
+            h5#checkinResult
+            p You can only checkin one ticketId at a time
+            p If there is an event selected below, it will only show the tickets for that event
+    hr
+    div.row
+        div.col.s6
+            include includes/event.pug
+        div.col.s6
+            div.input-field
+                input#producerAddress.validate(type="text")
+                label(for="producerAddress") Producer Address
+            div.input-field
+                input#producerSeed.validate(type="text")
+                label(for="producerSeed") Producer Seed
+            a.waves-effect.waves-light.btn(onclick="OnLogin()") Event Login
+            p You can login with the wallet used to create the event
+            p We will store the seed in the server for as long as the checkin process lasts
+            p This is risky, but will make the checkin process faster
+            p You can end the checkin process with the following button
+            a.waves-effect.waves-light.btn(onclick="OnEndCheckin()") End Checkin
     script(src="js/controllers/checkin.js")

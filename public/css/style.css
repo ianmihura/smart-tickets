@@ -123,3 +123,15 @@ input[type=text]:not(.browser-default):disabled {
 input[type=text]:not(.browser-default):disabled+label {
   color: rgba(255,255,255, 0.4);
 }
+
+nav {
+    background-color: rgba(255,255,255, 0.4);
+}
+
+.sidenav {
+    background-color: rgba(100,100,100, 0.8);
+}
+
+.sidenav li>a {
+    color: var(--primary);
+}

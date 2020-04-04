@@ -1,25 +1,23 @@
 extends layout
 
 block layout-content
-    div.View.WelcomeView
-        h1.Banner SmartTickets.
-        div.row
-            div.col.6s
-                div.input-field
-                    input#ticketId.validate(type="number")
-                    label(for="ticketId") Ticket ID
-                div.input-field
-                    input#amount.validate(type="number")
-                    label(for="amount") Amount of Tickets
-                div.input-field
-                    input#personalId.validate(type="text")
-                    label(for="personalId") Personal ID*
-                span#price(placeholder="Price")
-                a.waves-effect.waves-light.btn(onclick="OnBuyTicket()") Buy
-                h5#result 
-            div.col.6s
-                include includes/event.pug
-                p You can check and refund your tickets in the refund page
-                p *Please bring your personal ID to the event if so required
+    div.row
+        div.col.6s
+            div.input-field
+                input#ticketId.validate(type="number")
+                label(for="ticketId") Ticket ID
+            div.input-field
+                input#amount.validate(type="number")
+                label(for="amount") Amount of Tickets
+            div.input-field
+                input#personalId.validate(type="text")
+                label(for="personalId") Personal ID*
+            span#price(placeholder="Price")
+            a.waves-effect.waves-light.btn(onclick="OnBuyTicket()") Buy
+            h5#result 
+        div.col.6s
+            include includes/event.pug
+            p You can check and refund your tickets in the refund page
+            p *Please bring your personal ID to the event if so required
     script(src="js/controllers/buy.js")
             

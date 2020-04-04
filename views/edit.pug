@@ -1,29 +1,27 @@
 extends layout
 
 block layout-content
-    div.View.WelcomeView
-        h1.Banner SmartTickets.
-        div.row
-            div.col.s6
-                div.input-field
-                    input#ticketId.validate(type="text")
-                    label(for="ticketId") Ticket ID
-                div.input-field
-                    input#newAmount.validate(type="text")
-                    label(for="newAmount") New Amount of tickets
-                br
-                a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
-            div.col.s6
-                include includes/event.pug
-                br
-                p You can edit the availability of any ticket
-                p You can cancel the event - you will not be able to withdraw the funds
-                p You can withdraw the funds only after the event finished
-                p To create new tickets go to the create page
-                br
-                a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
-                br
-                p#funds
-                a.waves-effect.waves-light.btn(onclick="OnShowFunds()") Show Funds
-                a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
+    div.row
+        div.col.s6
+            div.input-field
+                input#ticketId.validate(type="text")
+                label(for="ticketId") Ticket ID
+            div.input-field
+                input#newAmount.validate(type="text")
+                label(for="newAmount") New Amount of tickets
+            br
+            a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
+        div.col.s6
+            include includes/event.pug
+            br
+            p You can edit the availability of any ticket
+            p You can cancel the event - you will not be able to withdraw the funds
+            p You can withdraw the funds only after the event finished
+            p To create new tickets go to the create page
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
+            br
+            p#funds
+            a.waves-effect.waves-light.btn(onclick="OnShowFunds()") Show Funds
+            a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
     script(src="js/controllers/edit.js")

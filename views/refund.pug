@@ -1,28 +1,26 @@
 extends layout
 
 block layout-content
-    div.View.WelcomeView
-        h1.Banner SmartTickets.
-        div.row
-            div.col.s6
-                include includes/attendeeTickets.pug
-            div.col.s6
-                h4 Your Tickets
-                br
-                p If there is an event selected below, it will only show the tickets for that event
-                p Please fill in the form below if you wish to refund
-                p You can fetch the details of the event by using "Fetch Event"
-                p Tickets of past events are non-refundable
-        hr
-        div.row
-            div.col.s6
-                div.input-field
-                    input#ticketId.validate(type="text")
-                    label(for="ticketId") Ticket ID to refund
-                div.input-field
-                    input#amount.validate(type="text")
-                    label(for="amount") Amount of tickets to refund
-                a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
-            div.col.s6
-                include includes/event.pug
+    div.row
+        div.col.s6
+            include includes/attendeeTickets.pug
+        div.col.s6
+            h4 Your Tickets
+            br
+            p If there is an event selected below, it will only show the tickets for that event
+            p Please fill in the form below if you wish to refund
+            p You can fetch the details of the event by using "Fetch Event"
+            p Tickets of past events are non-refundable
+    hr
+    div.row
+        div.col.s6
+            div.input-field
+                input#ticketId.validate(type="text")
+                label(for="ticketId") Ticket ID to refund
+            div.input-field
+                input#amount.validate(type="text")
+                label(for="amount") Amount of tickets to refund
+            a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
+        div.col.s6
+            include includes/event.pug
     script(src="js/controllers/refund.js")
