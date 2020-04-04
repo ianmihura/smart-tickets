@@ -15,7 +15,6 @@ function GetEvents(req, res) {
 //TODO get whole event -- need this?
 function GetEvent(req, res) {
     try {
-        console.log(req.headers);
         var eventId = main.GetEventId(req.params.eventId);
         nodeInteraction.accountDataByKey(eventId, main.dapp, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
@@ -46,7 +45,7 @@ function GetEventTickets(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested attendee.", err);
+        console.log("Couldn't fetch the requested data.", err);
     }
 }
 
@@ -57,7 +56,7 @@ function GetTicketDescription(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested attendee.", err);
+        console.log("Couldn't fetch the requested data.", err);
     }
 }
 
@@ -68,7 +67,18 @@ function GetCanceled(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested attendee.", err);
+        console.log("Couldn't fetch the requested data.", err);
+    }
+}
+
+function GetBalance(req, res) {
+    try {
+        var eventId = main.GetEventId(req.params.eventId);
+        nodeInteraction.accountDataByKey("balance_" + req.params.producerAddress + "_" + eventId, main.dapp, main.nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => console.log(err));
+    } catch (err) {
+        console.log("Couldn't fetch the requested data.", err);
     }
 }
 
@@ -78,5 +88,6 @@ module.exports = {
     GetEventData: GetEventData,
     GetEventTickets: GetEventTickets,
     GetTicketDescription: GetTicketDescription,
-    GetCanceled: GetCanceled
+    GetCanceled: GetCanceled,
+    GetBalance: GetBalance
 };

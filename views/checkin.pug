@@ -15,6 +15,7 @@ block layout-content
                     label(for="ticketsToCheckin") Tickets to checkin
                 br
                 a.waves-effect.waves-light.btn(onclick="OnCheckin()") Checkin
+                h5#checkinResult
                 p You can only checkin one ticketId at a time
                 p If there is an event selected below, it will only show the tickets for that event
         hr
@@ -33,5 +34,5 @@ block layout-content
                 p We will store the seed in the server for as long as the checkin process lasts
                 p This is risky, but will make the checkin process faster
                 p You can end the checkin process with the following button
-                a.waves-effect.waves-light.btn(onclick="OnLogin()") End Checkin
+                a.waves-effect.waves-light.btn(onclick="OnEndCheckin()") End Checkin
     script(src="js/controllers/checkin.js")

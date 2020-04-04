@@ -2,11 +2,11 @@
 // DOM elements manipulation & event listeners
 
 function OnRefund() {
-    var _eventId = document.getElementById("eventId").value;
     var ticketOrder = document.getElementById("ticketId").value;
     var amount = document.getElementById("amount").value;
     var personalId = document.getElementById("personalId").value;
 
+    var _eventId = document.getElementById("eventId").value;
     var ticketId;
     var i = 0;
     for (var ticket in attendeeTickets) {

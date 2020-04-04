@@ -39,9 +39,11 @@ app.get('/api/event/data/:eventId', eventService.GetEventData);
 app.get('/api/event/tickets/:eventId', eventService.GetEventTickets);
 app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTicketDescription);
 app.get('/api/event/canceled/:eventId', eventService.GetCanceled);
+app.get('/api/event/balance/:eventId/:producerAddress', eventService.GetBalance);
 app.get('/api/attendee/:attendee/', attendeeService.GetAttendee);
 app.get('/api/attendee/:attendee/:personalId', attendeeService.GetAttendee);
 app.get('/api/attendee/:eventId/:attendee/:personalId', attendeeService.GetAttendee);
+app.post('/api/verify', mainService.Verify);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

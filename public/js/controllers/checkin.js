@@ -3,17 +3,36 @@
 
 function OnCheckin() {
     var ticketsToCheckin = document.getElementById("ticketsToCheckin").value;
-    var ticketsLeft = Number(document.getElementById("attendeeDetails").innerHTML);
-    var eventId = document.getElementById("eventId").value;
-    var attendee = document.getElementById("attendee").value;
+    var attendeeAddress = document.getElementById("address").value;
     var personalId = document.getElementById("personalId").value;
+    var ticketOrder = document.getElementById("ticketId").value;
 
-    if (ticketsLeft == NaN || ticketsLeft <= 0)
-        console.log("You don't have tickets left");
-    else
-        CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, CheckinCallback);
+    var eventId;
+    var ticketId;
+    var i = 0;
+    for (var ticket in this.attendeeTickets) {
+        if (i == ticketOrder) {
+            ticketId = ticket.split("_")[2];
+            var eventId = this.eventId ? this.eventId : "e_" + ticket.split("_")[4];
+            break;
+        }
+
+        i++;
+    }
+
+    CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, CheckinCallback);
 }
 
 function CheckinCallback(data) {
-    console.log("data:", data);
+    $("#checkinResult")[0].innerHTML = "Checkin Succesful";
+
+    OnGetAttendeeTickets();
+}
+
+function OnLogin() {
+
+}
+
+function OnEndCheckin() {
+
 }

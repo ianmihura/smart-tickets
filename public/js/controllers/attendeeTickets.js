@@ -24,16 +24,22 @@ function OnGetAttendeeTickets() {
 
 function AttendeeTicketsCallback(dataTickets) {
     attendeeTickets = Object.assign({}, this.attendeeTickets, dataTickets);
-    var _attendeeEvents = Object.keys(dataTickets);
+    var _attendeeTicketsKeys = Object.keys(dataTickets);
 
-    for (var key in _attendeeEvents) {
-        var keySplit = _attendeeEvents[key].split("_");
+    for (var key in _attendeeTicketsKeys) {
+        var keySplit = _attendeeTicketsKeys[key].split("_");
         var _eventId = "e_" + keySplit[4];
+
+        if (!attendeeTickets[_attendeeTicketsKeys[key]].value) {
+            delete attendeeTickets[_attendeeTicketsKeys[key]];
+            continue;
+        }
 
         if (this.eventId && this.eventId != _eventId)
             continue;
 
         GetEventTicketDescriptionService(_eventId, keySplit[2], GetEventTicketDescriptionCallback);
+        attendeeTickets[_attendeeTicketsKeys[key]].ticketId = Number(keySplit[2]);
         this.attendeeEvents[_eventId] = 0;
     }
 
@@ -84,7 +90,7 @@ function PopulateAttendeeTickets() {
             + "<b>(" + i + ")</b> => "
             + this.attendeeTickets[ticketId].title + "; "
             + this.attendeeTickets[ticketId].ticketDescription + "; "
-            + this.attendeeTickets[ticketId].value + "; "
+            + this.attendeeTickets[ticketId].value + " tickets; "
             + "Event ID: e_" + ticketId.split("_")[4]
             + '</li>');
         i++;

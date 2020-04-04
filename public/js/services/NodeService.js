@@ -31,6 +31,11 @@ function GetEventCanceledService(eventId, callback) {
         (data) => callback(data));
 }
 
+function GetEventBalanceService(eventId, producerAddress, callback) {
+    $.get("/api/event/balance/" + eventId + "/" + producerAddress,
+        (data) => callback(data));
+}
+
 function GetAttendeeService(attendee, personalId, callback) {
     $.get("/api/attendee/" + attendee + "/" + personalId,
         (data) => callback(data));

@@ -91,7 +91,7 @@ function BuyTickets(eventId, ticketId, amount, totalPrice, personalId, callback)
     }, callback);
 }
 
-function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, callback) {
+function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticketId, callback) {
     WavesKeeperTransactionService({
         type: 16,
         data: {
@@ -106,7 +106,8 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, callba
                     { type: "string", value: _getEventId(eventId) },
                     { type: "string", value: attendee },
                     { type: "integer", value: ticketsToCheckin },
-                    { type: "string", value: personalId }
+                    { type: "string", value: personalId },
+                    { type: "integer", value: ticketId }
                 ]
             },
             payment: []

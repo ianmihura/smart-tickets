@@ -1,4 +1,4 @@
-var { nodeInteraction } = require('@waves/waves-transactions');
+var { index, nodeInteraction } = require('@waves/waves-transactions');
 var { base58Encode, sha256, stringToBytes } = require('@waves/ts-lib-crypto');
 const nodeUrl = "https://testnodes.wavesnodes.com";
 const dapp = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ";
@@ -30,10 +30,23 @@ function GetAttendeeId(attendee, personalId) {
     return "a_" + base58Encode(sha256(stringToBytes(attendee + personalId)));
 }
 
+function Verify(req, res) {
+    // sigVerify(message, signature, publicKey);
+
+    // try {
+    //     index.verify(tx, 1, publicKey)
+    //         .then(wResp => res.status(200).json(wResp))
+    //         .catch(err => console.log(err));
+    // } catch (err) {
+    //     console.log("Couldn't fetch the requested transaction.", err);
+    // }
+}
+
 module.exports = {
     GetTxStateById: GetTxStateById,
     GetEventId: GetEventId,
     GetAttendeeId: GetAttendeeId,
+    Verify: Verify,
     dapp: dapp,
     dappM: dappM,
     oldDapp: oldDapp,
