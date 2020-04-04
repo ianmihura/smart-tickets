@@ -34,9 +34,9 @@ function _onShowFunds(data) {
 
 function OnShowFundsCallback(data) {
     if (data)
-        document.getElementById("funds").innerHTML = "The balance for this event is<br>" data.value + " WAVES";
+        document.getElementById("funds").innerHTML = "The balance for this event is<br>" + data.value + " WAVES";
     else
-    document.getElementById("funds").innerHTML = "Only the creator of the event can view the funds";
+        document.getElementById("funds").innerHTML = "Only the creator of the event can view the funds";
 
 }
 
