@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@waves/ts-lib-crypto": "^1.4.3",
-    "@waves/waves-transactions": "^3.25.1",
-    "cookie-parser": "~1.4.4",
+    "@waves/waves-transactions": "^3.25.3",
+    "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
