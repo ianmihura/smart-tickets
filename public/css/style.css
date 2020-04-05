@@ -17,6 +17,7 @@
 
 body {
   color: var(--primary);
+  background: var(--bg-color);
   
   margin: 0;
   padding: 0;
@@ -44,10 +45,13 @@ h1 {
 
 a {
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
   user-select: none;
   color: var(--primary);
+}
+
+.inlinelink {
+  text-decoration: underline;
 }
 
 .View {
@@ -66,45 +70,6 @@ a {
   background: var(--bg-color);
 
   font-family: var(--core-font);
-}
-
-.Banner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-
-  border-radius: 5px;
-
-  overflow: hidden;
-  background: var(--bg-color-secondary);
-  padding: 15px;
-
-  font-family: var(--logo-font);
-
-  border-bottom: var(--ui-shawdow-border);
-  box-shadow: var(--ui-shawdow);
-}
-
-.Message {
-  color: var(--primary);
-
-  background: var(--bg-color-secondary);
-  padding: 30px;
-  border-bottom: var(--ui-shawdow-border);
-  box-shadow: var(--ui-shawdow);
-}
-
-.Message > .Title {
-  padding-bottom: 20px;
-}
-
-.Message > .Details {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.5em;
 }
 
 input {
@@ -134,4 +99,8 @@ nav {
 
 .sidenav li>a {
     color: var(--primary);
+}
+
+.subtitle {
+    margin: 10px auto;
 }

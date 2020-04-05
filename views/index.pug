@@ -1,24 +1,87 @@
 extends layout
 
 block layout-content
-    div.Message
-        div.Title
-            h1 Smart Events.
-        span.Details Manage your event ticketing with Blockchain technology. <br> Free setup, no hidden fees for your customers, decentralized registry.
-    div
-        br
-        span Producer section:
-        br
-        a(href="/create") Create Event
-        br
-        a(href="/edit") Edit Event
-        br
-        a(href="/checkin") Checkin
-        br
-        br
-        span Attendee section:
-        br
-        a(href="/buy") Buy Tickets
-        br
-        a(href="/refund") Refund
-            
+    div.row
+        div.col.s12.m3
+        div.col.s12.m6
+            div.card.blue-grey.darken-3
+                div.card-content
+                    h1 Smart Tickets, Smart Events.
+                    p Manage your event ticketing with Blockchain technology. Enjoy free setup, no hidden fees for your customers, decentralized registry.
+                    br
+                    p Why choose Blockchain technology:
+                div.card-tabs
+                    ul.tabs.tabs-fixed-width.tabs-transparent
+                        li.tab
+                            a(href="#test1") Free Setup
+                        li.tab
+                            a(href="#test2") No hidden fees
+                        li.tab
+                            a(href="#test3").active Decentralized
+                div.card-content.blue-grey.darken-1
+                    div#test1
+                        p Create your event and its tickets with <b>no upfront cost!</b> 
+                        p However, a small fee will be required to execute each transaction. These include: create an event, create a ticket tier, edit a ticket tier, cancel the event, buy tickets...
+                        p The fee is always 0.001 WAVES, or 0.005 WAVES for smart accounts (practically zero).
+                        a.inlinelink(href="https://coinmarketcap.com/currencies/waves/") (WAVES current price @ coinmarketcap)
+                        br
+                        br
+                        b To create an event you need:
+                        p A WAVES wallet, with at least 0.001 WAVES
+                        a.inlinelink(href="https://wavesplatform.com/technology/keeper") Wakes.Keeper browser extension (download here)
+                    div#test2
+                        p Attendees will pay only <b>the price you set for the tickets.</b>
+                        p We charge no hidden fees, apart from the ones necessary to execute the transactions in the WAVES blockchain.
+                        br
+                        p Once the event is finished, we take a 5% commision on the withdrawal of the total funds you made.
+                    div#test3
+                        a.inlinelink(href="https://wavesexplorer.com/") All the information is recorded in the WAVES blockchain. (click here to see Waves Block Explorer)
+                        br
+                        br
+                        p This means that secure funds and payments, refund mechanism and all escrow securities are a core part of Smart Tickets
+                        p It also means that all available information, tickets, purchases and prices will be encoded into the blockchain
+        div.col.s12.m3
+    h1.subtitle For Producers
+    div.row
+        div.col.s12.m4
+            div.card.blue-grey.darken-1
+                div.card-content.white-text
+                    span.card-title Event Creator
+                    p The wallet you use to create the Event will be your Producer Wallet. This is the <b>only</b> wallet that will have all the necessary permissions.
+                    p You will also be given an Event ID, we recomend you save this ID.
+                div.card-action
+                    a(href="/create") Create an Event
+        div.col.s12.m4
+            div.card.blue-grey.darken-1
+                div.card-content.white-text
+                    span.card-title Event Editor
+                    p Once you have created your Event and it's tickets, you can edit the supply of these tickets, and cancel the event at any time.
+                div.card-action
+                    a(href="/edit") Edit your Event
+        div.col.s12.m4
+            div.card.blue-grey.darken-1
+                div.card-content.white-text
+                    span.card-title Checkin
+                    p A few hours prior to the event, you can start to checkin your attendees.
+                    p For this you will need a small supply of WAVES: each checkin will be a transaction on the blockchain, in order to secure the persistance of the data (no using the same ticket twice!)
+                    p Checkin can be performed only once per ticket, only by the Producer Wallet.
+                div.card-action
+                    a(href="/checkin") Go to Checkin
+    h1.subtitle For Attendees
+    div.row
+        div.col.s0.m2
+        div.col.s12.m4
+            div.card.blue-grey.darken-1
+                div.card-content.white-text
+                    span.card-title Buy Tickets
+                    p The tickets you buy are stored securely in the blockchain, until you checkin or you refund them. They will be associated with the wallet you use to execute the purchase, so bring the wallet to the Event checkin!
+                div.card-action
+                    a(href="/buy") Buy Tickets
+        div.col.s12.m4
+            div.card.blue-grey.darken-1
+                div.card-content.white-text
+                    span.card-title My Tickets
+                    p You can check the tickets you have bought with your wallet, and refund any valid tickets.
+                div.card-action
+                    a(href="/tickets") Check your tickets
+        div.col.s0.m2
