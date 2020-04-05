@@ -89,10 +89,6 @@ input[type=text]:not(.browser-default):disabled+label {
   color: rgba(255,255,255, 0.4);
 }
 
-nav {
-    background-color: rgba(255,255,255, 0.4);
-}
-
 .sidenav {
     background-color: rgba(100,100,100, 0.8);
 }
@@ -103,4 +99,9 @@ nav {
 
 .subtitle {
     margin: 10px auto;
+}
+
+.card-action a{
+    font-weight: 600;
+    color: var(--primary) !important;
 }
