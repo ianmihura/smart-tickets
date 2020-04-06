@@ -21,6 +21,11 @@ function GetEventTicketsService(eventId, callback) {
         (data) => callback(data));
 }
 
+function GetEventTicketService(eventId, ticketId, callback) {
+    $.get("/api/event/ticket/" + eventId + ticketId,
+        (data) => callback(data));
+}
+
 function GetEventTicketDescriptionService(eventId, ticketId, callback) {
     $.get("/api/event/ticket/description/" + eventId + "/" + ticketId,
         (data) => callback(data));
@@ -48,5 +53,10 @@ function GetEventAttendeeService(eventId, attendee, personalId, callback) {
 
 function GetTxStateById(txid, callback) {
     $.get("/api/txstatebyid/" + txid,
+        (data) => callback(data));
+}
+
+function GetTxById(txid, callback) {
+    $.get("/api/txbyid/" + txid,
         (data) => callback(data));
 }

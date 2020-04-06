@@ -1,0 +1,23 @@
+div.fixed-action-btn
+    a#txidFloating.btn-floating.btn-large.grey-blue.modal-trigger(href="#txModal" onclick="PopulateTable()")
+        i.fas.fa-history(style="font-size:25px; vertical-align:middle;")
+    ul
+        li
+            p Clear DB
+            a.btn-floating.red(onclick="ClearTxsDB()")
+                i.fas.fa-times
+            p Show past TXs
+div#txModal.modal.blue-grey.darken-3.bottom-sheet.modal-fixed-footer
+    div.modal-content
+        h4 tx History
+        table#txTable.highlight
+            thead
+                tr
+                    th txid
+                    th sender
+                    th call
+                    th datetime
+    div.modal-footer.blue-grey.darken-2
+        a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
+        input#txManualAdd(placeholder="Manually add a TX").waves-effect.waves-green.white-text.left
+        a(onclick="ManualAddTx()").waves-effect.waves-green.btn-flat.white-text.left Add

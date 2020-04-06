@@ -1,10 +1,12 @@
 var { nodeInteraction } = require('@waves/waves-transactions');
 var main = require('./main.js');
 
-//TODO regex for all events, with their relevant (list) information
 function GetEvents(req, res) {
     try {
-        nodeInteraction.accountDataByKey("NOTHING_HERE", main.dapp, main.nodeUrl)
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: "e_.*"
+        }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
@@ -12,11 +14,13 @@ function GetEvents(req, res) {
     }
 }
 
-//TODO get whole event -- need this?
 function GetEvent(req, res) {
     try {
         var eventId = main.GetEventId(req.params.eventId);
-        nodeInteraction.accountDataByKey(eventId, main.dapp, main.nodeUrl)
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: ".*" + eventId
+        }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
     } catch (err) {
@@ -41,6 +45,20 @@ function GetEventTickets(req, res) {
         nodeInteraction.accountData({
             address: main.dapp,
             match: "ticket.*" + eventId
+        }, main.nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => console.log(err));
+    } catch (err) {
+        console.log("Couldn't fetch the requested data.", err);
+    }
+}
+
+function GetEventTicket(req, res) {
+    try {
+        var eventId = main.GetEventId(req.params.eventId);
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: "ticket.*" + req.params.ticketId + "_" + eventId
         }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => console.log(err));
@@ -86,8 +104,9 @@ module.exports = {
     GetEvents: GetEvents,
     GetEvent: GetEvent,
     GetEventData: GetEventData,
-    GetEventTickets: GetEventTickets,
-    GetTicketDescription: GetTicketDescription,
     GetCanceled: GetCanceled,
-    GetBalance: GetBalance
+    GetBalance: GetBalance,
+    GetEventTickets: GetEventTickets,
+    GetEventTicket: GetEventTicket,
+    GetTicketDescription: GetTicketDescription
 };

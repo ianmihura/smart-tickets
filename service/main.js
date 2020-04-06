@@ -15,6 +15,16 @@ function GetTxStateById(req, res) {
     }
 }
 
+function GetTxById(req, res) {
+    try {
+        nodeInteraction.transactionById(req.params.txid, nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => console.log(err));
+    } catch (err) {
+        console.log("Couldn't fetch the requested transaction.", err);
+    }
+}
+
 function GetEventId(eventId) {
     if (!eventId || eventId == "null" || eventId == "undefined")
         return "";
@@ -44,6 +54,7 @@ function Verify(req, res) {
 
 module.exports = {
     GetTxStateById: GetTxStateById,
+    GetTxById: GetTxById,
     GetEventId: GetEventId,
     GetAttendeeId: GetAttendeeId,
     Verify: Verify,

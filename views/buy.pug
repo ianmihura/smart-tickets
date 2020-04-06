@@ -19,5 +19,11 @@ block layout-content
             include includes/event.pug
             p You can check and refund your tickets in the refund page
             p *Please bring your personal ID to the event if so required
-    script(src="js/controllers/buy.js")
+    div.row
+        div.col.6s
+            a.waves-effect.waves-light.btn(onclick="OnBuyTicket()") Search All Active Events
+            h5 Events
+            p You can search the list of all active events
+        div.col.6s
+    script(src="js/controllers/ui/buy.js")
             

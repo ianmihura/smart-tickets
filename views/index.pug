@@ -3,6 +3,19 @@ extends layout
 block layout-content
     div.row
         div.col.s12.m3
+            div.card.blue-grey.darken-4
+                div.card-content.grey-text
+                    h5 Test env
+                    p This is a proof of concept.
+                    p To use the app fully:
+                    a.inlinelink(href="https://wavesplatform.com/technology/keeper") Get Waves.Keeper 
+                    p Create a testnet wallet
+                    a.inlinelink(href="https://wavesexplorer.com/testnet/faucet") Load it with free testnet tokens
+            //- div.card.blue-grey.darken-4
+            //-     div.card-content.grey-text
+            //-         h5 Alternative
+            //-         p We will create a wallet for you, load it and perform the transactions you need
+            //-         p You can still test the functionality of the app
         div.col.s12.m6
             div.card.blue-grey.darken-3
                 div.card-content
@@ -20,7 +33,7 @@ block layout-content
                             a(href="#test3").active Decentralized
                 div.card-content.blue-grey.darken-2
                     div#test1
-                        p Create your event and its tickets with <b>no upfront cost!</b> 
+                        p Create your event and it's tickets with <b>no upfront cost!</b> 
                         p However, a small fee will be required to execute each transaction. These include: create an event, create a ticket tier, edit a ticket tier, cancel the event, buy tickets...
                         p The fee is always 0.001 WAVES, or 0.005 WAVES for smart accounts (practically zero).
                         a.inlinelink(href="https://coinmarketcap.com/currencies/waves/") (WAVES current price @ coinmarketcap)

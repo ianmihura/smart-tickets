@@ -33,17 +33,22 @@ var eventService = require('./service/event');
 var attendeeService = require('./service/attendee');
 // API
 app.get('/api/txstatebyid/:txid', mainService.GetTxStateById);
+app.get('/api/txbyid/:txid', mainService.GetTxById);
+// app.post('/api/verify', mainService.Verify);
+
 app.get('/api/event/', eventService.GetEvents);
 app.get('/api/event/:eventId', eventService.GetEvent);
 app.get('/api/event/data/:eventId', eventService.GetEventData);
-app.get('/api/event/tickets/:eventId', eventService.GetEventTickets);
-app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTicketDescription);
 app.get('/api/event/canceled/:eventId', eventService.GetCanceled);
 app.get('/api/event/balance/:eventId/:producerAddress', eventService.GetBalance);
+app.get('/api/event/tickets/:eventId', eventService.GetEventTickets);
+app.get('/api/event/ticket/:eventId/:ticketId', eventService.GetEventTicket);
+app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTicketDescription);
+
 app.get('/api/attendee/:attendee/', attendeeService.GetAttendee);
 app.get('/api/attendee/:attendee/:personalId', attendeeService.GetAttendee);
 app.get('/api/attendee/:eventId/:attendee/:personalId', attendeeService.GetAttendee);
-app.post('/api/verify', mainService.Verify);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

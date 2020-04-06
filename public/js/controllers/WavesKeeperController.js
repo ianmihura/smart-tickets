@@ -3,10 +3,6 @@
 const SmartTicketsDapp = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ";
 const txFee = "0.005";
 
-function _errorHandler(err) {
-    console.log("Probably no Waves Keeper installed.", err);
-}
-
 function _getEventId(eventId) {
     return eventId[1] == "_" ? eventId : "e_" + eventId;
 }
