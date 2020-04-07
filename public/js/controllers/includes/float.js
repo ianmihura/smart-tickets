@@ -60,13 +60,11 @@ function PopulateLogFloat() {
     var table = document.getElementById("logTable");
     var tableLength = table.children[0].children.length;
 
-    for (tableLength; tableLength > 1; tableLength--) {
+    for (tableLength; tableLength > 1; tableLength--)
         table.deleteRow(tableLength - 1);
-    }
 
-    for (var i in logs) {
+    for (var i in logs)
         AddRowToLogTable(table, logs[i]);
-    }
 }
 
 function AddRowToLogTable(table, log) {

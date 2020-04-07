@@ -31,7 +31,10 @@ function GetEvent(req, res) {
 function GetEventData(req, res) {
     try {
         var eventId = main.GetEventId(req.params.eventId);
-        nodeInteraction.accountDataByKey("data_" + eventId, main.dapp, main.nodeUrl)
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: "data.*" + eventId
+        }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
