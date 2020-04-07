@@ -6,7 +6,7 @@ function OnRefund() {
     var amount = document.getElementById("amount").value;
     var personalId = document.getElementById("personalId").value;
 
-    var _eventId = document.getElementById("eventId").value;
+    var _eventId = EventId();
     var ticketId;
     var i = 0;
     for (var ticket in attendeeTickets) {
@@ -19,10 +19,13 @@ function OnRefund() {
         i++;
     }
 
-    RefundTicket(_eventId, amount, personalId, ticketId, OnRefundCallback);
+    if (!ticketId)
+        LogShow("", "The ticket Id you selected is not valid");
+    else
+        RefundTicket(_eventId, amount, personalId, ticketId, OnRefundCallback);
 }
 
 function OnRefundCallback(data) {
-    M.toast({ html: 'Refund Successful' });
+    LogShow(data, "Refund Successful");
     OnGetAttendeeTickets();
 }

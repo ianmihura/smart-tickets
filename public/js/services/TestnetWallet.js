@@ -2,7 +2,7 @@
 // NodeInteraction alernative to Waves.Keeper
 
 function CreateWalletService() {
-    $.get("/api/wallet/",
+    HTTPGetRequest("/api/wallet/",
         (data) => CreateWalletCallback(data));
 }
 
@@ -10,13 +10,17 @@ function CreateWalletCallback(data) {
     SetTestnetWallet(data.address, data.seed);
 }
 
-function SignAndPublishTransaction(txData, isCheckin, callback) {
-    var seed = isCheckin ? GetLoginCheckin().seed : GetTestnetWallet().seed;
-    $.post("api/transaction/", {
+function SignAndPublishTransaction(txData, seed, callback) {
+    HTTPPostRequest("api/transaction/", {
         "txData": txData,
         "seed": seed
     }, (data) => {
-        AddTxToDB(data);
+        if (!data)
+            return LogShow(data, "HTTP post request returned empty. ");
+
+        if (data.id)
+            AddTxToDB(data);
+
         callback(data);
     });
 }

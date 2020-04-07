@@ -10,10 +10,10 @@ function OnGetAttendeeTickets() {
     attendeeTickets = {};
     attendeeEvents = {};
 
-    if (this.eventId && this.requiresId)
-        GetEventAttendeeService(this.eventId, address, personalId, AttendeeTicketsCallback);
-    else if (this.eventId && !this.requiresId)
-        GetEventAttendeeService(this.eventId, address, "null", AttendeeTicketsCallback);
+    if (EventId() && this.requiresId)
+        GetEventAttendeeService(EventId(), address, personalId, AttendeeTicketsCallback);
+    else if (EventId() && !this.requiresId)
+        GetEventAttendeeService(EventId(), address, "null", AttendeeTicketsCallback);
     else {
         if (personalId != "")
             GetAttendeeService(address, personalId, AttendeeTicketsCallback);
@@ -35,7 +35,7 @@ function AttendeeTicketsCallback(dataTickets) {
             continue;
         }
 
-        if (this.eventId && this.eventId != _eventId)
+        if (EventId() && EventId() != _eventId)
             continue;
 
         GetEventTicketDescriptionService(_eventId, keySplit[2], GetEventTicketDescriptionCallback);
@@ -43,8 +43,8 @@ function AttendeeTicketsCallback(dataTickets) {
         this.attendeeEvents[_eventId] = 0;
     }
 
-    if (this.eventId)
-        _getEventData(this.eventId);
+    if (EventId())
+        _getEventData(EventId());
     else
         for (var eventId in this.attendeeEvents)
             _getEventData(eventId);

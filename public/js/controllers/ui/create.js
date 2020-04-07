@@ -26,17 +26,12 @@ function OnCreateEvent() {
 }
 
 function CreateEventCallback(data) {
-    try {
-        var txid = JSON.parse(data).id;
+    var txid = data.id;
+    document.getElementById("txid").innerHTML = txid;
 
-        document.getElementById("txid").innerHTML = txid;
-        M.toast({ html: 'Event created succesfully' });
+    LogShow(data, "Event created succesfully");
 
-        GetTxStateById(txid, GetTxStateByIdCallback);
-    } catch (e) {
-        console.log(e);
-        document.getElementById("txid").innerHTML = "There was an error with the transaction. Here is the result: " + data;
-    }
+    GetTxStateById(txid, GetTxStateByIdCallback);
 }
 
 function OnGetEventId() {
@@ -44,19 +39,14 @@ function OnGetEventId() {
 }
 
 function GetTxStateByIdCallback(data) {
-    try {
-        document.getElementById("tEventId").innerHTML = data.data[0].key;
-        document.getElementById("eventId").value = data.data[0].key;
+    document.getElementById("tEventId").innerHTML = data.data[0].key;
+    document.getElementById("eventId").value = data.data[0].key;
 
-        this.OnGetEventData();
-    } catch (e) {
-        console.log(e);
-        document.getElementById("eventId").innerHTML = "There was an error with the eventId retrieval. Here is the result: " + data;;
-    }
+    this.OnGetEventData();
 }
 
 function OnCreateTicketEvent() {
-    var eventId = document.getElementById("eventId").value;
+    var eventId = EventId();
     var ticketDescription = document.getElementById("ticketDescription").value;
     var price = document.getElementById("price").value;
     var ticketAmount = document.getElementById("ticketAmount").value;
@@ -66,6 +56,6 @@ function OnCreateTicketEvent() {
 }
 
 function CreateTicketEventCallback(data) {
-    M.toast({ html: 'Ticket Created Succesfully!' });
+    LogShow(data, 'Ticket Created Successfully!');
     OnGetEventData();
 }

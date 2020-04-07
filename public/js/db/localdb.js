@@ -11,7 +11,7 @@ function GetTxsFromDB() {
     try {
         return JSON.parse(localStorage.getItem(TXS));
     } catch (err) {
-        return {};
+        LogShow(err, "Error at database. Clear page cache to restart.");
     }
 }
 

@@ -5,19 +5,23 @@ var eventId = "";
 var requiresId;
 var ticketPrices = [];
 
+function EventId() {
+    if (this.eventId) return this.eventId;
+    else if ($("#eventId")[0].value) return $("#eventId")[0].value;
+    else return "";
+}
+
 function OnGetEventData() {
     eventId = document.getElementById("eventId").value;
 
-    GetEventDataService(this.eventId, GetEventDataCallback);
-    GetEventTicketsService(this.eventId, GetEventTicketsCallback);
-    GetEventCanceledService(this.eventId, GetCanceledCallback);
+    GetEventDataService(EventId(), GetEventDataCallback);
+    GetEventTicketsService(EventId(), GetEventTicketsCallback);
+    GetEventCanceledService(EventId(), GetCanceledCallback);
 }
 
 function GetEventDataCallback(data) {
-    if (!data) {
-        document.getElementById("eventDetails").innerHTML = "Event does not exist";
-        return;
-    }
+    if (!data.value)
+        LogShow(data, "Event does not exist");
 
     data = JSON.parse(data.value);
     requiresId = data.requiresId;
@@ -31,19 +35,19 @@ function GetEventDataCallback(data) {
 }
 
 function GetEventTicketsCallback(tickets) {
-    var totalTickets = tickets["tickets_" + this.eventId].value;
+    var totalTickets = tickets["tickets_" + EventId()].value;
     $("#tickets").empty();
     $("#tickets").append('<li class="collection-header"><b>(Ticket ID)</b> => Ticket details</li>');
 
     for (var i = 0; i < totalTickets; i++) {
-        ticketPrices[i] = tickets["ticketPrice_" + i + "_" + this.eventId].value;
+        ticketPrices[i] = tickets["ticketPrice_" + i + "_" + EventId()].value;
 
         $("#tickets").append('<li class="collection - item">'
             + "<b>(" + i + ")</b> => "
-            + tickets["ticketDescription_" + i + "_" + this.eventId].value + "; "
+            + tickets["ticketDescription_" + i + "_" + EventId()].value + "; "
             + ticketPrices[i] + " Waves; "
-            + tickets["ticketAmount_" + i + "_" + this.eventId].value + " available tickets; "
-            + tickets["ticketMax_" + i + "_" + this.eventId].value + " max tickets per attendee"
+            + tickets["ticketAmount_" + i + "_" + EventId()].value + " available tickets; "
+            + tickets["ticketMax_" + i + "_" + EventId()].value + " max tickets per attendee"
             + '</li>');
     }
 }

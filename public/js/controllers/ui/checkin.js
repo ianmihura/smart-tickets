@@ -24,20 +24,20 @@ function OnCheckin() {
 }
 
 function CheckinCallback(data) {
-    M.toast({ html: 'Checkin Succesful!' });
+    LogShow(data, 'Checkin Succesful!');
     OnGetAttendeeTickets();
 }
 
 function OnLogin() {
-    if (!$("#eventId")[0].value)
+    if (!EventId())
         return M.toast({ html: "Please fill in the required fields" });
 
-    GetEventById($("#eventId")[0].value, LoginCallback);
+    GetEventById(EventId(), LoginCallback);
 }
 
 function LoginCallback(data) {
-    if (!data || data[$("#eventId")[0].value].value != $("#producerAddress")[0].value)
-        return M.toast({ html: "Login credentials don't match the event id" });
+    if (data[EventId()].value != $("#producerAddress")[0].value)
+        return LogShow(data, "Login credentials don't match the event id");
 
     var producerAddress = document.getElementById("producerAddress").value;
     var producerSeed = document.getElementById("producerSeed").value;
@@ -46,7 +46,7 @@ function LoginCallback(data) {
     document.getElementById("producerSeed").value = "";
     document.getElementById("producerAddress").value = "";
 
-    M.toast({ html: 'Login successful' });
+    LogShow(data, 'Login Successful');
 }
 
 function OnEndCheckin() {

@@ -1,4 +1,4 @@
-var { nodeInteraction, index } = require('@waves/waves-transactions');
+var { nodeInteraction } = require('@waves/waves-transactions');
 var waves = require('@waves/waves-transactions');
 var ts = require('@waves/ts-lib-crypto');
 const nodeUrl = "https://testnodes.wavesnodes.com";
@@ -10,7 +10,7 @@ function GetTxStateById(req, res) {
     try {
         nodeInteraction.stateChanges(req.params.txid, nodeUrl)
             .then(wResp => res.status(200).json(wResp))
-            .catch(err => console.log(err));
+            .catch(err => res.status(400).json(err));
     } catch (err) {
         console.log("Couldn't fetch the requested transaction.", err);
     }
@@ -20,7 +20,7 @@ function GetTxById(req, res) {
     try {
         nodeInteraction.transactionById(req.params.txid, nodeUrl)
             .then(wResp => res.status(200).json(wResp))
-            .catch(err => console.log(err));
+            .catch(err => res.status(400).json(err));
     } catch (err) {
         console.log("Couldn't fetch the requested transaction.", err);
     }

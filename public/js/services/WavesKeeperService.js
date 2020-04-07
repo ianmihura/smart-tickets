@@ -8,10 +8,9 @@ function WavesKeeperAuth(message, callback) {
         else
             WavesKeeper.auth({ data: message })
                 .then(data => callback(data))
-                .catch(err => console.log(err));
+                .catch(err => LogShow(err, "Waves Keeper returned with an error"));
     } catch (err) {
-        console.log(err);
-        alert("You probably don't have Waves.Keeper installed.");
+        LogShow(err, "You probably don't have Waves.Keeper installed.");
     }
 }
 
@@ -19,22 +18,24 @@ function WavesKeeperTransactionService(txData, callback) {
     try {
         if (GetLoginCheckin().seed) {
             M.toast({ html: "Tx signed with your login credentials." });
-            SignAndPublishTransaction(txData, true, callback);
+            SignAndPublishTransaction(txData, GetLoginCheckin().seed, callback);
         } else if (GetTestnetWallet().seed) {
             M.toast({ html: "Tx signed with your testnet wallet." });
-            SignAndPublishTransaction(txData, false, callback);
+            SignAndPublishTransaction(txData, GetTestnetWallet().seed, callback);
         } else
             WavesKeeper.signAndPublishTransaction(txData)
                 .then(data => {
+                    if (!data)
+                        return LogShow(err, "Waves.Keeper returned no data");
+                    else if (data.code)
+                        return LogShow(err, "Waves.Keeper answered with code + " + data.code);
+
                     AddTxToDB(data);
                     callback(data);
                 })
-                .catch(err => {
-                    console.log("Waves Keeper returned with error.", err);
-                });
+                .catch(err => LogShow(err, "Waves.Keeper returned with an error"));
     } catch (err) {
-        console.log(err);
-        alert("You probably don't have Waves.Keeper installed.");
+        LogShow(err, "You probably don't have Waves.Keeper installed.");
     }
 }
 

@@ -2,7 +2,7 @@
 // DOM elements manipulation & event listeners
 
 function OnBuyTicket() {
-    var eventId = document.getElementById("eventId").value;
+    var eventId = EventId();
     var ticketId = document.getElementById("ticketId").value;
     var amount = document.getElementById("amount").value;
     var price = ticketPrices[ticketId];
@@ -13,6 +13,6 @@ function OnBuyTicket() {
 }
 
 function BuyTicketCallback(data) {
-    M.toast({ html: 'Bought Tickets!' });
-    GetEventTicketsService(eventId, GetEventTicketsCallback);
+    LogShow(data, 'Bought Tickets!');
+    GetEventTicketsService(EventId(), GetEventTicketsCallback);
 }

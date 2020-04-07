@@ -1,25 +1,37 @@
 div.fixed-action-btn
-    a#txidFloating.btn-floating.btn-large.grey-blue.modal-trigger(href="#txModal" onclick="PopulateFloat()")
-        i.fas.fa-history(style="font-size:25px; vertical-align:middle;")
+    a#txidFloating.btn-floating.btn-large.blue
+        i.fas.fa-info(style="font-size:25px; vertical-align:middle;")
     ul
         li
-            p Clear DB
-            a.btn-floating.red(onclick="ClearTxsDB()")
-                i.fas.fa-times
-            p Show past TXs
+            a.btn-floating.green.modal-trigger(href="#txModal" onclick="PopulateTxFloat()")
+                i.fas.fa-history
+        li
+            a.btn-floating.orange.modal-trigger(href="#logModal" onclick="PopulateLogFloat()")
+                i.fas.fa-exclamation-triangle
 div#txModal.modal.blue-grey.darken-3.bottom-sheet.modal-fixed-footer
     div.modal-content
         h4 tx History
         span#testnetWalletSeed
+        br
         span#testnetWalletAddress
         table#txTable.highlight
-            thead
-                tr
-                    th txid
-                    th sender
-                    th call
-                    th time
+            tr
+                th txid
+                th sender
+                th call
+                th time
     div.modal-footer.blue-grey.darken-2
         a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
         input#txManualAdd(placeholder="Manually add a TX").waves-effect.waves-green.white-text.left
         a(onclick="ManualAddTx()").waves-effect.waves-green.btn-flat.white-text.left Add
+div#logModal.modal.blue-grey.darken-3.bottom-sheet.modal-fixed-footer
+    div.modal-content
+        h4 log History
+        table#logTable.highlight
+            tr
+                th info
+                th sender
+                th call
+                th time
+    div.modal-footer.blue-grey.darken-2
+        a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK

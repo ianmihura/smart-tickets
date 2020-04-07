@@ -1,62 +1,76 @@
 // Client-side Javascript
 // Express service interaction - nodeInteraction & other
 
+function HTTPGetRequest(url, callback) {
+    $.get(url, (data) => callback(data))
+        .fail((err) => {
+            if (err.responseJSON && err.responseJSON.message)
+                LogShow(err, err.responseJSON.message);
+            else if (err.statusText)
+                LogShow(err, err.statusText);
+            else
+                LogShow(err, "HTTP post request failed");
+        });
+}
+
+function HTTPPostRequest(url, payload, callback) {
+    $.post(url, payload, data => callback(data))
+        .fail((err) => {
+            if (err.responseJSON && err.responseJSON.message)
+                LogShow(err, err.responseJSON.message);
+            else if (err.statusText)
+                LogShow(err, err.statusText);
+            else
+                LogShow(err, "HTTP post request failed");
+        });
+}
+
+// URL builders
+
 function GetEventsService(callback) {
-    $.get("/api/event/",
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/", callback);
 }
 
 function GetEventById(eventId, callback) {
-    $.get("/api/event/" + eventId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/" + eventId, callback);
 }
 
 function GetEventDataService(eventId, callback) {
-    $.get("/api/event/data/" + eventId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/data/" + eventId, callback);
 }
 
 function GetEventTicketsService(eventId, callback) {
-    $.get("/api/event/tickets/" + eventId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/tickets/" + eventId, callback);
 }
 
 function GetEventTicketService(eventId, ticketId, callback) {
-    $.get("/api/event/ticket/" + eventId + ticketId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/ticket/" + eventId + ticketId, callback);
 }
 
 function GetEventTicketDescriptionService(eventId, ticketId, callback) {
-    $.get("/api/event/ticket/description/" + eventId + "/" + ticketId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/ticket/description/" + eventId + "/" + ticketId, callback);
 }
 
 function GetEventCanceledService(eventId, callback) {
-    $.get("/api/event/canceled/" + eventId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/canceled/" + eventId, callback);
 }
 
 function GetEventBalanceService(eventId, producerAddress, callback) {
-    $.get("/api/event/balance/" + eventId + "/" + producerAddress,
-        (data) => callback(data));
+    HTTPGetRequest("/api/event/balance/" + eventId + "/" + producerAddress, callback);
 }
 
 function GetAttendeeService(attendee, personalId, callback) {
-    $.get("/api/attendee/" + attendee + "/" + personalId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/attendee/" + attendee + "/" + personalId, callback);
 }
 
 function GetEventAttendeeService(eventId, attendee, personalId, callback) {
-    $.get("/api/attendee/" + eventId + "/" + attendee + "/" + personalId,
-        (data) => callback(data));
+    HTTPGetRequest("/api/attendee/" + eventId + "/" + attendee + "/" + personalId, callback);
 }
 
 function GetTxStateById(txid, callback) {
-    $.get("/api/txstatebyid/" + txid,
-        (data) => callback(data));
+    HTTPGetRequest("/api/txstatebyid/" + txid, callback);
 }
 
 function GetTxById(txid, callback) {
-    $.get("/api/txbyid/" + txid,
-        (data) => callback(data));
+    HTTPGetRequest("/api/txbyid/" + txid, callback);
 }

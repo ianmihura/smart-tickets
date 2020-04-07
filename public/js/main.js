@@ -1,8 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
-    $.ajaxSetup({
-        contentType: "application/x-www-form-urlencoded; charset=utf-8"
-    });
+// On startup app
+// Inicializators and client-side settings
 
+document.addEventListener('DOMContentLoaded', function () {
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
 
     M.Tabs.init(document.querySelectorAll('.tabs'));
@@ -11,3 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     M.Modal.init(document.querySelectorAll('.modal'));
 });
+
+function LogShow(log, show) {
+    if (log)
+        console.log(log);
+    if (show)
+        M.toast({ html: show });
+}

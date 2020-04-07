@@ -11,7 +11,7 @@ function GetAttendee(req, res) {
             match: attendeeId + ".*" + eventId
         }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
-            .catch(err => console.log(err));
+            .catch(err => res.status(400).json(err));
     } catch (err) {
         console.log("Couldn't fetch the requested attendee.", err);
     }

@@ -5,20 +5,21 @@ function OnEditAvailableTickets() {
     var ticketId = document.getElementById("ticketId").value;
     var newAmount = document.getElementById("newAmount").value;
 
-    EditAvailableTickets(this.eventId, ticketId, newAmount, EditTicketsCallback);
+    EditAvailableTickets(EventId(), ticketId, newAmount, EditTicketsCallback);
 }
 
 function EditTicketsCallback(data) {
-    if (data)
-        GetEventTicketsService(this.eventId, GetEventTicketsCallback);
+    LogShow(data, "Tickets edited successfully");
+
+    OnGetAttendeeTickets();
 }
 
 function OnCancelEvent() {
-    CancelEvent(this.eventId, CancelEventCallback);
+    CancelEvent(EventId(), CancelEventCallback);
 }
 
 function CancelEventCallback(data) {
-    M.toast({ html: 'Event was canceled' });
+    LogShow(data, "Event was canceled");
 }
 
 function OnShowFunds() {
@@ -26,22 +27,25 @@ function OnShowFunds() {
 }
 
 function _onShowFunds(data) {
-    var producerAddress = data.address;
-    GetEventBalanceService(this.eventId, producerAddress, OnShowFundsCallback);
+    GetEventBalanceService(EventId(), data.address, OnShowFundsCallback);
 }
 
 function OnShowFundsCallback(data) {
-    M.toast({ html: 'Data retrieved Successfully' });
-    if (data)
-        document.getElementById("funds").innerHTML = "The balance for this event is<br>" + data.value + " WAVES";
-    else
-        document.getElementById("funds").innerHTML = "Only the creator of the event can view the funds";
+    if (!data.value)
+        return LogShow(data, "Only the creator of the event can view the funds");
+
+    LogShow(data, "Data retrieved succesfully");
+
+    document.getElementById("funds").innerHTML = "The balance for this event is<br>" + data.value + " WAVES";
 }
 
 function OnWithdrawFunds() {
-    WithdrawFunds(this.eventId, WithdrawFundsCallback);
+    WithdrawFunds(EventId(), WithdrawFundsCallback);
 }
 
 function WithdrawFundsCallback(data) {
-    M.toast({ html: 'Withdrawal Successful!' });
+    if (!data.id)
+        return LogShow(data, "There was an error with the withdrawal");
+
+    LogShow(data, "Withdrawal Successful");
 }
