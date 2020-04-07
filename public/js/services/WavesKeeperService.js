@@ -29,6 +29,8 @@ function WavesKeeperTransactionService(txData, callback) {
                         return LogShow(err, "Waves.Keeper returned no data");
                     else if (data.code)
                         return LogShow(err, "Waves.Keeper answered with code + " + data.code);
+                    else if (typeof data == "string")
+                        data = JSON.parse(data);
 
                     AddTxToDB(data);
                     callback(data);

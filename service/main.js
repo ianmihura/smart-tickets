@@ -75,9 +75,13 @@ function _getArgs(body) {
     var index = 0;
 
     while (body[_getArgsIndex(index, "type")]) {
+        var value = body[_getArgsIndex(index, "value")];
+        value = value == "false" ? false : value;
+        console.log(value);
+
         args.push({
             type: body[_getArgsIndex(index, "type")],
-            value: body[_getArgsIndex(index, "value")]
+            value: value
         });
         index++;
     }
