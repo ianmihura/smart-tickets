@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 // App Variables
 var app = express();
@@ -12,6 +13,7 @@ var router = express.Router();
 // App Configuration
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,7 +36,8 @@ var attendeeService = require('./service/attendee');
 // API
 app.get('/api/txstatebyid/:txid', mainService.GetTxStateById);
 app.get('/api/txbyid/:txid', mainService.GetTxById);
-// app.post('/api/verify', mainService.Verify);
+app.get('/api/wallet/', mainService.GetWallet);
+app.post('/api/transaction/', mainService.PostTransaction);
 
 app.get('/api/event/', eventService.GetEvents);
 app.get('/api/event/:eventId', eventService.GetEvent);
@@ -48,7 +51,6 @@ app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTick
 app.get('/api/attendee/:attendee/', attendeeService.GetAttendee);
 app.get('/api/attendee/:attendee/:personalId', attendeeService.GetAttendee);
 app.get('/api/attendee/:eventId/:attendee/:personalId', attendeeService.GetAttendee);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

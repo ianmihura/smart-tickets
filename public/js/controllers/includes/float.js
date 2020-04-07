@@ -1,7 +1,8 @@
 // Client-side Javascript
 // Txids controller
 
-function PopulateTable() {
+function PopulateFloat() {
+    PopulateWallet();
     var txs = GetTxsFromDB();
     var table = document.getElementById("txTable");
     var tableLength = table.children[0].children.length;
@@ -15,6 +16,15 @@ function PopulateTable() {
     }
 }
 
+function PopulateWallet() {
+    var wallet = GetTestnetWallet();
+    if (!wallet.seed) return;
+
+    $("#testnetWalletSeed")[0].innerHTML = "Seed: " + wallet.seed;
+    $("#testnetWalletAddress")[0].innerHTML = "<br>Address: " + wallet.address;
+
+}
+
 function AddRowToTable(table, tx) {
     if (!tx)
         return;
@@ -25,11 +35,12 @@ function AddRowToTable(table, tx) {
     var call = row.insertCell(2);
     var datetime = row.insertCell(3);
     var statechange = row.insertCell(4);
+    var date = new Date(tx.timestamp);
 
     txid.innerHTML = tx.id;
     sender.innerHTML = tx.sender;
     call.innerHTML = tx.call.function;
-    datetime.innerHTML = new Date(tx.timestamp);
+    datetime.innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "hs";
 }
 
 function ManualAddTx() {

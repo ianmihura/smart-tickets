@@ -10,6 +10,7 @@
     "dependencies": {
         "@waves/ts-lib-crypto": "^1.4.3",
         "@waves/waves-transactions": "^3.25.3",
+        "body-parser": "^1.19.0",
         "cookie-parser": "^1.4.5",
         "debug": "~2.6.9",
         "ejs": "~2.6.1",

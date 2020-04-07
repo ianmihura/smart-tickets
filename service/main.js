@@ -1,5 +1,6 @@
-var { index, nodeInteraction } = require('@waves/waves-transactions');
-var { base58Encode, sha256, stringToBytes } = require('@waves/ts-lib-crypto');
+var { nodeInteraction, index } = require('@waves/waves-transactions');
+var waves = require('@waves/waves-transactions');
+var ts = require('@waves/ts-lib-crypto');
 const nodeUrl = "https://testnodes.wavesnodes.com";
 const dapp = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ";
 const dappM = "3MzKq9FC8GAeYxYMGZqPZzrXmRwyyK9eRtU";
@@ -37,19 +38,64 @@ function GetAttendeeId(attendee, personalId) {
         || personalId == "undefined"
         || !personalId
         ? "" : personalId;
-    return "a_" + base58Encode(sha256(stringToBytes(attendee + personalId)));
+    return "a_" + ts.base58Encode(ts.sha256(ts.stringToBytes(attendee + personalId)));
 }
 
-function Verify(req, res) {
-    // sigVerify(message, signature, publicKey);
+function GetWallet(req, res) {
+    var seed = ts.randomSeed();
 
-    // try {
-    //     index.verify(tx, 1, publicKey)
-    //         .then(wResp => res.status(200).json(wResp))
-    //         .catch(err => console.log(err));
-    // } catch (err) {
-    //     console.log("Couldn't fetch the requested transaction.", err);
-    // }
+    res.status(200).json({
+        seed: seed,
+        address: ts.address(seed, 'T')
+    });
+}
+
+function PostTransaction(req, res) {
+    try {
+        let ts = waves.invokeScript({
+            dApp: dapp,
+            call: {
+                function: req.body["txData[data][call][function]"],
+                args: _getArgs(req.body)
+            },
+            payment: _getPayment(req.body),
+            chainId: 84,
+        }, req.body.seed);
+
+        waves.broadcast(ts, nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => res.status(400).json(err));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function _getArgs(body) {
+    var args = [];
+    var index = 0;
+
+    while (body[_getArgsIndex(index, "type")]) {
+        args.push({
+            type: body[_getArgsIndex(index, "type")],
+            value: body[_getArgsIndex(index, "value")]
+        });
+        index++;
+    }
+
+    return args;
+}
+
+function _getArgsIndex(index, key) {
+    return 'txData[data][call][args][' + index + '][' + key + ']';
+}
+
+function _getPayment(body) {
+    var amount = body['txData[data][payment][0][amount]'];
+    var payment = amount ? [{
+        amount: body['txData[data][payment][0][amount]']
+    }] : [];
+
+    return payment;
 }
 
 module.exports = {
@@ -57,7 +103,8 @@ module.exports = {
     GetTxById: GetTxById,
     GetEventId: GetEventId,
     GetAttendeeId: GetAttendeeId,
-    Verify: Verify,
+    GetWallet: GetWallet,
+    PostTransaction: PostTransaction,
     dapp: dapp,
     dappM: dappM,
     oldDapp: oldDapp,

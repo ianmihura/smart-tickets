@@ -24,15 +24,33 @@ function OnCheckin() {
 }
 
 function CheckinCallback(data) {
-    $("#checkinResult")[0].innerHTML = "Checkin Succesful";
-
+    M.toast({ html: 'Checkin Succesful!' });
     OnGetAttendeeTickets();
 }
 
 function OnLogin() {
+    if (!$("#eventId")[0].value)
+        return M.toast({ html: "Please fill in the required fields" });
 
+    GetEventById($("#eventId")[0].value, LoginCallback);
+}
+
+function LoginCallback(data) {
+    if (!data || data[$("#eventId")[0].value].value != $("#producerAddress")[0].value)
+        return M.toast({ html: "Login credentials don't match the event id" });
+
+    var producerAddress = document.getElementById("producerAddress").value;
+    var producerSeed = document.getElementById("producerSeed").value;
+    SetLoginCheckin(producerAddress, producerSeed);
+
+    document.getElementById("producerSeed").value = "";
+    document.getElementById("producerAddress").value = "";
+
+    M.toast({ html: 'Login successful' });
 }
 
 function OnEndCheckin() {
+    ClearLoginCheckin();
 
+    M.toast({ html: 'Login credentials have been cleared.' });
 }

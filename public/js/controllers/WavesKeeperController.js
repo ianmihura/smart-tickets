@@ -7,13 +7,6 @@ function _getEventId(eventId) {
     return eventId[1] == "_" ? eventId : "e_" + eventId;
 }
 
-function WavesKeeperAuth() {
-    WavesKeeperAuthService({
-        data: "dappid",
-        name: "specificname"
-    });
-}
-
 function CreateEvent(title, data, date, requiresId, callback) {
     WavesKeeperTransactionService({
         type: 16,

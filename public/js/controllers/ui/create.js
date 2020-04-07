@@ -28,14 +28,15 @@ function OnCreateEvent() {
 function CreateEventCallback(data) {
     try {
         var txid = JSON.parse(data).id;
+
+        document.getElementById("txid").innerHTML = txid;
+        M.toast({ html: 'Event created succesfully' });
+
+        GetTxStateById(txid, GetTxStateByIdCallback);
     } catch (e) {
         console.log(e);
         document.getElementById("txid").innerHTML = "There was an error with the transaction. Here is the result: " + data;
     }
-
-    document.getElementById("txid").innerHTML = txid;
-
-    GetTxStateById(txid, GetTxStateByIdCallback);
 }
 
 function OnGetEventId() {
@@ -65,5 +66,6 @@ function OnCreateTicketEvent() {
 }
 
 function CreateTicketEventCallback(data) {
+    M.toast({ html: 'Ticket Created Succesfully!' });
     OnGetEventData();
 }

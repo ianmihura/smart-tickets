@@ -23,6 +23,6 @@ function OnRefund() {
 }
 
 function OnRefundCallback(data) {
+    M.toast({ html: 'Refund Successful' });
     OnGetAttendeeTickets();
-    document.getElementById("result").innerHTML = "Succesfully refunded your tickets";
 }

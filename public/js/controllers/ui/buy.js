@@ -13,7 +13,6 @@ function OnBuyTicket() {
 }
 
 function BuyTicketCallback(data) {
+    M.toast({ html: 'Bought Tickets!' });
     GetEventTicketsService(eventId, GetEventTicketsCallback);
-
-    document.getElementById("result").innerHTML = "Succesfully bought tickets";
 }

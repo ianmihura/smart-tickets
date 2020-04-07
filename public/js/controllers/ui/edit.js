@@ -18,13 +18,11 @@ function OnCancelEvent() {
 }
 
 function CancelEventCallback(data) {
-    document.getElementById("cancel").innerHTML = "Event was canceled";
+    M.toast({ html: 'Event was canceled' });
 }
 
 function OnShowFunds() {
-    WavesKeeper.auth({ data: "Show the event balance" })
-        .then(data => _onShowFunds(data))
-        .catch(err => console.log(err));
+    WavesKeeperAuth("Show the event balance", _onShowFunds);
 }
 
 function _onShowFunds(data) {
@@ -33,11 +31,11 @@ function _onShowFunds(data) {
 }
 
 function OnShowFundsCallback(data) {
+    M.toast({ html: 'Data retrieved Successfully' });
     if (data)
         document.getElementById("funds").innerHTML = "The balance for this event is<br>" + data.value + " WAVES";
     else
         document.getElementById("funds").innerHTML = "Only the creator of the event can view the funds";
-
 }
 
 function OnWithdrawFunds() {
@@ -45,5 +43,5 @@ function OnWithdrawFunds() {
 }
 
 function WithdrawFundsCallback(data) {
-    document.getElementById("cancel").innerHTML = "Withdrawal succesfull!";
+    M.toast({ html: 'Withdrawal Successful!' });
 }

@@ -3,19 +3,7 @@ extends layout
 block layout-content
     div.row
         div.col.s12.m3
-            div.card.blue-grey.darken-4
-                div.card-content.grey-text
-                    h5 Test env
-                    p This is a proof of concept.
-                    p To use the app fully:
-                    a.inlinelink(href="https://wavesplatform.com/technology/keeper") Get Waves.Keeper 
-                    p Create a testnet wallet
-                    a.inlinelink(href="https://wavesexplorer.com/testnet/faucet") Load it with free testnet tokens
-            //- div.card.blue-grey.darken-4
-            //-     div.card-content.grey-text
-            //-         h5 Alternative
-            //-         p We will create a wallet for you, load it and perform the transactions you need
-            //-         p You can still test the functionality of the app
+            include includes/testnet.pug
         div.col.s12.m6
             div.card.blue-grey.darken-3
                 div.card-content
