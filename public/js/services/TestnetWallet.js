@@ -14,13 +14,5 @@ function SignAndPublishTransaction(txData, seed, callback) {
     HTTPPostRequest("api/transaction/", {
         "txData": txData,
         "seed": seed
-    }, (data) => {
-        if (!data)
-            return LogShow(data, "HTTP post request returned empty. ");
-
-        if (data.id)
-            AddTxToDB(data);
-
-        callback(data);
-    });
+    }, (data) => callback(data));
 }

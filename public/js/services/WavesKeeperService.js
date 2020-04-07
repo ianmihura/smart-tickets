@@ -26,7 +26,7 @@ function WavesKeeperTransactionService(txData, callback) {
             WavesKeeper.signAndPublishTransaction(txData)
                 .then(data => {
                     if (!data)
-                        return LogShow(err, "Waves.Keeper returned no data");
+                        return LogShow("Waves.Keeper returned no data", "Waves.Keeper returned no data");
                     else if (data.code)
                         return LogShow(err, "Waves.Keeper answered with code + " + data.code);
                     else if (typeof data == "string")

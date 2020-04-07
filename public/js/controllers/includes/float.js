@@ -12,7 +12,7 @@ function PopulateTxFloat() {
     }
 
     for (var txid in txs) {
-        AddRowToTable(table, txs[txid]);
+        AddRowToTXTable(table, txs[txid]);
     }
 }
 
@@ -25,7 +25,7 @@ function PopulateWallet() {
 
 }
 
-function AddRowToTable(table, tx) {
+function AddRowToTXTable(table, tx) {
     if (!tx)
         return;
 
@@ -50,22 +50,33 @@ function ManualAddTx() {
 
 function ManuallAddTxCallback(data) {
     document.getElementById("txManualAdd").value = "";
-    if (!data || data.error) LogShow(data, "There was an error with the txid you gave us");
 
     AddTxToDB(data);
     PopulateTxFloat();
 }
 
 function PopulateLogFloat() {
-    // var txs = GetTxsFromDB();
-    // var table = document.getElementById("txTable");
-    // var tableLength = table.children[0].children.length;
+    var logs = GetLogsFromDB();
+    var table = document.getElementById("logTable");
+    var tableLength = table.children[0].children.length;
 
-    // for (tableLength; tableLength > 1; tableLength--) {
-    //     table.deleteRow(tableLength - 1);
-    // }
+    for (tableLength; tableLength > 1; tableLength--) {
+        table.deleteRow(tableLength - 1);
+    }
 
-    // for (var txid in txs) {
-    //     AddRowToTable(table, txs[txid]);
-    // }
+    for (var i in logs) {
+        AddRowToLogTable(table, logs[i]);
+    }
+}
+
+function AddRowToLogTable(table, log) {
+    if (!log)
+        return;
+
+    var row = table.insertRow();
+    var info = row.insertCell(0);
+    var datetime = row.insertCell(1);
+
+    info.innerHTML = JSON.stringify(log.log);
+    datetime.innerHTML = log.timestamp;
 }

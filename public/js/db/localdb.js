@@ -1,17 +1,18 @@
 // Access to localStorage
 
 const TXS = "txs";
+const LOGS = "logs";
 const TESTNET_SEED = "testnet_seed";
 const TESTNET_ADDRESS = "testnet_address";
 const CHECKIN_SEED = "checkin_seed";
 const CHECKIN_ADDRESS = "checkin_address";
 
 function GetTxsFromDB() {
-    var txs = localStorage.getItem(TXS);
     try {
         return JSON.parse(localStorage.getItem(TXS));
     } catch (err) {
         LogShow(err, "Error at database. Clear page cache to restart.");
+        return {};
     }
 }
 
@@ -29,6 +30,35 @@ function _setTxs(txs) {
 
 function ClearTxsDB() {
     delete localStorage[TXS];
+}
+
+// Log History
+function GetLogsFromDB() {
+    try {
+        return JSON.parse(localStorage.getItem(LOGS));
+    } catch (err) {
+        LogShow(err, "Error at database. Clear page cache to restart.");
+        return [];
+    }
+}
+
+function AddLogToDB(log) {
+    var logs = GetLogsFromDB();
+    if (!logs) logs = [];
+    logs.push({
+        log: log,
+        timestamp: new Date()
+    });
+
+    _setLogs(logs);
+}
+
+function _setLogs(logs) {
+    localStorage[LOGS] = JSON.stringify(logs);
+}
+
+function ClearLogsDB() {
+    delete localStorage[LOGS];
 }
 
 // Fast Checkin - Login checkin

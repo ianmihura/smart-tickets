@@ -2,27 +2,38 @@
 // Express service interaction - nodeInteraction & other
 
 function HTTPGetRequest(url, callback) {
-    $.get(url, (data) => callback(data))
-        .fail((err) => {
-            if (err.responseJSON && err.responseJSON.message)
-                LogShow(err, err.responseJSON.message);
-            else if (err.statusText)
-                LogShow(err, err.statusText);
-            else
-                LogShow(err, "HTTP post request failed");
-        });
+    $.get(url, (data) => {
+        if (JSON.stringify(data) == "{}")
+            return LogShow("Response is empty. The request data is probably incorrect.", "Response is empty. The request data is probably incorrect.");
+
+        callback(data);
+    }).fail((err) => {
+        if (err.responseJSON && err.responseJSON.message)
+            LogShow(err.responseJSON.message, err.responseJSON.message);
+        else if (err.statusText)
+            LogShow(err.statusText, err.statusText);
+        else
+            LogShow(err, "HTTP get request failed");
+    });
 }
 
 function HTTPPostRequest(url, payload, callback) {
-    $.post(url, payload, data => callback(data))
-        .fail((err) => {
-            if (err.responseJSON && err.responseJSON.message)
-                LogShow(err, err.responseJSON.message);
-            else if (err.statusText)
-                LogShow(err, err.statusText);
-            else
-                LogShow(err, "HTTP post request failed");
-        });
+    $.post(url, payload, data => {
+        if (!data || JSON.stringify(data) == "{}")
+            return LogShow("HTTP post request returned empty.", "HTTP post request returned empty.");
+
+        if (data.id)
+            AddTxToDB(data);
+
+        callback(data);
+    }).fail((err) => {
+        if (err.responseJSON && err.responseJSON.message)
+            LogShow(err.responseJSON.message, err.responseJSON.message);
+        else if (err.statusText)
+            LogShow(err.statusText, err.statusText);
+        else
+            LogShow(err, "HTTP post request failed");
+    });
 }
 
 // URL builders
