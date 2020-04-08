@@ -104,3 +104,7 @@ input[type=text]:not(.browser-default):disabled+label {
 .sidenav-icon {
     margin-right: 20px;
 }
+
+.datepicker-day-button {
+    color: black;
+}
