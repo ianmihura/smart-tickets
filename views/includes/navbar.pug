@@ -16,20 +16,32 @@ nav
             li 
                 a(href="/tickets") My Tickets
 
-ul#mobile-demo.sidenav
+ul#mobile-demo.sidenav.grey
+    li
+        div.user-view
+            a(href="#text").black-text
+                h4 Smart Tickets.
     li
         a.subheader Producer section
     li 
-        a(href="/create") Create Event
+        a(href="/create") <i class="fas fa-plus sidenav-icon"></i> Create Event
     li 
-        a(href="/edit") Edit Event
+        a(href="/edit") <i class="fas fa-edit sidenav-icon"></i> Edit Event
     li 
-        a(href="/checkin") Checkin
+        a(href="/checkin") <i class="fas fa-check sidenav-icon"></i> Checkin
     li 
         div.divider
     li
         a.subheader Attendee section
     li
-        a(href="/buy") Buy Tickets
+        a(href="/buy") <i class="fas fa-shopping-cart sidenav-icon"></i> Buy Tickets
     li 
-        a(href="/tickets") My Tickets
+        a(href="/tickets") <i class="fas fa-ticket-alt sidenav-icon"></i> My Tickets
+    li 
+        div.divider
+    li
+        a.subheader Utils
+    li
+        a(href="/") <i class="fas fa-clipboard-list sidenav-icon"></i> txid
+    li
+        a(href="/") <i class="far fa-file sidenav-icon"></i> Smart Contract

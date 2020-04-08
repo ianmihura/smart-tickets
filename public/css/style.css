@@ -88,14 +88,6 @@ input[type=text]:not(.browser-default):disabled+label {
   color: rgba(255,255,255, 0.4);
 }
 
-.sidenav {
-    background-color: rgba(100,100,100, 0.8);
-}
-
-.sidenav li>a {
-    color: var(--primary);
-}
-
 .subtitle {
     margin: 10px auto;
 }
@@ -107,4 +99,8 @@ input[type=text]:not(.browser-default):disabled+label {
 
 .modal {
     width: 85%;
+}
+
+.sidenav-icon {
+    margin-right: 20px;
 }
