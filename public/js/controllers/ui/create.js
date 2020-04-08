@@ -16,7 +16,7 @@ function OnCreateEvent() {
     var location = document.getElementById("location").value;
     var requiresId = document.getElementById("requiresId").checked;
 
-    if (!title || !description || !date || location)
+    if (!title || !description || !date || !location)
         return LogShow("", "Please fill in the required fields");
 
     CreateEvent(title, {
