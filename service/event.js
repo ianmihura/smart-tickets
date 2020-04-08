@@ -1,11 +1,12 @@
 var { nodeInteraction } = require('@waves/waves-transactions');
 var main = require('./main.js');
 
+// get events data
 function GetEvents(req, res) {
     try {
         nodeInteraction.accountData({
             address: main.dapp,
-            match: "e_.*"
+            match: "data_e_.*"
         }, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
@@ -31,10 +32,7 @@ function GetEvent(req, res) {
 function GetEventData(req, res) {
     try {
         var eventId = main.GetEventId(req.params.eventId);
-        nodeInteraction.accountData({
-            address: main.dapp,
-            match: "data.*" + eventId
-        }, main.nodeUrl)
+        nodeInteraction.accountDataByKey("data_" + eventId, main.dapp, main.nodeUrl)
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {

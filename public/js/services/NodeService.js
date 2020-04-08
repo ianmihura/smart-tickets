@@ -39,7 +39,7 @@ function HTTPPostRequest(url, payload, callback) {
 // URL builders
 
 function GetEventsService(callback) {
-    HTTPGetRequest("/api/event/data/", callback);
+    HTTPGetRequest("/api/event/", callback);
 }
 
 function GetEventById(eventId, callback) {

@@ -41,7 +41,6 @@ app.get('/api/wallet/', mainService.GetWallet);
 app.post('/api/transaction/', mainService.PostTransaction);
 
 app.get('/api/event/', eventService.GetEvents);
-app.get('/api/event/data/', eventService.GetEventData);
 app.get('/api/event/:eventId', eventService.GetEvent);
 app.get('/api/event/data/:eventId', eventService.GetEventData);
 app.get('/api/event/canceled/:eventId', eventService.GetCanceled);

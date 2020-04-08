@@ -20,10 +20,10 @@ function OnGetEventData() {
 }
 
 function GetEventDataCallback(data) {
-    if (!data["data_" + EventId()])
+    if (!data.value)
         return LogShow(data, "Event does not exist");
 
-    data = JSON.parse(data["data_" + EventId()].value);
+    data = JSON.parse(data.value);
     requiresId = data.requiresId;
     var requiresIdText = data.requiresId ? "Please bring your personal ID to the event" : "Event does not require personal ID";
 
