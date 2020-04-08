@@ -4,6 +4,13 @@
 attendeeTickets = {};
 attendeeEvents = {};
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (GetTestnetWallet().seed)
+        document.getElementById("address").value = GetTestnetWallet().address;
+
+    M.updateTextFields();
+});
+
 function OnGetAttendeeTickets() {
     var address = document.getElementById("address").value;
     var personalId = document.getElementById("personalId").value;
@@ -85,15 +92,15 @@ function GetAttendeeEventsCallback(data) {
 
 function PopulateAttendeeTickets() {
     $("#attendeeTickets").empty();
-    $("#attendeeTickets").append('<li class="collection-header"><b>(Ticket ID)</b> => Ticket details <br> Event ID</li>');
+    $("#attendeeTickets").append('<li class="collection-item grey darken-4"><b>(Ticket ID)</b> => Ticket details <br> Event ID</li>');
 
     var i = 0;
     for (var ticketId in this.attendeeTickets) {
-        $("#attendeeTickets").append('<li class="collection - item">'
-            + "<b>(" + i + ")</b> => "
-            + this.attendeeTickets[ticketId].title + "; "
-            + this.attendeeTickets[ticketId].ticketDescription + "; "
-            + this.attendeeTickets[ticketId].value + " tickets; "
+        $("#attendeeTickets").append('<li class="collection-item grey darken-4">'
+            + "<b>(" + i + ")</b> <br> "
+            + this.attendeeTickets[ticketId].title + "<br> "
+            + this.attendeeTickets[ticketId].ticketDescription + "<br> "
+            + this.attendeeTickets[ticketId].value + " tickets<br> "
             + "Event ID: e_" + ticketId.split("_")[4]
             + '</li>');
         i++;

@@ -1,4 +1,5 @@
-
+// Client-side Javascript
+// DOM elements manipulation & event listeners
 
 function OnGetTxidData() {
     var txid = $("#txidInput")[0].value;
@@ -7,6 +8,7 @@ function OnGetTxidData() {
         return LogShow("", "Please fill in the required fields");
 
     GetTxStateById(txid, GetTxidStateCallback);
+    GetTxById(txid, GetTxByIdCallback);
 }
 
 function GetTxidStateCallback(data) {
@@ -14,6 +16,11 @@ function GetTxidStateCallback(data) {
         PopulateTxidTable(data);
 
     LogShow("", "TX retrieved successfully");
+}
+
+function GetTxByIdCallback(data) {
+    if (data.id)
+        PopulateTxidCollection(data);
 }
 
 function PopulateTxidTable(data) {
@@ -43,9 +50,21 @@ function AddRowToTxidTable(table, data) {
         id.innerHTML = "Asset Transfer";
         key.innerHTML = data.address;
         value.innerHTML = data.amount;
-    } else if (data.value) {
+    } else if (data.key) {
         id.innerHTML = "State Change";
         key.innerHTML = data.key;
         value.innerHTML = data.value;
     }
+}
+
+function PopulateTxidCollection(data) {
+    var collection = $("#txidCollection")[0];
+
+    collection.innerHTML = "Sender: " + _getTxidCollectionRow(data.sender)
+        + "Function: " + _getTxidCollectionRow(data.call.function)
+        + "Time: " + _getTxidCollectionRow(new Date(data.timestamp));
+}
+
+function _getTxidCollectionRow(data) {
+    return "<li class='collection-item grey darken-4'>" + data + "</li>";
 }

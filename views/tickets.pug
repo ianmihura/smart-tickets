@@ -11,9 +11,6 @@ block layout-content
             p Please fill in the form below if you wish to refund
             p You can fetch the details of the event by using "Fetch Event"
             p Tickets of past events are non-refundable
-    hr
-    div.row
-        div.col.s6
             div.input-field
                 input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID to refund
@@ -21,6 +18,10 @@ block layout-content
                 input#amount.validate(type="number")
                 label(for="amount") Amount of tickets to refund
             a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
-        div.col.s6
+    hr
+    div.row
+        div.col.s2
+        div.col.s8
             include includes/eventData.pug
-    script(src="js/controllers/ui/refund.js")
+        div.col.s2
+    script(src="js/controllers/ui/tickets.js")

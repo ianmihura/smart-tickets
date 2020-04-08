@@ -1,14 +1,21 @@
 extends layout
 
 block layout-content
-    div.input-field
-        input#txidInput.validate(type="text")
-        label(for="txidInput") txid
-    a.waves-effect.waves-light.btn(onclick="OnGetTxidData()") Fetch txid data
-    h5 tx Information
-    p You can always find all the information of your transaction in 
-        a(href="https://wavesexplorer.com").inlinelink Waves Explorer
-    table#txidTable.highlight
+    div.row
+        div.col.s6
+            div.input-field
+                input#txidInput.validate(type="text")
+                label(for="txidInput") txid
+            a.waves-effect.waves-light.btn(onclick="OnGetTxidData()") Fetch txid data
+            h5 tx Information
+            p You can always find all the information of your transaction in 
+                a(href="https://wavesexplorer.com").inlinelink Waves Explorer
+        div.col.s6
+            ul#txidCollection.collection.highlight
+                li.collection-item.grey.darken-4 Sender
+                li.collection-item.grey.darken-4 Function
+                li.collection-item.grey.darken-4 Time
+    table#txidTable.highlight.responsive-table
         tr
             th State Change / Asset Transfer
             th Key / Address

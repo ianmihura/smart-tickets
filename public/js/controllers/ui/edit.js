@@ -11,6 +11,8 @@ function GetEventDataEditCallback(data) {
 
     eventDate = new Date(data.date).getTime();
     this.datePicker[0].setDate(eventDate);
+
+    M.updateTextFields();
 }
 
 // Edit Event Details

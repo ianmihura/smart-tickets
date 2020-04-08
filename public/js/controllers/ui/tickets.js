@@ -1,8 +1,6 @@
 // Client-side Javascript
 // DOM elements manipulation & event listeners
 
-import { isNumber } from "@waves/waves-transactions/dist/validators";
-
 function OnRefund() {
     var ticketOrder = document.getElementById("ticketId").value;
     var amount = document.getElementById("amount").value;

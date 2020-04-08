@@ -62,13 +62,6 @@ a {
 
   height: 100%;
   width: 100%;
-
-  padding: 20px;
-
-  background-size: cover;
-  background: var(--bg-color);
-
-  font-family: var(--core-font);
 }
 
 input {
@@ -97,12 +90,12 @@ input[type=text]:not(.browser-default):disabled+label {
     color: var(--primary) !important;
 }
 
-.modal {
-    width: 85%;
-}
-
 .sidenav-icon {
     margin-right: 20px;
+}
+
+.sidenav {
+    opacity: 0.9;
 }
 
 .datepicker-day-button {
