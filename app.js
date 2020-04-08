@@ -34,11 +34,12 @@ app.use('/txid', router.get('/txid', (req, res) => res.render('txid')));
 var mainService = require('./service/main');
 var eventService = require('./service/event');
 var attendeeService = require('./service/attendee');
+var txService = require('./service/tx');
 // API
 app.get('/api/txstatebyid/:txid', mainService.GetTxStateById);
 app.get('/api/txbyid/:txid', mainService.GetTxById);
 app.get('/api/wallet/', mainService.GetWallet);
-app.post('/api/transaction/', mainService.PostTransaction);
+app.post('/api/transaction/', txService.PostTransaction);
 
 app.get('/api/event/', eventService.GetEvents);
 app.get('/api/event/:eventId', eventService.GetEvent);

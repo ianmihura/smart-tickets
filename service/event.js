@@ -11,7 +11,7 @@ function GetEvents(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested event.", err);
+        console.log("Couldn't get the requested event.", err);
     }
 }
 

@@ -147,6 +147,49 @@ function CancelEvent(eventId, callback) {
     }, callback);
 }
 
+function EditEventDetails(eventId, data, date, callback) {
+    WavesKeeperTransactionService({
+        type: 16,
+        data: {
+            fee: {
+                assetId: "WAVES",
+                tokens: txFee
+            },
+            dApp: SmartTicketsDapp,
+            call: {
+                function: "editEventData",
+                args: [
+                    { type: "string", value: _getEventId(eventId) },
+                    { type: "string", value: JSON.stringify(data) },
+                    { type: "integer", value: date }
+                ]
+            },
+            payment: []
+        }
+    }, callback);
+}
+
+function EditEventOwner(eventId, newProducer, callback) {
+    WavesKeeperTransactionService({
+        type: 16,
+        data: {
+            fee: {
+                assetId: "WAVES",
+                tokens: txFee
+            },
+            dApp: SmartTicketsDapp,
+            call: {
+                function: "editEventProducer",
+                args: [
+                    { type: "string", value: _getEventId(eventId) },
+                    { type: "string", value: newProducer }
+                ]
+            },
+            payment: []
+        }
+    }, callback);
+}
+
 function EditAvailableTickets(eventId, ticketId, newAmount, callback) {
     WavesKeeperTransactionService({
         type: 16,

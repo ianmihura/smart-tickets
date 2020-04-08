@@ -166,7 +166,8 @@ func createEvent(title: String, data: String, date: Int, requiresId: Boolean) = 
 			DataEntry(getEventDataKey(event), data),
 			DataEntry(getEventDateKey(event), date),
 			DataEntry(getEventRequiresIdKey(event), requiresId),
-			DataEntry(getEventTicketsKey(event), 0)
+			DataEntry(getEventTicketsKey(event), 0),
+            DataEntry(getEventCanceledKey(event), false)
 		])
 }
 
@@ -285,6 +286,37 @@ func editEventTickets(event: String, ticketId: Int, newAmount: Int) = {
 
     else WriteSet([
         DataEntry(getEventTicketAmountKey(event, ticketId), newAmount)
+    ])
+}
+
+#Edit event owner / producer
+@Callable(i)
+func editEventProducer(event: String, newProducer: String) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+	
+    if (getEventValueById(event) != producerAddress)
+        then throw("Event does not exist, or you don't have the credentials to perform this action")
+
+    else WriteSet([
+        DataEntry(event, newProducer)
+    ])
+}
+
+#Edit event data: title, location, description, date
+@Callable(i)
+func editEventData(event: String, data: Int, date: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+
+    if (getEventValueById(event) != producerAddress)
+        then throw("Event does not exist, or you don't have the credentials to perform this action")
+    else if (date < lastBlock.timestamp)
+        then throw("Date cannot be in the past")
+    else if (date < getEventDateValue(event))
+        then throw("New date cannot be earlier that the original date")
+
+    else WriteSet([
+        DataEntry(getEventDataKey(event), data),
+        DataEntry(getEventDateKey(event), date)
     ])
 }
 

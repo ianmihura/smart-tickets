@@ -34,6 +34,9 @@ function GetEventDataCallback(data) {
         + data.location + "<br>"
         + new Date(data.date) + "<br>"
         + requiresIdText + "<br>";
+
+    if (GetEventDataEditCallback)
+        GetEventDataEditCallback(data);
 }
 
 function GetEventTicketsCallback(tickets) {

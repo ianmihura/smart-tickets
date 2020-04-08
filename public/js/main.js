@@ -1,6 +1,8 @@
 // On startup app
 // Inicializators and client-side settings
 
+var datePicker;
+
 document.addEventListener('DOMContentLoaded', function () {
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
 
@@ -11,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
     M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
 
     M.Modal.init(document.querySelectorAll('.modal'));
+
+    datePicker = M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+        format: "dd mmm, yyyy"
+    });
+
+    M.Timepicker.init(document.querySelectorAll('.timepicker'));
 });
 
 function LogShow(log, show) {

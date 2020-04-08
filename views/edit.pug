@@ -4,16 +4,42 @@ block layout-content
     div.row
         div.col.s6
             div.input-field
+                input#newTitle.validate(type="text")
+                label(for="newTitle") New Title
+            div.input-field
+                input#newDescription.validate(type="text")
+                label(for="newDescription") New Description
+            div.input-field
+                input#newDate.datepicker(type="text")
+                label(for="newDate") New Date
+            div.input-field
+                input#newTime.timepicker(type="text")
+                label(for="newTime") New Time
+            div.input-field
+                input#newLocation.validate(type="text")
+                label(for="newLocation") New Location
+            p Change one or multiple fields
+            a.waves-effect.waves-light.btn(onclick="OnEditEventDetails()") Edit Event Details
+            br
+            br
+            div.input-field
                 input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID
             div.input-field
                 input#newAmount.validate(type="number")
                 label(for="newAmount") New Amount of tickets
-            br
             a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
+            br
+            br
+            div.input-field
+                input#newProducer.validate(type="text")
+                label(for="newProducer") New Event Owner
+            a.waves-effect.waves-light.btn(onclick="OnEditEventOwner()") Change Event Owner
         div.col.s6
             include includes/eventData.pug
             br
+            p You can edit the Event Data; for security purposes you cannot change the date to an earlier date.
+            p You can edit the Event Owner / Producer to give them core permissions
             p You can edit the availability of any ticket
             p You can cancel the event - you will not be able to withdraw the funds
             p You can withdraw the funds only after the event finished
