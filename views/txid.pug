@@ -1,0 +1,14 @@
+extends layout
+
+block layout-content
+    div.input-field
+        input#newAmount.validate(type="text")
+        label(for="newAmount") txid
+    br
+    a.waves-effect.waves-light.btn(onclick="console.log()") Fetch txid data
+    table#txidTable.highlight
+        tr
+            th txid
+            th Sender
+            th Event Id
+            th State Change

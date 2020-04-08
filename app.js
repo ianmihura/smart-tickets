@@ -28,6 +28,7 @@ app.use('/edit', router.get('/edit', (req, res) => res.render('edit')));
 app.use('/checkin', router.get('/checkin', (req, res) => res.render('checkin')));
 app.use('/buy', router.get('/buy', (req, res) => res.render('buy')));
 app.use('/tickets', router.get('/tickets', (req, res) => res.render('tickets')));
+app.use('/txid', router.get('/txid', (req, res) => res.render('txid')));
 
 // Server
 var mainService = require('./service/main');
