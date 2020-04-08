@@ -1,7 +1,7 @@
 // Client-side Javascript
 // Waves Keeper Controller - txData construction
 const SmartTicketsDapp = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ";
-const txFee = "0.005";
+const txFee = "";
 
 function _getEventId(eventId) {
     return eventId[1] == "_" ? eventId : "e_" + eventId;

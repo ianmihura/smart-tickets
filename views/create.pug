@@ -46,10 +46,10 @@ block layout-content
                 input#price(type="number")
                 label(for="price") Price (WAVES)
             div.input-field
-                input#ticketAmount.validate(type="text")
+                input#ticketAmount.validate(type="number")
                 label(for="ticketAmount") Amount of tickets
             div.input-field
-                input#ticketMax.validate(type="text")
+                input#ticketMax.validate(type="number")
                 label(for="ticketMax") Max amount per purchase
             br
             a.waves-effect.waves-light.btn(onclick="OnCreateTicketEvent()") Submit

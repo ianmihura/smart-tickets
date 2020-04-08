@@ -15,10 +15,10 @@ block layout-content
     div.row
         div.col.s6
             div.input-field
-                input#ticketId.validate(type="text")
+                input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID to refund
             div.input-field
-                input#amount.validate(type="text")
+                input#amount.validate(type="number")
                 label(for="amount") Amount of tickets to refund
             a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
         div.col.s6

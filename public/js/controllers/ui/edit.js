@@ -5,6 +5,9 @@ function OnEditAvailableTickets() {
     var ticketId = document.getElementById("ticketId").value;
     var newAmount = document.getElementById("newAmount").value;
 
+    if (!ticketId || !newAmount)
+        return LogShow("", "Please fill in the required fields");
+
     EditAvailableTickets(EventId(), ticketId, newAmount, EditTicketsCallback);
 }
 

@@ -20,6 +20,9 @@ function OnCheckin() {
         i++;
     }
 
+    if (!eventId || !attendeeAddress || !ticketsToCheckin || !ticketId)
+        return LogShow("", "Please fill in the required fields");
+
     CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, CheckinCallback);
 }
 

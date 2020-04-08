@@ -4,10 +4,10 @@ block layout-content
     div.row
         div.col.s6
             div.input-field
-                input#ticketId.validate(type="text")
+                input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID
             div.input-field
-                input#newAmount.validate(type="text")
+                input#newAmount.validate(type="number")
                 label(for="newAmount") New Amount of tickets
             br
             a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets

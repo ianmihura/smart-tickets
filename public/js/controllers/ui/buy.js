@@ -9,6 +9,9 @@ function OnBuyTicket() {
     var totalPrice = amount * price;
     var personalId = requiresId ? document.getElementById("personalId").value : "";
 
+    if (!eventId || !ticketId || !amount)
+        return LogShow("", "Please fill in the required fields");
+
     BuyTickets(eventId, ticketId, amount, totalPrice, personalId, BuyTicketCallback);
 }
 

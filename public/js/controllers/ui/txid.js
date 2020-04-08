@@ -4,7 +4,7 @@ function OnGetTxidData() {
     var txid = $("#txidInput")[0].value;
 
     if (!txid)
-        return;
+        return LogShow("", "Please fill in the required fields");
 
     GetTxStateById(txid, GetTxidStateCallback);
 }

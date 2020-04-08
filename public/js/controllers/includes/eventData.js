@@ -13,6 +13,8 @@ function EventId() {
 
 function OnGetEventData() {
     eventId = document.getElementById("eventId").value;
+    if (!eventId)
+        return LogShow("", "Please fill in the required fields");
 
     GetEventDataService(EventId(), GetEventDataCallback);
     GetEventTicketsService(EventId(), GetEventTicketsCallback);

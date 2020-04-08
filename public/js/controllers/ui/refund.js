@@ -1,6 +1,8 @@
 // Client-side Javascript
 // DOM elements manipulation & event listeners
 
+import { isNumber } from "@waves/waves-transactions/dist/validators";
+
 function OnRefund() {
     var ticketOrder = document.getElementById("ticketId").value;
     var amount = document.getElementById("amount").value;
@@ -19,10 +21,20 @@ function OnRefund() {
         i++;
     }
 
-    if (!ticketId)
-        LogShow("", "The ticket Id you selected is not valid");
+    var isNotValid = _validate(_eventId, amount, personalId, ticketId);
+    if (isNotValid)
+        LogShow("", isNotValid);
     else
         RefundTicket(_eventId, amount, personalId, ticketId, OnRefundCallback);
+}
+
+function _validate(_eventId, amount, personalId, ticketId) {
+    if (!_eventId || !amount || !ticketId)
+        return "Please fill in the required fields";
+    else if (!ticketId)
+        return "The ticket Id you selected is not valid";
+    else
+        return false;
 }
 
 function OnRefundCallback(data) {

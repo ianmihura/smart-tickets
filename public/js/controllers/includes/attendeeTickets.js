@@ -7,6 +7,9 @@ attendeeEvents = {};
 function OnGetAttendeeTickets() {
     var address = document.getElementById("address").value;
     var personalId = document.getElementById("personalId").value;
+    if (!address)
+        return LogShow("", "Please fill in the required fields");
+
     attendeeTickets = {};
     attendeeEvents = {};
 
