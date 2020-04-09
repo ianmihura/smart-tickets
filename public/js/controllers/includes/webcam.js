@@ -29,8 +29,12 @@ function decodeContinuously(codeReader, selectedDeviceId) {
     });
 }
 
+let selectedDeviceId;
+function OnChangeSourceDeviceId(deviceId) {
+    selectedDeviceId = deviceId;
+}
+
 window.addEventListener('load', function () {
-    let selectedDeviceId;
     const codeReader = new ZXing.BrowserQRCodeReader();
     console.log('ZXing code reader initialized');
 
@@ -38,23 +42,22 @@ window.addEventListener('load', function () {
         .then((videoInputDevices) => {
             const sourceSelect = document.getElementById('sourceSelect');
 
+            LogShow(JSON.stringify(videoInputDevices), "Devices loged");
             if (videoInputDevices[1]) selectedDeviceId = videoInputDevices[1].deviceId;
             else selectedDeviceId = videoInputDevices[0].deviceId;
 
             if (videoInputDevices.length >= 1) {
                 videoInputDevices.forEach((element) => {
-                    const sourceOption = document.createElement('option');
+                    const sourceOption = document.createElement('a');
                     sourceOption.text = element.label;
-                    sourceOption.value = element.deviceId;
+                    sourceOption.classList.add("collection-item");
+                    sourceOption.classList.add("white-text");
+                    sourceOption.classList.add("grey");
+                    sourceOption.classList.add("darken-4");
+                    sourceOption.href = "javascript:OnChangeSourceDeviceId('" + element.deviceId + "')";
+
                     sourceSelect.appendChild(sourceOption);
                 });
-
-                sourceSelect.onchange = () => {
-                    selectedDeviceId = sourceSelect.value;
-                };
-
-                const sourceSelectPanel = document.getElementById('sourceSelectPanel');
-                sourceSelectPanel.style.display = 'block';
             }
 
             document.getElementById('startButton').addEventListener('click', () => {
