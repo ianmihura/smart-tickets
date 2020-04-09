@@ -27,8 +27,12 @@ block layout-content
             br
         div.col.s6
             p Your txid
+            a.secondary-content.waves-effect.waves-light.inline-input-button.modal-trigger(href="#qrModal" onclick="OnMakeQRCode('txid')")
+                i.far.fa-eye
             span#txid ---
             p Your Event Id
+            a.secondary-content.waves-effect.waves-light.inline-input-button.modal-trigger(href="#qrModal" onclick="OnMakeQRCode('tEventId')")
+                i.far.fa-eye
             span#tEventId ---
             br
             a.waves-effect.waves-light.btn(onclick="OnGetEventId()") Get Event Id from txid

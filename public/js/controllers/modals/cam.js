@@ -3,8 +3,10 @@
 // Author: ZXing
 
 var CalleeId = "";
+
 function SetCalleeId(id) {
     CalleeId = id;
+    document.getElementById('startButton').click();
 }
 
 function decodeOnce(codeReader, selectedDeviceId) {
@@ -73,14 +75,15 @@ window.addEventListener('load', function () {
                 });
             }
 
-            document.getElementById('startButton').addEventListener('click', () => {
-
+            function _startup() {
                 const decodeMultiple = document.getElementById('decodeMultiple').checked;
                 if (decodeMultiple) decodeContinuously(codeReader, selectedDeviceId);
                 else decodeOnce(codeReader, selectedDeviceId);
 
                 console.log(`Started decode from camera with id ${selectedDeviceId}`);
-            });
+            }
+
+            document.getElementById('startButton').addEventListener('click', _startup);
 
             document.getElementById('resetButton').addEventListener('click', () => {
                 codeReader.reset();

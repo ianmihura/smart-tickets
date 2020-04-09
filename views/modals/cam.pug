@@ -1,22 +1,22 @@
 div#camModal.modal.blue-grey.darken-3.modal-fixed-footer
     div.modal-content
-        h4 QR Scanner
+        //- h4 QR Scanner
         div.row
+            video#video(width= "250" height= "400")
             div.col.s12.m6
-                video#video(width= "300" height= "200")
                 br
                 a#startButton.waves-effect.waves-light.btn Scan
                 a#resetButton.waves-effect.waves-light.btn Ok
             div.col.s12.m6
+                pre
+                    code#result
                 p Choose a camera
                 div#sourceSelect.collection
                 label
                     input#decodeMultiple(type="checkbox")
                     span Decode Continuously
-                pre
-                    code#result
-                a.waves-effect.waves-light.btn(onclick="OnCopy('result')") Copy Text Result
     div.modal-footer.blue-grey.darken-2
         a#ok(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
+        a#ok(onclick="OnCopy('result')").waves-effect.waves-green.btn-flat.white-text.left Copy result
 script(src="https://unpkg.com/@zxing/library@latest" type="text/javascript")
 script(type="text/javascript" src="js/controllers/modals/cam.js")
