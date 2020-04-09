@@ -16,9 +16,9 @@ block layout-content
             pre
                 code#result
             a.waves-effect.waves-light.btn(onclick="OnCopy('result')") Copy Result
+            div#qrcode(style="width:100px; height:100px; margin-top:15px;")
 
     script(src="https://unpkg.com/@zxing/library@latest" type="text/javascript")
+    script(type="text/javascript" src="js/libs/classyqr.min.js")
     script(type="text/javascript" src="js/controllers/includes/webcam.js")
-    
-    
-    
+    script(type="text/javascript" src="js/controllers/includes/qrcode.js")

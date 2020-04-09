@@ -1,8 +1,12 @@
+// ZXing-js library controller
+// https://github.com/zxing-js/
+// Author: ZXing
 
 function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result);
         document.getElementById('result').textContent = result.text;
+        OnMakeQRCode('result');
     }).catch((err) => {
         console.error(err);
         document.getElementById('result').textContent = err;
