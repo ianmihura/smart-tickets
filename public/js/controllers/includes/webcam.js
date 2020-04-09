@@ -13,32 +13,18 @@ function decodeContinuously(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
             // properly decoded qr code
-            console.log('Found QR code!', result);
+            LogShow(result, 'Found QR code!');
             document.getElementById('result').textContent = result.text;
         }
 
+        // Continue errors
         if (err) {
-            // As long as this error belongs into one of the following categories
-            // the code reader is going to continue as excepted. Any other error
-            // will stop the decoding loop.
-            //
-            // Excepted Exceptions:
-            //
-            //  - NotFoundException
-            //  - ChecksumException
-            //  - FormatException
-
-            if (err instanceof ZXing.NotFoundException) {
+            if (err instanceof ZXing.NotFoundException)
                 console.log('No QR code found.');
-            }
-
-            if (err instanceof ZXing.ChecksumException) {
+            if (err instanceof ZXing.ChecksumException)
                 console.log('A code was found, but it\'s read value was not valid.');
-            }
-
-            if (err instanceof ZXing.FormatException) {
+            if (err instanceof ZXing.FormatException)
                 console.log('A code was found, but it was in a invalid format.');
-            }
         }
     });
 }
@@ -51,7 +37,10 @@ window.addEventListener('load', function () {
     codeReader.getVideoInputDevices()
         .then((videoInputDevices) => {
             const sourceSelect = document.getElementById('sourceSelect');
-            selectedDeviceId = videoInputDevices[0].deviceId;
+
+            if (videoInputDevices[1]) selectedDeviceId = videoInputDevices[1].deviceId;
+            else selectedDeviceId = videoInputDevices[0].deviceId;
+
             if (videoInputDevices.length >= 1) {
                 videoInputDevices.forEach((element) => {
                     const sourceOption = document.createElement('option');
@@ -70,13 +59,9 @@ window.addEventListener('load', function () {
 
             document.getElementById('startButton').addEventListener('click', () => {
 
-                const decodingStyle = document.getElementById('decoding-style').value;
-
-                if (decodingStyle == "once") {
-                    decodeOnce(codeReader, selectedDeviceId);
-                } else {
-                    decodeContinuously(codeReader, selectedDeviceId);
-                }
+                const isDecodeOnce = document.getElementById('decodeOnce').checked;
+                if (isDecodeOnce) decodeOnce(codeReader, selectedDeviceId);
+                else decodeContinuously(codeReader, selectedDeviceId);
 
                 console.log(`Started decode from camera with id ${selectedDeviceId}`);
             });
