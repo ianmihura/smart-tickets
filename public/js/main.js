@@ -35,5 +35,14 @@ function _log(log) {
         AddLogToDB(log.id + ": Transaction successful. Check TX History for more details.");
     else
         AddLogToDB(log);
+}
 
+function OnCopy(id) {
+    var from = document.getElementById(id);
+    var range = document.createRange();
+    window.getSelection().removeAllRanges();
+    range.selectNode(from);
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
 }

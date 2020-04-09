@@ -13,7 +13,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
             // properly decoded qr code
-            LogShow(result, 'Found QR code!');
+            LogShow("", 'Found QR code');
             document.getElementById('result').textContent = result.text;
         }
 
@@ -30,6 +30,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
 }
 
 let selectedDeviceId;
+
 function OnChangeSourceDeviceId(deviceId) {
     selectedDeviceId = deviceId;
 }
@@ -42,7 +43,6 @@ window.addEventListener('load', function () {
         .then((videoInputDevices) => {
             const sourceSelect = document.getElementById('sourceSelect');
 
-            LogShow(JSON.stringify(videoInputDevices), "Devices loged");
             if (videoInputDevices[1]) selectedDeviceId = videoInputDevices[1].deviceId;
             else selectedDeviceId = videoInputDevices[0].deviceId;
 
@@ -62,17 +62,16 @@ window.addEventListener('load', function () {
 
             document.getElementById('startButton').addEventListener('click', () => {
 
-                const isDecodeOnce = document.getElementById('decodeOnce').checked;
-                if (isDecodeOnce) decodeOnce(codeReader, selectedDeviceId);
-                else decodeContinuously(codeReader, selectedDeviceId);
+                const decodeMultiple = document.getElementById('decodeMultiple').checked;
+                if (decodeMultiple) decodeContinuously(codeReader, selectedDeviceId);
+                else decodeOnce(codeReader, selectedDeviceId);
 
                 console.log(`Started decode from camera with id ${selectedDeviceId}`);
             });
 
             document.getElementById('resetButton').addEventListener('click', () => {
                 codeReader.reset();
-                document.getElementById('result').textContent = '';
-                console.log('Reset.');
+                console.log('Closed');
             });
 
         })

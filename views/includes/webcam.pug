@@ -3,17 +3,19 @@ extends ../layout
 block layout-content
     div.row
         div.col.s12.m6
-            video#video(width="300" height="200" style="border: 1px solid gray")
-            a#startButton.waves-effect.waves-light.btn(onclick="OnScan()") Start
-            a#resetButton.waves-effect.waves-light.btn(onclick="OnScan()") Reset
+            video#video(width= "300" height= "200")
+            br
+            a#startButton.waves-effect.waves-light.btn Scan
+            a#resetButton.waves-effect.waves-light.btn Ok
         div.col.s12.m6
+            p Choose a camera
             div#sourceSelect.collection
             label
-                input#decodeOnce(type="checkbox")
-                span Decode Once
-            h5 Result:
+                input#decodeMultiple(type="checkbox")
+                span Decode Continuously
             pre
                 code#result
+            a.waves-effect.waves-light.btn(onclick="OnCopy('result')") Copy Result
 
     script(src="https://unpkg.com/@zxing/library@latest" type="text/javascript")
     script(type="text/javascript" src="js/controllers/includes/webcam.js")

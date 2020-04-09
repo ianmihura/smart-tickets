@@ -81,6 +81,10 @@ input[type=text]:not(.browser-default):disabled+label {
   color: rgba(255,255,255, 0.4);
 }
 
+#video {
+    border: 1px solid gray;
+}
+
 .subtitle {
     margin: 10px auto;
 }
