@@ -2,13 +2,22 @@
 // https://github.com/zxing-js/
 // Author: ZXing
 
+var CalleeId = "";
+function SetCalleeId(id) {
+    CalleeId = id;
+}
+
 function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result);
-        document.getElementById('result').textContent = result.text;
-        OnMakeQRCode('result');
+        if (!CalleeId)
+            document.getElementById('result').textContent = result.text;
+        else {
+            document.getElementById(CalleeId).value = result.text;
+            document.getElementById('ok').click();
+        }
     }).catch((err) => {
-        console.error(err);
+        console.log(err);
         document.getElementById('result').textContent = err;
     });
 }
@@ -33,7 +42,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
     });
 }
 
-let selectedDeviceId;
+var selectedDeviceId;
 
 function OnChangeSourceDeviceId(deviceId) {
     selectedDeviceId = deviceId;
@@ -78,8 +87,13 @@ window.addEventListener('load', function () {
                 console.log('Closed');
             });
 
+            document.getElementById('ok').addEventListener('click', () => {
+                codeReader.reset();
+                console.log('Closed');
+            });
+
         })
         .catch((err) => {
-            console.error(err);
+            console.log(err);
         });
 });

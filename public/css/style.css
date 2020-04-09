@@ -98,10 +98,23 @@ input[type=text]:not(.browser-default):disabled+label {
     margin-right: 20px;
 }
 
+.mainnav-icon {
+    margin-right: 7px;
+}
+
 .sidenav {
     opacity: 0.9;
 }
 
 .datepicker-day-button {
     color: black;
+}
+
+.inline-input-button {
+    top: -40px;
+}
+
+#utilsDropdown {
+    top: -65px;
+    width: 200px !important;
 }

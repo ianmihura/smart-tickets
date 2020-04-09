@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     M.Timepicker.init(document.querySelectorAll('.timepicker'));
+
+    $(".dropdown-trigger").dropdown();
 });
 
 function LogShow(log, show) {

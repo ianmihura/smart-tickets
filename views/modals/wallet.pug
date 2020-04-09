@@ -1,0 +1,24 @@
+
+div#walletModal.modal.blue-grey.darken-3.bottom-sheet.modal-fixed-footer
+    div.modal-content
+        h4 Your Wallet
+        div.row
+            div.col.s12.m6
+                ul.collection
+                    li.collection-item.white-text.blue-grey.darken-3 Name
+                    li.collection-item.white-text.blue-grey.darken-3 Balance
+                    li.collection-item.white-text.blue-grey.darken-3 Address
+                    li.collection-item.white-text.blue-grey.darken-3 Seed
+                a.waves-effect.waves-light.btn(onclick="OnLogout()") Logout
+            div.col.s12.m6
+                div.input-field
+                    input#walletName.validate(type="text")
+                    label(for="walletName") Name
+                div.input-field
+                    input#walletSeed.validate(type="text")
+                    label(for="walletSeed") Seed
+                a.waves-effect.waves-light.btn(onclick="OnLogin()") Login New Wallet
+    div.modal-footer.blue-grey.darken-2
+        a(href="https://wavesexplorer.com/testnet/faucet" target="blanc").waves-effect.waves-green.btn-flat.white-text Faucet
+        a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
+script(type="text/javascript" src="js/controllers/modals/wallet.js")

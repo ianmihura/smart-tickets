@@ -13,6 +13,9 @@ function OnMakeQRCode(id) {
     else
         return LogShow("", "Couldn't generate the QR code");
 
+    if ($('#qrcode')[0].children.length)
+        $('#qrcode')[0].removeChild($('#qrcode')[0].children[0]);
+
     $('#qrcode').ClassyQR({
         create: true,
         type: 'text',

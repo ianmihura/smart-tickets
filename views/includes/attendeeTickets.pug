@@ -1,6 +1,8 @@
 div.input-field
     input#address.validate(type="text")
     label(for="address") Attendee Address
+    a.secondary-content.waves-effect.waves-light.inline-input-button.modal-trigger(href="#camModal" onclick="SetCalleeId('address')")
+        i.fas.fa-qrcode
 div.input-field
     input#personalId.validate(type="text")
     label(for="personalId") Personal ID
@@ -10,6 +12,6 @@ br
 ul#attendeeTickets.collection
     li.collection-item.grey.darken-4 (Ticket ID) => Ticket details
 br
-h5#result
+
 script(src="js/controllers/includes/attendeeTickets.js")
         

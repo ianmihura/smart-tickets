@@ -1,6 +1,8 @@
 div.input-field
     input#eventId.validate(type="text")
     label(for="eventId") Event Id
+    a.secondary-content.waves-effect.waves-light.inline-input-button.modal-trigger(href="#camModal" onclick="SetCalleeId('eventId')")
+        i.fas.fa-qrcode
 a.waves-effect.waves-light.btn(onclick="OnGetEventData()") Fetch Event Data
 h4 Event
 br
@@ -9,4 +11,5 @@ ul#tickets.collection
     li.collection-item.grey.darken-4 (Ticket ID) => Ticket details
 br
 h5#canceled
+
 script(src="js/controllers/includes/eventData.js")

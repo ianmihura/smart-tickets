@@ -30,7 +30,6 @@ app.use('/buy', router.get('/buy', (req, res) => res.render('buy')));
 app.use('/tickets', router.get('/tickets', (req, res) => res.render('tickets')));
 app.use('/txid', router.get('/txid', (req, res) => res.render('txid')));
 app.use('/help', router.get('/help', (req, res) => res.render('help')));
-app.use('/includes/webcam', router.get('/webcam', (req, res) => res.render('includes/webcam')));
 
 // Server
 var mainService = require('./service/main');

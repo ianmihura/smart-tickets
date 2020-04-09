@@ -1,4 +1,15 @@
 div.navbar-fixed
+    ul#utilsDropdown.dropdown-content
+        li
+            a.modal-trigger.grey.darken-4(href="#qrModal") <i class="fas fa-qrcode sidenav-icon"></i> QR Builder
+        li
+            a.modal-trigger.grey.darken-4(href="#camModal") <i class="fas fa-camera sidenav-icon"></i> QR Scanner
+        li
+            a.grey.darken-4(href="/txid") <i class="fas fa-clipboard-list sidenav-icon"></i> tx Details
+        li
+            a.grey.darken-4(href="/contracts/dapp-v3.ride") <i class="far fa-file-code sidenav-icon"></i> Download Smart Contract
+        li
+            a.grey.darken-4(href="/help") <i class="fas fa-question sidenav-icon"></i> Help Guide
     nav
         div.nav-wrapper.blue-grey.darken-1
             a.brand-logo.center(href="/") SmartTickets.
@@ -6,16 +17,18 @@ div.navbar-fixed
                 i.fas.fa-bars
             ul#nav-mobile.left.hide-on-med-and-down
                 li 
-                    a(href="/create") Create Event
+                    a(href="/create") <i class="fas fa-plus mainnav-icon"></i> Create Event
                 li 
-                    a(href="/edit") Edit Event
+                    a(href="/edit") <i class="fas fa-edit mainnav-icon"></i> Edit Event
                 li 
-                    a(href="/checkin") Checkin
+                    a(href="/checkin") <i class="fas fa-check mainnav-icon"></i> Checkin
             ul#nav-mobile.right.hide-on-med-and-down
                 li 
-                    a(href="/buy") Buy Tickets
+                    a(href="/buy") <i class="fas fa-shopping-cart mainnav-icon"></i> Buy Tickets
                 li 
-                    a(href="/tickets") My Tickets
+                    a(href="/tickets") <i class="fas fa-ticket-alt mainnav-icon"></i> My Tickets
+                li 
+                    a.dropdown-trigger(href="#!" data-target="utilsDropdown") <i class="fas fa-tools mainnav-icon"></i> Utils <i class="fas fa-sort-down"></i>
 
 ul#mobile-demo.sidenav.grey
     li
@@ -43,10 +56,15 @@ ul#mobile-demo.sidenav.grey
     li
         a.subheader Utils
     li
-        a(href="/webcam") <i class="fas fa-qrcode sidenav-icon"></i> QR Code Scanner
+        a.modal-trigger(href="#qrModal") <i class="fas fa-qrcode sidenav-icon"></i> QR Builder
+    li
+        a.modal-trigger(href="#camModal") <i class="fas fa-camera sidenav-icon"></i> QR Scanner
     li
         a(href="/txid") <i class="fas fa-clipboard-list sidenav-icon"></i> tx Details
     li
         a(href="/contracts/dapp-v3.ride") <i class="far fa-file-code sidenav-icon"></i> Download Smart Contract
     li
         a(href="/help") <i class="fas fa-question sidenav-icon"></i> Help Guide
+
+include ../modals/cam
+include ../modals/qrcode
