@@ -22,5 +22,5 @@ function AddRowToLogTable(table, log) {
     var datetime = row.insertCell(1);
 
     info.innerHTML = JSON.stringify(log.log);
-    datetime.innerHTML = log.timestamp;
+    datetime.innerHTML = GetFormattedDate(new Date(log.timestamp));
 }

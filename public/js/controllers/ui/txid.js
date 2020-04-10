@@ -12,9 +12,14 @@ function OnGetTxidData() {
 }
 
 function GetTxidStateCallback(data) {
-    if (data.data || data.transfers)
-        PopulateTxidTable(data);
+    if (!data.data && !data.transfers)
+        LogShow("", "TX retrieved successfully");
 
+    var keyArray = data.data[0].key.split("_");
+    var _eventId = keyArray[keyArray.length - 1];
+
+    AddEventIdToTxidCollection(_eventId);
+    PopulateTxidTable(data);
     LogShow("", "TX retrieved successfully");
 }
 
@@ -52,7 +57,7 @@ function AddRowToTxidTable(table, data) {
         value.innerHTML = data.amount;
     } else if (data.key) {
         id.innerHTML = "State Change";
-        key.innerHTML = data.key;
+        key.innerHTML = data.key.split("_")[0];
         value.innerHTML = data.value;
     }
 }
@@ -60,9 +65,13 @@ function AddRowToTxidTable(table, data) {
 function PopulateTxidCollection(data) {
     var collection = $("#txidCollection")[0];
 
-    collection.innerHTML = "Sender: " + _getTxidCollectionRow(data.sender)
+    collection.innerHTML += "Sender: " + _getTxidCollectionRow(data.sender)
         + "Function: " + _getTxidCollectionRow(data.call.function)
         + "Time: " + _getTxidCollectionRow(new Date(data.timestamp));
+}
+
+function AddEventIdToTxidCollection(eventId) {
+    $("#txidCollection")[0].innerHTML += "Event ID: " + _getTxidCollectionRow("e_" + eventId);
 }
 
 function _getTxidCollectionRow(data) {

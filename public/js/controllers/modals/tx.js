@@ -35,11 +35,10 @@ function AddRowToTXTable(table, tx) {
     var call = row.insertCell(2);
     var datetime = row.insertCell(3);
 
-    var date = new Date(tx.timestamp);
     txid.innerHTML = tx.id;
     sender.innerHTML = tx.sender;
     call.innerHTML = tx.call.function;
-    datetime.innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "hs";
+    datetime.innerHTML = GetFormattedDate(new Date(tx.timestamp));
 }
 
 function ManualAddTx() {
