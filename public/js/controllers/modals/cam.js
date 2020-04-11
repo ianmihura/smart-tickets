@@ -97,6 +97,6 @@ window.addEventListener('load', function () {
 
         })
         .catch((err) => {
-            console.log(err);
+            LogShow(err, err.message);
         });
 });
