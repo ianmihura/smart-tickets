@@ -63,7 +63,7 @@ window.addEventListener('load', function () {
 
             if (videoInputDevices.length >= 1) {
                 videoInputDevices.forEach((element) => {
-                    const sourceOption = createElement('a');
+                    const sourceOption = document.createElement('a');
                     sourceOption.text = element.label;
                     sourceOption.classList.add("collection-item");
                     sourceOption.classList.add("white-text");
