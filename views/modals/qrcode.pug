@@ -2,7 +2,11 @@ div#qrModal.modal.blue-grey.darken-3.modal-fixed-footer
     div.modal-content
         h4 QR Code
         div#qrcode
-
+        a.waves-effect.waves-light.btn(onclick="OnCopy('qrText')") Copy text
+        div.input-field
+            input#qrText.validate(type="text")
+            label(for="qrText") Text
+        a.waves-effect.waves-light.btn(onclick="OnMakeQRCode('qrText')") Convert to qr
     div.modal-footer.blue-grey.darken-2
         a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
 script(type="text/javascript" src="js/libs/classyqr.min.js")

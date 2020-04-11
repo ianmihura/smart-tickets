@@ -1,7 +1,8 @@
 // classyqr.min.js plugin controller
 
 function OnMakeQRCode(id) {
-    var element = document.getElementById(id);
+    var element = getElementById(id);
+    var qrCode = getElementById("qrcode");
     var text;
 
     if (!element)
@@ -13,12 +14,14 @@ function OnMakeQRCode(id) {
     else
         return LogShow("", "Couldn't generate the QR code");
 
-    if ($('#qrcode')[0].children.length)
-        $('#qrcode')[0].removeChild($('#qrcode')[0].children[0]);
+    if (qrCode.children.length)
+        qrCode.removeChild(qrCode.children[0]);
 
     $('#qrcode').ClassyQR({
         create: true,
         type: 'text',
         text: text
     });
+
+    getElementById("qrText").value = text;
 }
