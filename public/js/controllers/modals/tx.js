@@ -2,27 +2,15 @@
 // TX modal
 
 function PopulateTxFloat() {
-    PopulateWallet();
     var txs = GetTxsFromDB();
     var table = document.getElementById("txTable");
     var tableLength = table.children[0].children.length;
 
-    for (tableLength; tableLength > 1; tableLength--) {
+    for (tableLength; tableLength > 1; tableLength--)
         table.deleteRow(tableLength - 1);
-    }
 
-    for (var txid in txs) {
+    for (var txid in txs)
         AddRowToTXTable(table, txs[txid]);
-    }
-}
-
-function PopulateWallet() {
-    var wallet = GetTestnetWallet();
-    if (!wallet.seed) return;
-
-    $("#testnetWalletSeed")[0].innerHTML = "Seed: " + wallet.seed;
-    $("#testnetWalletAddress")[0].innerHTML = "Address: " + wallet.address;
-
 }
 
 function AddRowToTXTable(table, tx) {

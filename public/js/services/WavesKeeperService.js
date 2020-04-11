@@ -3,8 +3,8 @@
 
 function WavesKeeperAuth(message, callback) {
     try {
-        if (GetTestnetWallet().seed)
-            callback(GetTestnetWallet());
+        if (GetLoginCredentials().seed)
+            callback(GetLoginCredentials());
         else
             WavesKeeper.auth({ data: message })
                 .then(data => callback(data))
@@ -16,12 +16,9 @@ function WavesKeeperAuth(message, callback) {
 
 function WavesKeeperTransactionService(txData, callback) {
     try {
-        if (GetLoginCheckin().seed) {
+        if (GetLoginCredentials().seed) {
             M.toast({ html: "Tx signed with your login credentials." });
-            SignAndPublishTransaction(txData, GetLoginCheckin().seed, callback);
-        } else if (GetTestnetWallet().seed) {
-            M.toast({ html: "Tx signed with your testnet wallet." });
-            SignAndPublishTransaction(txData, GetTestnetWallet().seed, callback);
+            SignAndPublishTransaction(txData, GetLoginCredentials().seed, callback);
         } else
             WavesKeeper.signAndPublishTransaction(txData)
                 .then(data => {

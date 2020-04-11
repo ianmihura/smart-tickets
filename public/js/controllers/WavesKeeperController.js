@@ -46,7 +46,7 @@ function CreateEventTicket(eventId, price, ticketDescription, ticketAmount, tick
                     { type: "integer", value: price },
                     { type: "string", value: ticketDescription },
                     { type: "integer", value: ticketAmount },
-                    { type: "integer", value: ticketMax }
+                    { type: "integer", value: ticketMax ? ticketMax : 0 }
                 ]
             },
             payment: []

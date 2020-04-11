@@ -40,6 +40,8 @@ var txService = require('./service/tx');
 app.get('/api/txstatebyid/:txid', mainService.GetTxStateById);
 app.get('/api/txbyid/:txid', mainService.GetTxById);
 app.get('/api/wallet/', mainService.GetWallet);
+app.get('/api/wallet/:address', mainService.GetBalance);
+app.post('/api/wallet/', mainService.GetAddress);
 app.post('/api/transaction/', txService.PostTransaction);
 
 app.get('/api/event/', eventService.GetEvents);

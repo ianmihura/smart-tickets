@@ -34,7 +34,7 @@ function CreateEventCallback(data) {
 
     LogShow(data, "Event created succesfully");
 
-    GetTxStateById(txid, GetTxStateByIdCallback);
+    OnGetEventId();
 }
 
 function OnGetEventId() {

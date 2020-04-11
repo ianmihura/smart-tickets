@@ -38,6 +38,13 @@ function HTTPPostRequest(url, payload, callback) {
 
 // URL builders
 
+function SignAndPublishTransaction(txData, seed, callback) {
+    HTTPPostRequest("api/transaction/", {
+        "txData": txData,
+        "seed": seed
+    }, (data) => callback(data));
+}
+
 function GetEventsService(callback) {
     HTTPGetRequest("/api/event/", callback);
 }
@@ -84,4 +91,16 @@ function GetTxStateById(txid, callback) {
 
 function GetTxById(txid, callback) {
     HTTPGetRequest("/api/txbyid/" + txid, callback);
+}
+
+function CreateWalletService(callback) {
+    HTTPGetRequest("/api/wallet/", callback);
+}
+
+function GetWalletBalanceService(address, callback) {
+    HTTPGetRequest("/api/wallet/" + address, callback);
+}
+
+function GetWalletAddressService(seed, callback) {
+    HTTPPostRequest("api/wallet", { seed: seed }, callback);
 }

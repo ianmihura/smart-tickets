@@ -2,10 +2,10 @@
 // DOM elements manipulation & event listeners
 
 function OnCheckin() {
-    var ticketsToCheckin = document.getElementById("ticketsToCheckin").value;
-    var attendeeAddress = document.getElementById("address").value;
-    var personalId = document.getElementById("personalId").value;
-    var ticketOrder = document.getElementById("ticketId").value;
+    var ticketsToCheckin = getElementById("ticketsToCheckin").value;
+    var attendeeAddress = getElementById("address").value;
+    var personalId = getElementById("personalId").value;
+    var ticketOrder = getElementById("ticketId").value;
 
     var eventId;
     var ticketId;
@@ -31,29 +31,7 @@ function CheckinCallback(data) {
     OnGetAttendeeTickets();
 }
 
-function OnLogin() {
-    if (!EventId())
-        return M.toast({ html: "Please fill in the required fields" });
-
-    GetEventById(EventId(), LoginCallback);
-}
-
-function LoginCallback(data) {
-    if (data[EventId()].value != $("#producerAddress")[0].value)
-        return LogShow(data, "Login credentials don't match the event id");
-
-    var producerAddress = document.getElementById("producerAddress").value;
-    var producerSeed = document.getElementById("producerSeed").value;
-    SetLoginCheckin(producerAddress, producerSeed);
-
-    document.getElementById("producerSeed").value = "";
-    document.getElementById("producerAddress").value = "";
-
-    LogShow(data, 'Login Successful');
-}
-
-function OnEndCheckin() {
-    ClearLoginCheckin();
-
+function OnCheckinLogout() {
+    ClearLoginCredentials();
     M.toast({ html: 'Login credentials have been cleared.' });
 }

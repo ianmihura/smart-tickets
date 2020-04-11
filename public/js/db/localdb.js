@@ -2,10 +2,9 @@
 
 const TXS = "txs";
 const LOGS = "logs";
-const TESTNET_SEED = "testnet_seed";
-const TESTNET_ADDRESS = "testnet_address";
-const CHECKIN_SEED = "checkin_seed";
-const CHECKIN_ADDRESS = "checkin_address";
+const WALLET_NAME = "wallet_name";
+const WALLET_ADDRESS = "wallet_address";
+const WALLET_SEED = "wallet_seed";
 
 function GetTxsFromDB() {
     try {
@@ -61,33 +60,23 @@ function ClearLogsDB() {
     delete localStorage[LOGS];
 }
 
-// Fast Checkin - Login checkin
-function SetLoginCheckin(address, seed) {
-    localStorage[CHECKIN_SEED] = seed;
-    localStorage[CHECKIN_ADDRESS] = address;
+// Wallet Login Credentials
+function SetLoginCredentials(name, address, seed) {
+    localStorage[WALLET_NAME] = name;
+    localStorage[WALLET_ADDRESS] = address;
+    localStorage[WALLET_SEED] = seed;
 }
 
-function GetLoginCheckin() {
+function GetLoginCredentials() {
     return {
-        seed: localStorage[CHECKIN_SEED],
-        address: localStorage[CHECKIN_ADDRESS]
+        name: localStorage[WALLET_NAME],
+        address: localStorage[WALLET_ADDRESS],
+        seed: localStorage[WALLET_SEED]
     };
 }
 
-function ClearLoginCheckin() {
-    delete localStorage[CHECKIN_SEED];
-    delete localStorage[CHECKIN_ADDRESS];
-}
-
-// Testnet Wallet - alternative to Waves.Keeper
-function SetTestnetWallet(address, seed) {
-    localStorage[TESTNET_ADDRESS] = address;
-    localStorage[TESTNET_SEED] = seed;
-}
-
-function GetTestnetWallet() {
-    return {
-        seed: localStorage[TESTNET_SEED],
-        address: localStorage[TESTNET_ADDRESS]
-    };
+function ClearLoginCredentials() {
+    delete localStorage[WALLET_NAME];
+    delete localStorage[WALLET_ADDRESS];
+    delete localStorage[WALLET_SEED];
 }

@@ -49,12 +49,26 @@ function GetWallet(req, res) {
     });
 }
 
+function GetBalance(req, res) {
+    nodeInteraction.balance(req.params.address, nodeUrl)
+        .then(wResp => res.status(200).json(wResp))
+        .catch(err => res.status(400).json(err));
+}
+
+function GetAddress(req, res) {
+    res.status(200).json({
+        address: ts.address(req.body["seed"], 'T')
+    });
+}
+
 module.exports = {
     GetTxStateById: GetTxStateById,
     GetTxById: GetTxById,
     GetEventId: GetEventId,
     GetAttendeeId: GetAttendeeId,
     GetWallet: GetWallet,
+    GetBalance: GetBalance,
+    GetAddress: GetAddress,
     dapp: dapp,
     dappM: dappM,
     oldDapp: oldDapp,

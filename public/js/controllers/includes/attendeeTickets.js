@@ -5,8 +5,8 @@ attendeeTickets = {};
 attendeeEvents = {};
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (GetTestnetWallet().seed)
-        document.getElementById("address").value = GetTestnetWallet().address;
+    if (GetLoginCredentials().seed)
+        document.getElementById("address").value = GetLoginCredentials().address;
 
     M.updateTextFields();
 });

@@ -223,7 +223,7 @@ func purchase(event: String, ticketId: Int, amount: Int, id: String) = {
         then throw("This event was canceled")
     else if (getEventRequiresIdValue(event) && id == "")
         then throw("This event requires that you register with a personal ID")
-    else if (getEventTicketMaxValue(event, ticketId) < getEventAttendeeValue(userAddress, id, ticketId, event) + amount)
+    else if (getEventTicketMaxValue(event, ticketId) > 0 && getEventTicketMaxValue(event, ticketId) < getEventAttendeeValue(userAddress, id, ticketId, event) + amount)
         then throw("Amount of Tickets exceeds maximum amount per attendee")
     
     else ScriptResult(
