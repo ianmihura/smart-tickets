@@ -2,7 +2,7 @@
 // DOM elements manipulation & event listeners
 
 function OnGetTxidData() {
-    var txid = $("#txidInput")[0].value;
+    var txid = getElementById("txidInput").value;
 
     if (!txid)
         return LogShow("", "Please fill in the required fields");
@@ -57,13 +57,13 @@ function AddRowToTxidTable(table, data) {
         value.innerHTML = data.amount;
     } else if (data.key) {
         id.innerHTML = "State Change";
-        key.innerHTML = data.key.split("_")[0];
+        key.innerHTML = data.key.split("_")[0] == "e" ? "owner" : data.key.split("_")[0];
         value.innerHTML = data.value;
     }
 }
 
 function PopulateTxidCollection(data) {
-    var collection = $("#txidCollection")[0];
+    var collection = getElementById("txidCollection");
 
     collection.innerHTML += "Sender: " + _getTxidCollectionRow(data.sender)
         + "Function: " + _getTxidCollectionRow(data.call.function)
@@ -71,7 +71,7 @@ function PopulateTxidCollection(data) {
 }
 
 function AddEventIdToTxidCollection(eventId) {
-    $("#txidCollection")[0].innerHTML += "Event ID: " + _getTxidCollectionRow("e_" + eventId);
+    getElementById("txidCollection").innerHTML += "Event ID: " + _getTxidCollectionRow("e_" + eventId);
 }
 
 function _getTxidCollectionRow(data) {

@@ -7,12 +7,12 @@ var ticketPrices = [];
 
 function EventId() {
     if (this.eventId) return this.eventId;
-    else if ($("#eventId")[0].value) return $("#eventId")[0].value;
+    else if (getElementById("eventId").value) return getElementById("#eventId").value;
     else return "";
 }
 
 function OnGetEventData() {
-    eventId = document.getElementById("eventId").value;
+    eventId = getElementById("eventId").value;
     if (!eventId)
         return LogShow("", "Please fill in the required fields");
 
@@ -29,7 +29,7 @@ function GetEventDataCallback(data) {
     requiresId = data.requiresId;
     var requiresIdText = data.requiresId ? "Please bring your personal ID to the event" : "Event does not require personal ID";
 
-    document.getElementById("eventDetails").innerHTML = data.title + "<br>"
+    getElementById("eventDetails").innerHTML = data.title + "<br>"
         + data.description + "<br>"
         + data.location + "<br>"
         + new Date(data.date) + "<br>"
@@ -61,7 +61,7 @@ function GetEventTicketsCallback(tickets) {
 }
 
 function GetCanceledCallback(data) {
-    document.getElementById("canceled").innerHTML = "";
+    getElementById("canceled").innerHTML = "";
 
     if (!data)
         return;
@@ -69,5 +69,5 @@ function GetCanceledCallback(data) {
     console.log("canceled event");
     console.log(data);
 
-    document.getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
+    getElementById("canceled").innerHTML = data.value ? "Event was canceled" : "Event is OK!";
 }

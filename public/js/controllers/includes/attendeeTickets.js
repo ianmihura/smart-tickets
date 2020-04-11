@@ -6,14 +6,14 @@ attendeeEvents = {};
 
 document.addEventListener('DOMContentLoaded', function () {
     if (GetLoginCredentials().seed)
-        document.getElementById("address").value = GetLoginCredentials().address;
+        getElementById("address").value = GetLoginCredentials().address;
 
     M.updateTextFields();
 });
 
 function OnGetAttendeeTickets() {
-    var address = document.getElementById("address").value;
-    var personalId = document.getElementById("personalId").value;
+    var address = getElementById("address").value;
+    var personalId = getElementById("personalId").value;
     if (!address)
         return LogShow("", "Please fill in the required fields");
 

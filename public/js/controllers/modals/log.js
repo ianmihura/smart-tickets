@@ -3,7 +3,7 @@
 
 function PopulateLogFloat() {
     var logs = GetLogsFromDB();
-    var table = document.getElementById("logTable");
+    var table = getElementById("logTable");
     var tableLength = table.children[0].children.length;
 
     for (tableLength; tableLength > 1; tableLength--)

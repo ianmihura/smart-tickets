@@ -8,7 +8,7 @@ function OnGetAllEvents() {
 function GetAllEventsCallback(data) {
     var events = {};
     var now = new Date();
-    var table = document.getElementById("eventSearch");
+    var table = getElementById("eventSearch");
     var tableLength = table.children[0].children.length;
 
     for (tableLength; tableLength > 1; tableLength--)

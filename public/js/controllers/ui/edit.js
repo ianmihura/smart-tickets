@@ -5,9 +5,9 @@ var eventDate;
 
 // Get Event Details Callback
 function GetEventDataEditCallback(data) {
-    document.getElementById("newTitle").value = data.title;
-    document.getElementById("newDescription").value = data.description;
-    document.getElementById("newLocation").value = data.location;
+    getElementById("newTitle").value = data.title;
+    getElementById("newDescription").value = data.description;
+    getElementById("newLocation").value = data.location;
 
     eventDate = new Date(data.date).getTime();
     this.datePicker[0].setDate(eventDate);
@@ -17,20 +17,20 @@ function GetEventDataEditCallback(data) {
 
 // Edit Event Details
 function OnEditEventDetails() {
-    var nTime = document.getElementById("newTime").value;
-    var nDate = document.getElementById("newDate").value;
+    var nTime = getElementById("newTime").value;
+    var nDate = getElementById("newDate").value;
     if ((!nDate && nTime) || (nDate && !nTime))
         return LogShow("", "Please fill both date and time fileds");
 
-    var newTitle = document.getElementById("newTitle").value;
-    var newDescription = document.getElementById("newDescription").value;
-    var newLocation = document.getElementById("newLocation").value;
+    var newTitle = getElementById("newTitle").value;
+    var newDescription = getElementById("newDescription").value;
+    var newLocation = getElementById("newLocation").value;
 
     if (!nTime)
         var newDate = eventDate;
     else
-        var newDate = new Date(document.getElementById("newDate").value
-            + " " + document.getElementById("newTime").value).getTime();
+        var newDate = new Date(getElementById("newDate").value
+            + " " + getElementById("newTime").value).getTime();
 
     if (!newTitle || !newDescription || !newDate || !newTime || !newLocation || !EventId())
         return LogShow("", "Please fill in the required fields");
@@ -52,7 +52,7 @@ function EditEventDetailsCallback(data) {
 
 // Edit Owner
 function OnEditEventOwner() {
-    var newProducer = document.getElementById("newProducer").value;
+    var newProducer = getElementById("newProducer").value;
 
     if (!newProducer || !EventId())
         return LogShow("", "Please fill in the required fields");
@@ -66,8 +66,8 @@ function EditEventOwnerCallback(data) {
 
 // Edit Tickets
 function OnEditAvailableTickets() {
-    var ticketId = document.getElementById("ticketId").value;
-    var newAmount = document.getElementById("newAmount").value;
+    var ticketId = getElementById("ticketId").value;
+    var newAmount = getElementById("newAmount").value;
 
     if (!ticketId || !newAmount || !EventId())
         return LogShow("", "Please fill in the required fields");

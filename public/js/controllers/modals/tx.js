@@ -3,7 +3,7 @@
 
 function PopulateTxFloat() {
     var txs = GetTxsFromDB();
-    var table = document.getElementById("txTable");
+    var table = getElementById("txTable");
     var tableLength = table.children[0].children.length;
 
     for (tableLength; tableLength > 1; tableLength--)
@@ -30,13 +30,13 @@ function AddRowToTXTable(table, tx) {
 }
 
 function ManualAddTx() {
-    var txid = document.getElementById("txManualAdd").value;
+    var txid = getElementById("txManualAdd").value;
 
     GetTxById(txid, ManuallAddTxCallback);
 }
 
 function ManuallAddTxCallback(data) {
-    document.getElementById("txManualAdd").value = "";
+    getElementById("txManualAdd").value = "";
 
     AddTxToDB(data);
     PopulateTxFloat();

@@ -3,11 +3,11 @@
 
 function OnBuyTicket() {
     var eventId = EventId();
-    var ticketId = document.getElementById("ticketId").value;
-    var amount = document.getElementById("amount").value;
+    var ticketId = getElementById("ticketId").value;
+    var amount = getElementById("amount").value;
     var price = ticketPrices[ticketId];
     var totalPrice = amount * price;
-    var personalId = requiresId ? document.getElementById("personalId").value : "";
+    var personalId = requiresId ? getElementById("personalId").value : "";
 
     if (!eventId || !ticketId || !amount)
         return LogShow("", "Please fill in the required fields");

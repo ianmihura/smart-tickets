@@ -9,12 +9,12 @@ $(document).ready(function () {
 });
 
 function OnCreateEvent() {
-    var title = document.getElementById("nameOfEvent").value;
-    var description = document.getElementById("description").value;
-    var date = new Date(document.getElementById("date").value
-        + " " + document.getElementById("time").value).getTime();
-    var location = document.getElementById("location").value;
-    var requiresId = document.getElementById("requiresId").checked;
+    var title = getElementById("nameOfEvent").value;
+    var description = getElementById("description").value;
+    var date = new Date(getElementById("date").value
+        + " " + getElementById("time").value).getTime();
+    var location = getElementById("location").value;
+    var requiresId = getElementById("requiresId").checked;
 
     if (!title || !description || !date || !location)
         return LogShow("", "Please fill in the required fields");
@@ -30,7 +30,7 @@ function OnCreateEvent() {
 
 function CreateEventCallback(data) {
     var txid = data.id;
-    document.getElementById("txid").innerHTML = txid;
+    getElementById("txid").innerHTML = txid;
 
     LogShow(data, "Event created succesfully");
 
@@ -38,22 +38,22 @@ function CreateEventCallback(data) {
 }
 
 function OnGetEventId() {
-    GetTxStateById($("#txid")[0].innerHTML, GetTxStateByIdCallback);
+    GetTxStateById(getElementById("txid").innerHTML, GetTxStateByIdCallback);
 }
 
 function GetTxStateByIdCallback(data) {
-    document.getElementById("tEventId").innerHTML = data.data[0].key;
-    document.getElementById("eventId").value = data.data[0].key;
+    getElementById("tEventId").innerHTML = data.data[0].key;
+    getElementById("eventId").value = data.data[0].key;
 
     this.OnGetEventData();
 }
 
 function OnCreateTicketEvent() {
     var eventId = EventId();
-    var ticketDescription = document.getElementById("ticketDescription").value;
-    var price = document.getElementById("price").value;
-    var ticketAmount = document.getElementById("ticketAmount").value;
-    var ticketMax = document.getElementById("ticketMax").value;
+    var ticketDescription = getElementById("ticketDescription").value;
+    var price = getElementById("price").value;
+    var ticketAmount = getElementById("ticketAmount").value;
+    var ticketMax = getElementById("ticketMax").value;
 
     CreateEventTicket(eventId, price, ticketDescription, ticketAmount, ticketMax, CreateTicketEventCallback);
 }

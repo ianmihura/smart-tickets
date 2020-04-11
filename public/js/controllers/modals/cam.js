@@ -6,21 +6,21 @@ var CalleeId = "";
 
 function SetCalleeId(id) {
     CalleeId = id;
-    document.getElementById('startButton').click();
+    getElementById('startButton').click();
 }
 
 function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result);
         if (!CalleeId)
-            document.getElementById('result').textContent = result.text;
+            getElementById('result').textContent = result.text;
         else {
-            document.getElementById(CalleeId).value = result.text;
-            document.getElementById('ok').click();
+            getElementById(CalleeId).value = result.text;
+            getElementById('ok').click();
         }
     }).catch((err) => {
         console.log(err);
-        document.getElementById('result').textContent = err;
+        getElementById('result').textContent = err;
     });
 }
 
@@ -29,7 +29,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
         if (result) {
             // properly decoded qr code
             LogShow("", 'Found QR code');
-            document.getElementById('result').textContent = result.text;
+            getElementById('result').textContent = result.text;
         }
 
         // Continue errors
@@ -56,14 +56,14 @@ window.addEventListener('load', function () {
 
     codeReader.getVideoInputDevices()
         .then((videoInputDevices) => {
-            const sourceSelect = document.getElementById('sourceSelect');
+            const sourceSelect = getElementById('sourceSelect');
 
             if (videoInputDevices[1]) selectedDeviceId = videoInputDevices[1].deviceId;
             else selectedDeviceId = videoInputDevices[0].deviceId;
 
             if (videoInputDevices.length >= 1) {
                 videoInputDevices.forEach((element) => {
-                    const sourceOption = document.createElement('a');
+                    const sourceOption = createElement('a');
                     sourceOption.text = element.label;
                     sourceOption.classList.add("collection-item");
                     sourceOption.classList.add("white-text");
@@ -76,21 +76,21 @@ window.addEventListener('load', function () {
             }
 
             function _startup() {
-                const decodeMultiple = document.getElementById('decodeMultiple').checked;
+                const decodeMultiple = getElementById('decodeMultiple').checked;
                 if (decodeMultiple) decodeContinuously(codeReader, selectedDeviceId);
                 else decodeOnce(codeReader, selectedDeviceId);
 
                 console.log(`Started decode from camera with id ${selectedDeviceId}`);
             }
 
-            document.getElementById('startButton').addEventListener('click', _startup);
+            getElementById('startButton').addEventListener('click', _startup);
 
-            document.getElementById('resetButton').addEventListener('click', () => {
+            getElementById('resetButton').addEventListener('click', () => {
                 codeReader.reset();
                 console.log('Closed');
             });
 
-            document.getElementById('ok').addEventListener('click', () => {
+            getElementById('ok').addEventListener('click', () => {
                 codeReader.reset();
                 console.log('Closed');
             });
