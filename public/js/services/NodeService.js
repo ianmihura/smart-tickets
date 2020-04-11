@@ -3,7 +3,7 @@
 
 function HTTPGetRequest(url, callback) {
     $.get(url, (data) => {
-        if (!data || JSON.stringify(data) == "{}")
+        if ((!data && data !== 0) || JSON.stringify(data) == "{}")
             return LogShow("Response is empty. The request data is probably incorrect.", "Response is empty. The request data is probably incorrect.");
 
         callback(data);

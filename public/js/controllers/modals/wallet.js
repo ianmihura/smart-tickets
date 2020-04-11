@@ -7,19 +7,21 @@ function OnWalletCreate() {
 }
 
 function WalletCreateCallback(data) {
-    SetLoginCredentials(getElementById("walletName").value, data.address, data.seed);
-
-    LogShow("", "Wallet created successfully!");
+    var name = "New Testnet Wallet";
+    SetLoginCredentials(name, data.address, data.seed);
     PopulateWalletFloat({
-        name: getElementById("walletName").value,
+        name: name,
         address: data.address,
         seed: data.seed,
         balance: 0
     });
+
+    LogShow("", "Wallet created successfully!");
 }
 
 function OnWalletLogout() {
     ClearLoginCredentials();
+    LogShow("", "Logout successful");
     PopulateWalletFloat();
 }
 
@@ -36,7 +38,8 @@ function WalletLoginCallback(data) {
 }
 
 function OnOpenWallet() {
-    GetWalletBalanceService(GetLoginCredentials().address, WalletBalanceCallback);
+    if (GetLoginCredentials().address)
+        GetWalletBalanceService(GetLoginCredentials().address, WalletBalanceCallback);
 }
 
 function WalletBalanceCallback(data) {
@@ -45,6 +48,8 @@ function WalletBalanceCallback(data) {
 
     var loginCredentials = GetLoginCredentials();
     loginCredentials.balance = data;
+
+    LogShow("", "Login successful");
     PopulateWalletFloat(loginCredentials);
 }
 
