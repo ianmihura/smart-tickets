@@ -97,6 +97,6 @@ window.addEventListener('load', function () {
 
         })
         .catch((err) => {
-            LogShow(err, err.message);
+            LogShow(err, "Unable to start camera");
         });
 });
