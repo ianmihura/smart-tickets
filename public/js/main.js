@@ -4,23 +4,20 @@
 var datePicker;
 
 document.addEventListener('DOMContentLoaded', function () {
-    M.Sidenav.init(document.querySelectorAll('.sidenav'));
-
-    M.Tabs.init(document.querySelectorAll('.tabs', {
-        swipeable: true
-    }));
-
-    M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
-
-    M.Modal.init(document.querySelectorAll('.modal'));
+    // M.Sidenav.init(document.querySelectorAll('.sidenav'));
+    // M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
+    // M.Modal.init(document.querySelectorAll('.modal'));
+    // M.Timepicker.init(document.querySelectorAll('.timepicker'));
+    // $(".dropdown-trigger").dropdown();
+    // M.Tabs.init(document.querySelectorAll('.tabs', {
+    //     swipeable: true
+    // }));
 
     datePicker = M.Datepicker.init(document.querySelectorAll('.datepicker'), {
         format: "dd mmm, yyyy"
     });
 
-    M.Timepicker.init(document.querySelectorAll('.timepicker'));
-
-    $(".dropdown-trigger").dropdown();
+    M.AutoInit();
 });
 
 function LogShow(log, show) {

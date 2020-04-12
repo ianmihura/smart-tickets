@@ -2,5 +2,80 @@ extends layout
 
 block layout-content
     div.row
-        div.col.s12
-            include includes/testnet
+        div.col.s0.m2
+        div.col.s12.m8
+            div.card.blue-grey.darken-3
+                div.card-content
+                    h1 Help guide
+                    p Smart Tickets is a project that imagines the future of ticketing for everything, from concerts to conventions, pubs, and even plane and train tickets. We record all the information in the WAVES blockchain, and the frontend app interacts with it through a Smart Contract, available for you to audit.
+                    br
+                    p Here are some of the central concepts in the app:
+                div.card-tabs
+                    ul.tabs.tabs-fixed-width.tabs-transparent
+                        li.tab
+                            a(href="#test1") Transactions
+                        li.tab
+                            a(href="#test2") Wallet
+                        li.tab
+                            a(href="#test3").active Tickets
+                div.card-content.blue-grey.darken-2
+                    div#test1
+                        p Most of the action you do are then converted to Transaction (TXs) executed in the Smart Contract. 
+                        p TXs cost a minimal fee to execute (0.005 WAVES). This does not include search for information, as Event details, ticket availability, and so on. They refer to creating and updating information in the blockchain.
+                        p As all transactions are verified by a secure signature, we guarantee a secure persistant database with no unintended "accidents", ie. no data changed by anyone who is not the original owner of that information.
+                        p In this Smart Contract, all registries are encoded the same way with a unique key. You are not required to know the concretes of these keys, except for the Event ID.
+                        br
+                        p
+                            b Event ID
+                        p When you create a new Event, you are given a unique Event ID. We recommend that you distribute this to your customers, in order to avoid forgery.
+                        p The Event ID will alway have the following form: e_{some alphanumerical code}
+                        p You can use the QR Code Builder to make it easier for your customers to find the event.
+                        br
+                        p 
+                            b txid
+                        p Every tx has a txid. You can double check the tx you performed with this txid. We log every tx we make under the "tx History" module. You can find this module on the bottom right buttom.
+                    div#test2
+                        p To perform any tx (transaction) you need a Wallet.
+                        p This means that every event you create and every ticket you buy will be assigned to your wallet. This guarantees the security of the transaction: the wallet acts as an account authorized to edit the information that it is assigned (events or tickets).
+                        br
+                        p
+                            b Wallet manager
+                        p We have provided a Wallet Manager that allows you to login and execute all the necessary transactions without confirmation every time, which is usefull if you are doing chekcin process, or creating several tickets. You can find this Manager on the bottom right floating button. We nonetheless adivce that you use the more secure Waves.Keeper.
+                        p Within this Manager, you can create a testnet wallet within the app. You can also load it with free testnet tokens through the FAUCET link.
+                        p As every crypto wallet, you have the SEED and the Address. These work as your private and public keys you don't. The address you can share safely and the SEED you want to keep secure and hidden. 
+                    div#test3
+                        p Every ticket you buy is assigned to the wallet you used to buy it.
+                        p We don't give the customer any token that they can manage, edit or trade to avoid resale and forgery. In fact, all the information is stored securely in the blockchain.
+                        p As a customer you can only consult your tickets or refund them. As an event owner or trustee you can checkin these tickets only a few hours before the event. 
+                        br
+                        p
+                            b Checkin process
+                        p The attendee will generate a Checkin Pass in the form of a Qr code once he's at the door, which authenticates their ownership of the wallet with a signed timestamp. The attendee can generate infinitely many Checkin Passes and anyone can validate them, but only the event owner or any trustee can perform the checkin transaction. This tx effectively consumes the tickets assigned to the attendee, so they cannot be reused.
+                        br
+                        p
+                            b Unique Tickets
+                        p If the event owner has allowed for Unique Tickets to be emittable, this allows the attendee to share some of his tickets with his friends. This is done by emitting a Checkin Pass for a number of tickets signed by the original owner. This Checkin Pass is universal, can be shared and is redeemable at the door only once.
+        div.col.s0.m2
+    div.row
+        div.col.s0.m2
+        div.col.s12.m8
+            div.card.blue-grey.darken-3
+                div.card-content
+                    h1 FAQ
+                    ul.collapsible
+                        li
+                            div.collapsible-header.blue-grey.darken-2
+                                p <i class="fas fa-dollar-sign sidenav-icon"></i> I cannot withdraw my balance
+                            div.collapsible-body
+                                p You can withdraw the balance only after the event has occurred, only if the event was not canceled. And then, only the event owner (producer) can effectively withdraw the funds. Also remember that balance is accumulated for each event.
+                        li
+                            div.collapsible-header.blue-grey.darken-2
+                                p <i class="fas fa-dollar-sign sidenav-icon"></i> I cannot refund my ticket
+                            div.collapsible-body
+                                p You can only refund the tickets that are assigned to your wallet. Make sure that you are using the correct wallet to sign the refund transaction, this is, the wallet you used to buy the tickets. You can only refund your tickets before the event has happened.
+                        li
+                            div.collapsible-header.blue-grey.darken-2
+                                p <i class="fas fa-clipboard-list sidenav-icon"></i> My transaction is not working
+                            div.collapsible-body
+                                p You can check for logged errors in the "log History" button, at the bottom right of the screen. If the server is not responding, it probably did not execute your transansaction. You can also check the tx History in the "Information Button".
+        div.col.s0.m2
