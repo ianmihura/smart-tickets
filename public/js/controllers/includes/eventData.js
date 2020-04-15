@@ -7,7 +7,7 @@ var ticketPrices = [];
 
 function EventId() {
     if (this.eventId) return this.eventId.replace(/\s/g, '');
-    else if (getElementById("eventId").value) return getElementById("#eventId").value.replace(/\s/g, '');
+    else if (getElementById("eventId").value) return getElementById("eventId").value.replace(/\s/g, '');
     else return "";
 }
 
