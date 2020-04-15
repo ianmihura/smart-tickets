@@ -176,7 +176,8 @@ func createEvent(title: String, data: String, date: Int, requiresId: Boolean) = 
 			DataEntry(getEventDateKey(event), date),
 			DataEntry(getEventRequiresIdKey(event), requiresId),
 			DataEntry(getEventTicketsKey(event), 0),
-            DataEntry(getEventCanceledKey(event), false)
+            DataEntry(getEventCanceledKey(event), false),
+            DataEntry(getEventTrusteeKey(event, 0), producerAddress)
 		])
 }
 
@@ -273,8 +274,8 @@ func checkin(event: String, attendeeAddress: String, amount: Int, id: String, ti
         then throw("You don't have enough tickets.")
     else if (getEventCanceledValue(event))
         then throw("This event was canceled. You can redeem your ticket using refundTicket function")
-    #else if (getEventDateValue(event) > lastBlock.timestamp + 15000000) 
-    #    then throw("This event has not yet happened")
+    else if (getEventDateValue(event) > lastBlock.timestamp + 15000000) 
+       then throw("This event has not yet happened")
         
     else WriteSet([
         DataEntry(getEventAttendeeKey(attendeeAddress, id, ticketId, event), getEventAttendeeValue(attendeeAddress, id, ticketId, event) - amount)
@@ -352,7 +353,7 @@ func refundTicket(event: String, amount: Int, id: String, ticketId: Int) = {
         then throw("The event does not exist")
     else if (attendeeValue < amount)
         then throw("You don't have enough registered tickets with this address")
-    else if (getEventDateValue(event) < lastBlock.timestamp + 15000000)
+    else if (getEventDateValue(event) < lastBlock.timestamp + 10000000)
         then throw("This event has already happened")
 
     else ScriptResult(
@@ -376,8 +377,8 @@ func withdraw(event: String) = {
         then throw("Event does not exist, or you don't have the credentials to perform this action")
     else if (balance <= 0)
         then throw("Insufficient balance")
-    #else if (getEventDateValue(event) > lastBlock.timestamp - 1000000)
-    #    then throw("Event has not yet taken place. Withdraw funds when event takes place.")
+    else if (getEventDateValue(event) > lastBlock.timestamp - 1000000)
+       then throw("Event has not yet taken place. Withdraw funds when event takes place.")
     else if (getEventCanceledValue(event))
         then throw("Event has been canceled")
 
