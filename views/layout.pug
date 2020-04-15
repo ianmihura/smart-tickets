@@ -20,11 +20,13 @@ html
         script(src="js/db/localdb.js")
     body
         div#root
-            div.View
+            div.View-disabled
                 include includes/navbar.pug
                 br
-                block layout-content
+                div.container
+                    block layout-content
         include includes/float.pug
         include includes/footer.pug
+        //- script(data-main="js/main" src="js/libs/require.min.js")
         
     

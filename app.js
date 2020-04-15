@@ -49,6 +49,7 @@ app.get('/api/event/:eventId', eventService.GetEvent);
 app.get('/api/event/data/:eventId', eventService.GetEventData);
 app.get('/api/event/canceled/:eventId', eventService.GetCanceled);
 app.get('/api/event/tickets/:eventId', eventService.GetEventTickets);
+app.get('/api/event/trustee/:eventId', eventService.GetEventTrustee);
 app.get('/api/event/ticket/:eventId/:ticketId', eventService.GetEventTicket);
 app.get('/api/event/balance/:eventId/:producerAddress', eventService.GetBalance);
 app.get('/api/event/ticket/description/:eventId/:ticketId', eventService.GetTicketDescription);

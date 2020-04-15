@@ -1,7 +1,7 @@
 // Client-side Javascript
 // Waves Keeper Controller - txData construction
 const SmartTicketsDapp = "3N1RM5X2PdS1vH3vmzRrdzQDjAUjMqk2RbJ";
-const txFee = "";
+const txFee = "0.005";
 
 function _getEventId(eventId) {
     return eventId[1] == "_" ? eventId : "e_" + eventId;
@@ -80,7 +80,29 @@ function BuyTickets(eventId, ticketId, amount, totalPrice, personalId, callback)
     }, callback);
 }
 
-function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticketId, callback) {
+function EditTrusteeService(eventId, trusteeAddress, trusteeKey, callback) {
+    WavesKeeperTransactionService({
+        type: 16,
+        data: {
+            fee: {
+                assetId: "WAVES",
+                tokens: txFee
+            },
+            dApp: SmartTicketsDapp,
+            call: {
+                function: "editEventTrustee",
+                args: [
+                    { type: "string", value: _getEventId(eventId) },
+                    { type: "string", value: trusteeAddress },
+                    { type: "integer", value: trusteeKey }
+                ]
+            },
+            payment: []
+        }
+    }, callback);
+}
+
+function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticketId, trusteeKey, callback) {
     WavesKeeperTransactionService({
         type: 16,
         data: {
@@ -96,7 +118,8 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticket
                     { type: "string", value: attendee },
                     { type: "integer", value: ticketsToCheckin },
                     { type: "string", value: personalId },
-                    { type: "integer", value: ticketId }
+                    { type: "integer", value: ticketId },
+                    { type: "integer", value: trusteeKey }
                 ]
             },
             payment: []
@@ -183,6 +206,28 @@ function EditEventOwner(eventId, newProducer, callback) {
                 args: [
                     { type: "string", value: _getEventId(eventId) },
                     { type: "string", value: newProducer }
+                ]
+            },
+            payment: []
+        }
+    }, callback);
+}
+
+function EditEventTrustee(eventId, trustee, trusteeKey, callback) {
+    WavesKeeperTransactionService({
+        type: 16,
+        data: {
+            fee: {
+                assetId: "WAVES",
+                tokens: txFee
+            },
+            dApp: SmartTicketsDapp,
+            call: {
+                function: "editEventTrustee",
+                args: [
+                    { type: "string", value: _getEventId(eventId) },
+                    { type: "string", value: trustee },
+                    { type: "integer", value: trusteeKey }
                 ]
             },
             payment: []

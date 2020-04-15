@@ -1,8 +1,13 @@
 extends layout
 
 block layout-content
+    h1.center-align Buy Tickets
     div.row
-        div.col.6s
+        div.col.12s
+            include includes/eventData.pug
+            p You can check and refund your tickets in "My Tickets" page
+            p *Please bring your personal ID to the event if so required
+        div.col.12s
             div.input-field
                 input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID
@@ -13,12 +18,20 @@ block layout-content
                 input#personalId.validate(type="text")
                 label(for="personalId") Personal ID*
             span#price(placeholder="Price")
+            br
+            br
             a.waves-effect.waves-light.btn(onclick="OnBuyTicket()") Buy
-            h5#result 
-        div.col.6s
-            include includes/eventData.pug
-            p You can check and refund your tickets in "My Tickets" page
-            p *Please bring your personal ID to the event if so required
-    include includes/eventSearch.pug
-    script(src="js/controllers/ui/buy.js")
-            
+            br
+        div.col.s12
+            h1.center-align Search Events
+            p You can search the list of all active events
+            a.waves-effect.waves-light.btn(onclick="OnGetAllEvents()") Search All Active Events
+            table#eventSearch.highlight.responsive-table
+                tr
+                    th Event Id
+                    th Title
+                    th Description
+                    th Location
+                    th Date
+    script(src="js/controllers/includes/eventSearch.js")
+    script(src="js/controllers/ui/buy.js")     

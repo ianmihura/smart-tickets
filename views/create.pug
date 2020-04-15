@@ -1,8 +1,9 @@
 extends layout
 
 block layout-content
+    h1.center-align Create Event
     div.row
-        div.col.s6
+        div.col.s12.m6
             div.input-field
                 input#nameOfEvent.validate(type="text")
                 label(for="nameOfEvent") Name of Event
@@ -25,7 +26,7 @@ block layout-content
             br
             a.waves-effect.waves-light.btn(onclick="OnCreateEvent()") Submit
             br
-        div.col.s6
+        div.col.s12.m6
             p Your txid
             a.secondary-content.waves-effect.waves-light.inline-input-button.modal-trigger(href="#qrModal" onclick="OnMakeQRCode('txid')")
                 i.far.fa-eye
@@ -36,13 +37,14 @@ block layout-content
             span#tEventId.truncate ---
             br
             a.waves-effect.waves-light.btn(onclick="OnGetEventId()") Get Event Id
-            h4 Wait for confirmation
-            p Once your event is created, create the tickets
-            p Pleace, create them one at a time
-            p Wait for the transaction to confirm in each case
+            h4 Keep the Event ID
+            p Wait for confirmation
+            p Once your event is created, you can create the tickets
+            p You can edit the event details and add trustees in the Edit page
     hr
+    h1.center-align Create Tickets
     div.row
-        div.col.6s
+        div.col.s12.m6
             div.input-field
                 input#ticketDescription.validate(type="text")
                 label(for="ticketDescription") Ticket Description
@@ -58,8 +60,10 @@ block layout-content
             br
             a.waves-effect.waves-light.btn(onclick="OnCreateTicketEvent()") Submit
             br
-        div.col.6s
+        div.col.s12.m6
             include includes/eventData.pug
+            p Pleace, create tickets one at a time
+            p Wait for the transaction to confirm in each case
             p You can edit the availability of tickets at edit page
             p You can also come back later and add further tickets
     script(src="js/controllers/ui/create.js")

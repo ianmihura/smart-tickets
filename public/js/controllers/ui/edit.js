@@ -46,7 +46,7 @@ function OnEditEventDetails() {
 function EditEventDetailsCallback(data) {
     LogShow(data, "Event details changed successfully");
 
-    OnGetEventData();
+    setTimeout(OnGetEventData, 2000);
 }
 
 
@@ -78,7 +78,7 @@ function OnEditAvailableTickets() {
 function EditTicketsCallback(data) {
     LogShow(data, "Tickets edited successfully");
 
-    OnGetAttendeeTickets();
+    setTimeout(OnGetAttendeeTickets, 2000);
 }
 
 // Cancel
@@ -123,4 +123,67 @@ function WithdrawFundsCallback(data) {
         return LogShow(data, "There was an error with the withdrawal");
 
     LogShow(data, "Withdrawal Successful");
+}
+
+// Trustee
+function OnShowStrustees() {
+    if (!EventId())
+        return LogShow("", "Please fill in the Event Id");
+
+    GetEventTrusteeService(EventId(), ShowStrusteesCallback);
+}
+
+var trustees = {};
+function ShowStrusteesCallback(data) {
+    getElementById("trustees").innerHTML = "";
+    trustees = data;
+    for (var trustee in data) {
+        AddTrusteeRow(data[trustee]);
+    }
+}
+
+function AddTrusteeRow(trustee) {
+    if (trustee.value)
+        getElementById("trustees").innerHTML += "<li class='collection-item grey darken-4'>" + trustee.value + "</li>";
+}
+
+function OnAddTrustee() {
+    var trusteeAddress = getElementById("newTrustee").value;
+
+    for (var i in trustees)
+        if (trusteeAddress == trustees[i].value)
+            return LogShow("", "The address is already a trustee");
+
+    if (!EventId(), !trusteeAddress)
+        return LogShow("", "Please fill in the required data");
+
+    EditTrusteeService(EventId(), trusteeAddress, Object.keys(trustees).length, AddTrusteeCallback);
+}
+
+function AddTrusteeCallback(data) {
+    LogShow(data, "Trustee added successfully");
+
+    setTimeout(OnShowStrustees, 2000);
+}
+
+function OnRemoveTrustee() {
+    var trusteeAddress = getElementById("newTrustee").value;
+
+    var trusteeKey = false;
+    for (var i in trustees)
+        if (trusteeAddress == trustees[i].value)
+            trusteeKey = i.split("_")[1];
+
+    if (trusteeKey === false)
+        return LogShow("", "The address is not a trustee");
+    if (!EventId(), !trusteeAddress)
+        return LogShow("", "Please fill in the required data");
+
+    EditTrusteeService(EventId(), "", trusteeKey, AddTrusteeCallback);
+}
+
+function AddTrusteeCallback(data) {
+    LogShow(data, "Trustee added successfully");
+
+    setTimeout(OnShowStrustees, 2000);
 }

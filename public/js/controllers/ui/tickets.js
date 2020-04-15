@@ -37,5 +37,5 @@ function _validate(_eventId, amount, personalId, ticketId) {
 
 function OnRefundCallback(data) {
     LogShow(data, "Refund Successful");
-    OnGetAttendeeTickets();
+    setTimeout(OnGetAttendeeTickets, 2000);
 }

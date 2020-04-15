@@ -61,6 +61,10 @@ function GetEventTicketsService(eventId, callback) {
     HTTPGetRequest("/api/event/tickets/" + eventId, callback);
 }
 
+function GetEventTrusteeService(eventId, callback) {
+    HTTPGetRequest("api/event/trustee/" + eventId, callback);
+}
+
 function GetEventTicketService(eventId, ticketId, callback) {
     HTTPGetRequest("/api/event/ticket/" + eventId + ticketId, callback);
 }

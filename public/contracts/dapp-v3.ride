@@ -19,6 +19,7 @@ let keyEventTicketMaxPrefix = "ticketMax_"
 let keyEventRequiresIdPrefix = "requiresId_"
 let keyEventTicketDescriptionPrefix = "ticketDescription_"
 let keyEventTicketsPrefix = "tickets_"
+let keyEventTrusteePrefix = "trustee_"
 let NONE = "none"
 let commission = 5
 
@@ -96,6 +97,10 @@ func getEventTicketDescriptionKey(event: String, ticketId: Int) = {
 func getEventTicketsKey(event: String) = {
     keyEventTicketsPrefix + event
 }
+#Event trustee
+func getEventTrusteeKey(event: String, trusteeKey: Int) = {
+    keyEventTrusteePrefix + trusteeKey.toString() + "_" + event
+}
 
 # Event Value => Event creator address
 func getEventValueById(item: String) = {
@@ -143,6 +148,10 @@ func getEventTicketDescriptionValue(event: String, ticketId: Int) = {
 #Total amount of tickets for the event 
 func getEventTicketsValue(event: String) = {
     getNumberByKey(getEventTicketsKey(event))
+}
+#Event trustee
+func getEventTrusteeValue(event: String, trusteeKey: Int) = {
+    getStrByKey(getEventTrusteeKey(event, trusteeKey))
 }
 
 
@@ -255,10 +264,10 @@ func cancelEvent(event: String) = {
 
 #Check-in Attendee Validator declaration
 @Callable(i)
-func checkin(event: String, attendeeAddress: String, amount: Int, id: String, ticketId: Int) = {
+func checkin(event: String, attendeeAddress: String, amount: Int, id: String, ticketId: Int, trusteeKey: Int) = {
     let callerAddress = toBase58String(i.caller.bytes)
 
-    if (getEventValueById(event) != callerAddress)
+    if (getEventValueById(event) != callerAddress && getEventTrusteeValue(event, trusteeKey) != callerAddress)
         then throw("Event does not exist, or you don't have the credentials to perform this action")
     else if (getEventAttendeeValue(attendeeAddress, id, ticketId, event) < amount)
         then throw("You don't have enough tickets.")
@@ -299,6 +308,19 @@ func editEventProducer(event: String, newProducer: String) = {
 
     else WriteSet([
         DataEntry(event, newProducer)
+    ])
+}
+
+#Edit event trustee
+@Callable(i)
+func editEventTrustee(event: String, trusteeAddress: String, trusteeKey: Int) = {
+    let producerAddress = toBase58String(i.caller.bytes)
+	
+    if (getEventValueById(event) != producerAddress)
+        then throw("Event does not exist, or you don't have the credentials to perform this action")
+
+    else WriteSet([
+        DataEntry(getEventTrusteeKey(event, trusteeKey), trusteeAddress)
     ])
 }
 

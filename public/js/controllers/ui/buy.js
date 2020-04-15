@@ -17,5 +17,5 @@ function OnBuyTicket() {
 
 function BuyTicketCallback(data) {
     LogShow(data, 'Bought Tickets!');
-    GetEventTicketsService(EventId(), GetEventTicketsCallback);
+    setTimeout(OnGetEventData, 2000);
 }

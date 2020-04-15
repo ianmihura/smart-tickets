@@ -44,7 +44,7 @@ function GetLogsFromDB() {
 function AddLogToDB(log) {
     var logs = GetLogsFromDB();
     if (!logs) logs = [];
-    logs.push({
+    logs.unshift({
         log: log,
         timestamp: new Date()
     });

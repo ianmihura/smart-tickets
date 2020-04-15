@@ -68,6 +68,20 @@ function GetEventTicket(req, res) {
     }
 }
 
+function GetEventTrustee(req, res) {
+    try {
+        var eventId = main.GetEventId(req.params.eventId);
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: "trustee.*" + eventId
+        }, main.nodeUrl)
+            .then(wResp => res.status(200).json(wResp))
+            .catch(err => res.status(400).json(err));
+    } catch (err) {
+        console.log("Couldn't fetch the requested data.", err);
+    }
+}
+
 function GetTicketDescription(req, res) {
     try {
         var key = "ticketDescription_" + req.params.ticketId + "_" + main.GetEventId(req.params.eventId);
@@ -109,5 +123,6 @@ module.exports = {
     GetBalance: GetBalance,
     GetEventTickets: GetEventTickets,
     GetEventTicket: GetEventTicket,
+    GetEventTrustee: GetEventTrustee,
     GetTicketDescription: GetTicketDescription
 };

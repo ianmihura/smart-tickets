@@ -34,7 +34,7 @@ function CreateEventCallback(data) {
 
     LogShow(data, "Event created succesfully");
 
-    OnGetEventId();
+    setTimeout(OnGetEventId, 2000);
 }
 
 function OnGetEventId() {
@@ -60,5 +60,5 @@ function OnCreateTicketEvent() {
 
 function CreateTicketEventCallback(data) {
     LogShow(data, 'Ticket Created Successfully!');
-    OnGetEventData();
+    setTimeout(OnGetEventData, 2000);
 }

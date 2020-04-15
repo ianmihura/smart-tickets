@@ -1,8 +1,26 @@
 extends layout
 
 block layout-content
+    h1.center-align Fetch Details
     div.row
-        div.col.s6
+        div.col.s12.m6
+            include includes/eventData.pug
+        div.col.s12.m6
+            p You can edit the Event Data; for security purposes you cannot change the date to an earlier date.
+            p You can edit the Event Owner / Producer to give them core permissions
+            p You can edit the availability of any ticket
+            p You can cancel the event - you will not be able to withdraw the funds
+            p You can withdraw the funds only after the event finished
+            p To create new tickets go to the create page
+            br
+            a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
+            br
+            p#funds
+            a.waves-effect.waves-light.btn(onclick="OnShowFunds()") Show Funds
+            a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
+    div.row
+        div.col.s12.m6
+            h1.center-align Edit Details
             div.input-field
                 input#newTitle.validate(type="text")
                 label(for="newTitle") New Title
@@ -20,8 +38,8 @@ block layout-content
                 label(for="newLocation") New Location
             p Change one or multiple fields
             a.waves-effect.waves-light.btn(onclick="OnEditEventDetails()") Edit Event Details
-            br
-            br
+        div.col.s12.m6
+            h1.center-align Edit Tickets
             div.input-field
                 input#ticketId.validate(type="number")
                 label(for="ticketId") Ticket ID
@@ -29,25 +47,20 @@ block layout-content
                 input#newAmount.validate(type="number")
                 label(for="newAmount") New Amount of tickets
             a.waves-effect.waves-light.btn(onclick="OnEditAvailableTickets()") Adjust Amount of Tickets
-            br
-            br
+        div.col.s12.m6
+            h1.center-align Edit Owner
             div.input-field
                 input#newProducer.validate(type="text")
                 label(for="newProducer") New Event Owner
             a.waves-effect.waves-light.btn(onclick="OnEditEventOwner()") Change Event Owner
-        div.col.s6
-            include includes/eventData.pug
-            br
-            p You can edit the Event Data; for security purposes you cannot change the date to an earlier date.
-            p You can edit the Event Owner / Producer to give them core permissions
-            p You can edit the availability of any ticket
-            p You can cancel the event - you will not be able to withdraw the funds
-            p You can withdraw the funds only after the event finished
-            p To create new tickets go to the create page
-            br
-            a.waves-effect.waves-light.btn(onclick="OnCancelEvent()") Cancel Event
-            br
-            p#funds
-            a.waves-effect.waves-light.btn(onclick="OnShowFunds()") Show Funds
-            a.waves-effect.waves-light.btn(onclick="OnWithdrawFunds()") Withdraw funds
+        div.col.s12.m6
+            h1.center-align Add Trustees
+            a.waves-effect.waves-light.btn(onclick="OnShowStrustees()") Show Trustees
+            ul#trustees.collection
+            div.input-field
+                input#newTrustee.validate(type="text")
+                label(for="newTrustee") New Trustee Address
+            a.waves-effect.waves-light.btn(onclick="OnAddTrustee()") Add Trustee
+            a.waves-effect.waves-light.btn(onclick="OnRemoveTrustee()") Remove Trustee
+
     script(src="js/controllers/ui/edit.js")

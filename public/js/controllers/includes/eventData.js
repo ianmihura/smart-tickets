@@ -6,8 +6,8 @@ var requiresId;
 var ticketPrices = [];
 
 function EventId() {
-    if (this.eventId) return this.eventId;
-    else if (getElementById("eventId").value) return getElementById("#eventId").value;
+    if (this.eventId) return this.eventId.replace(/\s/g, '');
+    else if (getElementById("eventId").value) return getElementById("#eventId").value.replace(/\s/g, '');
     else return "";
 }
 

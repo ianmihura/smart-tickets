@@ -58,7 +58,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  /* align-items: flex-start; */
 
   height: 100%;
   width: 100%;
@@ -117,4 +117,8 @@ input[type=text]:not(.browser-default):disabled+label {
 #utilsDropdown {
     top: -65px;
     width: 200px !important;
+}
+
+.select-dropdown {
+    color: black;
 }
