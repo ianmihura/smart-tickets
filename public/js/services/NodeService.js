@@ -108,3 +108,11 @@ function GetWalletBalanceService(address, callback) {
 function GetWalletAddressService(seed, callback) {
     HTTPPostRequest("api/wallet", { seed: seed }, callback);
 }
+
+function GetSignService(seed, message, callback) {
+    HTTPPostRequest("api/sign", { seed: seed, message: message }, callback);
+}
+
+function GetVerifiedService(checkinPass, callback) {
+    HTTPPostRequest("api/verify", checkinPass, callback);
+}

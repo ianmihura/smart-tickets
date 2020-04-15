@@ -1,10 +1,17 @@
 extends layout
 
 block layout-content
+    div.center-align
+        h1 Checkin
+        a.waves-effect.waves-light.btn.modal-trigger(href="#camModal" onclick="SetCalleeId('checkinPass')") Checkin Pass
+        span#checkinPass.hidden
+    br
+    hr
+    h1.center-align Manual Checkin
     div.row
-        div.col.s6
+        div.col.s12.m6
             include includes/attendeeTickets.pug
-        div.col.s6
+        div.col.s12.m6
             div.input-field
                 input#ticketId.validate(type="text")
                 label(for="ticketId") Ticket ID
@@ -18,9 +25,9 @@ block layout-content
             p If there is an event selected below, it will only show the tickets for that event
     hr
     div.row
-        div.col.s6
+        div.col.s12.m6
             include includes/eventData.pug
-        div.col.s6
+        div.col.s12.m6
             p You can login with the wallet used to create the event and the event id
             p We will store the seed locally in the app for as long as the checkin process lasts
             p This may be risky, but will make the checkin process faster

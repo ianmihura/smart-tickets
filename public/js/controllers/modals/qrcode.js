@@ -2,7 +2,6 @@
 
 function OnMakeQRCode(id) {
     var element = getElementById(id);
-    var qrCode = getElementById("qrcode");
     var text;
 
     if (!element)
@@ -14,6 +13,11 @@ function OnMakeQRCode(id) {
     else
         return LogShow("", "Couldn't generate the QR code");
 
+    OnMakeQrCodeFromText(text);
+}
+
+function OnMakeQrCodeFromText(text) {
+    var qrCode = getElementById("qrcode");
     if (qrCode.children.length)
         qrCode.removeChild(qrCode.children[0]);
 

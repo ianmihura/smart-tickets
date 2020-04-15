@@ -17,7 +17,7 @@ function WavesKeeperAuth(message, callback) {
 function WavesKeeperTransactionService(txData, callback) {
     try {
         if (GetLoginCredentials().seed) {
-            M.toast({ html: "Tx signed with your login credentials." });
+            LogShow("", "Tx signed with your login credentials.");
             SignAndPublishTransaction(txData, GetLoginCredentials().seed, callback);
         } else
             WavesKeeper.signAndPublishTransaction(txData)
@@ -38,3 +38,42 @@ function WavesKeeperTransactionService(txData, callback) {
     }
 }
 
+function WavesKeeperSingService(message, callback) {
+    try {
+        if (GetLoginCredentials().seed) {
+            LogShow("", "Tx verified with your login credentials.");
+            GetSignService(GetLoginCredentials().seed, message, callback);
+        } else
+            WavesKeeper.signCustomData({
+                version: 1,
+                binary: btoa(message)
+            }).then(data => {
+                // .. validations
+
+                callback(data);
+            }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
+    } catch (err) {
+        LogShow(err, "You probably don't have Waves.Keeper installed.");
+    }
+}
+
+function WavesKeeperVerifyService(checkinPass, callback) {
+    try {
+        if (GetLoginCredentials().seed) {
+            LogShow("", "Tx signed with your login credentials.");
+            GetVerifiedService(checkinPass, callback);
+        } else
+            WavesKeeper.verifyCustomData({
+                version: 1,
+                binary: btoa(checkinPass.message),
+                signature: checkinPass.signature,
+                publicKey: checkinPass.publicKey
+            }).then(data => {
+                // .. validations
+
+                callback(data);
+            }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
+    } catch (err) {
+        LogShow(err, "You probably don't have Waves.Keeper installed.");
+    }
+}

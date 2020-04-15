@@ -11,7 +11,7 @@ function GetEvents(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't get the requested event.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -25,7 +25,7 @@ function GetEvent(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested event.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -36,7 +36,7 @@ function GetEventData(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested event.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -50,7 +50,7 @@ function GetEventTickets(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -64,7 +64,7 @@ function GetEventTicket(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -78,7 +78,7 @@ function GetEventTrustee(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -89,7 +89,7 @@ function GetTicketDescription(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -100,7 +100,7 @@ function GetCanceled(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 
@@ -111,7 +111,7 @@ function GetBalance(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        console.log("Couldn't fetch the requested data.", err);
+        res.status(500).json(err);
     }
 }
 

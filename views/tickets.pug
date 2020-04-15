@@ -6,10 +6,21 @@ block layout-content
         div.col.s12.m6
             include includes/attendeeTickets.pug
         div.col.s12.m6
+            h4.center-align Checkin Pass
+            p Generate your Checkin Pass to check in
+            div.input-field
+                input#checkinTicket.validate(type="number")
+                label(for="checkinTicket") Ticket ID to Checkin
+            div.input-field
+                input#checkinAmount.validate(type="number")
+                label(for="checkinAmount") Amount
+            a.waves-effect.waves-light.btn(onclick="OnCreateCheckinPass()") Get Checkin Pass
+
+    hr
+    div.row
+        div.col.s12.m6
             br
-            p If there is an event selected below, it will only show the tickets for that event
             p Please fill in the form below if you wish to refund
-            p You can fetch the details of the event by using "Fetch Event"
             p Tickets of past events are non-refundable
             div.input-field
                 input#ticketId.validate(type="number")
@@ -18,10 +29,6 @@ block layout-content
                 input#amount.validate(type="number")
                 label(for="amount") Amount of tickets to refund
             a.waves-effect.waves-light.btn(onclick="OnRefund()") Refund
-    hr
-    div.row
-        div.col.s2
-        div.col.s8
+        div.col.s12.m6
             include includes/eventData.pug
-        div.col.s2
     script(src="js/controllers/ui/tickets.js")

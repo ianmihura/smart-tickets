@@ -36,13 +36,18 @@ var mainService = require('./service/main');
 var eventService = require('./service/event');
 var attendeeService = require('./service/attendee');
 var txService = require('./service/tx');
+var checkinService = require('./service/checkin');
 // API
 app.get('/api/txstatebyid/:txid', mainService.GetTxStateById);
 app.get('/api/txbyid/:txid', mainService.GetTxById);
+
 app.get('/api/wallet/', mainService.GetWallet);
 app.get('/api/wallet/:address', mainService.GetBalance);
 app.post('/api/wallet/', mainService.GetAddress);
 app.post('/api/transaction/', txService.PostTransaction);
+
+app.post('/api/sign/', checkinService.Sign);
+app.post('/api/verify/', checkinService.Verify);
 
 app.get('/api/event/', eventService.GetEvents);
 app.get('/api/event/:eventId', eventService.GetEvent);

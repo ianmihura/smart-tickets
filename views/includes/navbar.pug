@@ -1,7 +1,7 @@
 div.navbar-fixed
     ul#utilsDropdown.dropdown-content
         li
-            a.modal-trigger.grey.darken-4(href="#qrModal") <i class="fas fa-qrcode sidenav-icon"></i> QR Builder
+            a.modal-trigger.grey.darken-4(href="#qrModal" onclick="SetCalleeId('')") <i class="fas fa-qrcode sidenav-icon"></i> QR Builder
         li
             a.modal-trigger.grey.darken-4(href="#camModal") <i class="fas fa-camera sidenav-icon"></i> QR Scanner
         li
@@ -58,7 +58,7 @@ ul#mobile-demo.sidenav.grey
     li
         a.modal-trigger(href="#qrModal") <i class="fas fa-qrcode sidenav-icon"></i> QR Builder
     li
-        a.modal-trigger(href="#camModal") <i class="fas fa-camera sidenav-icon"></i> QR Scanner
+        a.modal-trigger(href="#camModal" onclick="SetCalleeId('')") <i class="fas fa-camera sidenav-icon"></i> QR Scanner
     li
         a(href="/txid") <i class="fas fa-clipboard-list sidenav-icon"></i> tx Details
     li

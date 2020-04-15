@@ -48,3 +48,32 @@ function OnCheckinLogout() {
     ClearLoginCredentials();
     LogShow("", 'Login credentials have been cleared.!');
 }
+
+// Checkin pass
+function OnCheckinPass(checkinPass) {
+    checkinPass = typeof checkinPass == "string" ? JSON.parse(checkinPass) : checkinPass;
+    if (!checkinPass.message || !checkinPass.signature || !checkinPass.publicKey)
+        return LogShow("", "CheckinPass format not valid");
+
+    WavesKeeperVerifyService(checkinPass, VerifyCallback);
+}
+
+function VerifyCallback(data) {
+    if (!data.verify)
+        return LogShow("", "Checkin Pass Signature Failed");
+    console.log(data);
+
+    var message = data.message.split(",");
+    var eventId = message[0];
+    var ticketId = message[1];
+    var amount = message[2];
+    var address = data.address;
+    var personalId = "";
+    var trusteeKey = "";
+
+    CheckinAttendee(eventId, address, amount, personalId, ticketId, trusteeKey, CheckinPassCallback);
+}
+
+function CheckinPassCallback(data) {
+
+}

@@ -16,6 +16,8 @@ function decodeOnce(codeReader, selectedDeviceId) {
             getElementById('result').textContent = result.text;
         else {
             getElementById(CalleeId).value = result.text;
+            if (CalleeId == "checkinPass")
+                OnCheckinPass(result.text);
             getElementById('ok').click();
         }
     }).catch((err) => {

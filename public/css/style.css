@@ -122,3 +122,7 @@ input[type=text]:not(.browser-default):disabled+label {
 .select-dropdown {
     color: black;
 }
+
+.hidden {
+    display: none;
+}
