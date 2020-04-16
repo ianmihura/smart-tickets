@@ -24,8 +24,8 @@ function OnCreateEvent() {
         date: date,
         description: description,
         location: location,
-        requiresId: requiresId
-    }, date, requiresId, CreateEventCallback);
+        requiresId: false
+    }, date, false, CreateEventCallback);
 }
 
 function CreateEventCallback(data) {

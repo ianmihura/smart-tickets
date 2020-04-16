@@ -5,6 +5,7 @@ const LOGS = "logs";
 const WALLET_NAME = "wallet_name";
 const WALLET_ADDRESS = "wallet_address";
 const WALLET_SEED = "wallet_seed";
+const TRUSTEE_ID = "trustee_id";
 
 function GetTxsFromDB() {
     try {
@@ -79,4 +80,17 @@ function ClearLoginCredentials() {
     delete localStorage[WALLET_NAME];
     delete localStorage[WALLET_ADDRESS];
     delete localStorage[WALLET_SEED];
+}
+
+// Trustee Id
+function SetTrusteeId(trusteeId) {
+    localStorage[TRUSTEE_ID] = trusteeId;
+}
+
+function GetTrusteeId() {
+    return localStorage[TRUSTEE_ID];
+}
+
+function ClearTrusteeId() {
+    delete localStorage[TRUSTEE_ID];
 }

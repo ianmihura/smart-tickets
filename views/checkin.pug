@@ -7,6 +7,13 @@ block layout-content
         span#checkinPass.hidden
     br
     hr
+    br
+    div.center-align
+        a.waves-effect.waves-light.btn(onclick="OnLoginTrustee()") Login with wallet
+        a.waves-effect.waves-light.btn.modal-trigger(href="#walletModal" onclick="OnOpenWallet()") Open Wallet
+        a.waves-effect.waves-light.btn(onclick="OnCheckinLogout()") Logout
+    br
+    hr
     h1.center-align Manual Checkin
     div.row
         div.col.s12.m6
@@ -32,6 +39,4 @@ block layout-content
             p We will store the seed locally in the app for as long as the checkin process lasts
             p This may be risky, but will make the checkin process faster
             p You can end the checkin process with the following button
-            a.waves-effect.waves-light.btn.modal-trigger(href="#walletModal" onclick="OnOpenWallet()") Login
-            a.waves-effect.waves-light.btn(onclick="OnCheckinLogout()") Logout
     script(src="js/controllers/ui/checkin.js")

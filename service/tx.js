@@ -17,7 +17,8 @@ function PostTransaction(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).send(err);
     }
 }
 
@@ -28,7 +29,6 @@ function _getArgs(body) {
     while (body[_getArgsIndex(index, "type")]) {
         var value = body[_getArgsIndex(index, "value")];
         value = value == "false" ? false : value;
-        console.log(value);
 
         args.push({
             type: body[_getArgsIndex(index, "type")],

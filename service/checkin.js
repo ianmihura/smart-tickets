@@ -11,7 +11,7 @@ function Sign(req, res) {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json(err);
+        res.status(500).send(err);
     }
 }
 
@@ -24,7 +24,7 @@ function Verify(req, res) {
             address: ts.address({ publicKey: req.body.publicKey }, ts.TEST_NET_CHAIN_ID)
         });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).send(err);
     }
 }
 

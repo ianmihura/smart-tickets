@@ -4,6 +4,29 @@
 var eventId = EventId();
 var ticketId;
 
+// Login Trustee
+function OnLoginTrustee() {
+    GetEventTrusteeService(EventId(), LoginTrusteeCallback);
+}
+
+function LoginTrusteeCallback(data) {
+    for (var trusteeKey in data) {
+        if (data[trusteeKey].value == GetLoginCredentials().address) {
+            LogShow("", 'Login Trustee Successfull');
+            return SetTrusteeId(trusteeKey.split("_")[1]);
+        }
+    }
+
+    LogShow("", 'Address Not Found in the Trustee list');
+}
+
+function OnCheckinLogout() {
+    ClearLoginCredentials();
+    ClearTrusteeId();
+    LogShow("", 'Login credentials have been cleared.!');
+}
+
+// Manual Checkin
 function OnCheckin() {
     var ticketOrder = getElementById("ticketId").value;
     var i = 0;
@@ -17,26 +40,13 @@ function OnCheckin() {
         i++;
     }
 
+    var personalId = getElementById("personalId").value;
     var ticketsToCheckin = getElementById("ticketsToCheckin").value;
     var attendeeAddress = getElementById("address").value;
     if (!eventId || !attendeeAddress || !ticketsToCheckin || !ticketId)
         return LogShow("", "Please fill in the required fields");
 
-    GetEventTrusteeService(eventId, TrusteeKeyCallback);
-}
-
-function TrusteeKeyCallback(data) {
-    for (var trusteeKey in data) {
-        if (data[trusteeKey].value != GetLoginCredentials().address)
-            continue;
-
-        var ticketsToCheckin = getElementById("ticketsToCheckin").value;
-        var attendeeAddress = getElementById("address").value;
-        var personalId = getElementById("personalId").value;
-
-        CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, trusteeKey.split("_")[1], CheckinCallback);
-        break;
-    }
+    CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, GetTrusteeId(), CheckinCallback);
 }
 
 function CheckinCallback(data) {
@@ -44,14 +54,10 @@ function CheckinCallback(data) {
     setTimeout(OnGetAttendeeTickets, 2000);
 }
 
-function OnCheckinLogout() {
-    ClearLoginCredentials();
-    LogShow("", 'Login credentials have been cleared.!');
-}
-
 // Checkin pass
-function OnCheckinPass(checkinPass) {
-    checkinPass = typeof checkinPass == "string" ? JSON.parse(checkinPass) : checkinPass;
+function OnCheckinPass(_checkinPass) {
+    var checkinPass = typeof _checkinPass == "string" ? JSON.parse(_checkinPass) : _checkinPass;
+
     if (!checkinPass.message || !checkinPass.signature || !checkinPass.publicKey)
         return LogShow("", "CheckinPass format not valid");
 
@@ -59,9 +65,8 @@ function OnCheckinPass(checkinPass) {
 }
 
 function VerifyCallback(data) {
-    if (!data.verify)
+    if (data.verify === false)
         return LogShow("", "Checkin Pass Signature Failed");
-    console.log(data);
 
     var message = data.message.split(",");
     var eventId = message[0];
@@ -69,11 +74,14 @@ function VerifyCallback(data) {
     var amount = message[2];
     var address = data.address;
     var personalId = "";
-    var trusteeKey = "";
+    var trusteeKey = GetTrusteeId();
+
+    if (!eventId || !amount || !address || !ticketId)
+        return LogShow("", "Checkin Pass Error");
 
     CheckinAttendee(eventId, address, amount, personalId, ticketId, trusteeKey, CheckinPassCallback);
 }
 
 function CheckinPassCallback(data) {
-
+    LogShow(data, "Checkin Succesfull");
 }
