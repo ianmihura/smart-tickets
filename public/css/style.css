@@ -127,6 +127,6 @@ input[type=text]:not(.browser-default):disabled+label {
     display: none;
 }
 
-#eventSearch td:hover {
+.clickable :hover {
     cursor: pointer;
 }

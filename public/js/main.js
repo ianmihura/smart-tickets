@@ -36,7 +36,23 @@ function _log(log) {
         AddLogToDB(log);
 }
 
-function OnCopy(id) {
+function OnCopy(text, isId) {
+    if (isId)
+        return _onCopyId(isId);
+
+    const el = document.createElement('textarea');
+    var range = document.createRange();
+    document.body.appendChild(el);
+    el.innerText = text;
+    window.getSelection().removeAllRanges();
+    range.selectNode(el);
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    document.body.removeChild(el);
+}
+
+function _onCopy() {
     var from = getElementById(id);
     var range = document.createRange();
     window.getSelection().removeAllRanges();

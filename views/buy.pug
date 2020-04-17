@@ -26,7 +26,7 @@ block layout-content
             h1.center-align Search Events
             p You can search the list of all active events
             a.waves-effect.waves-light.btn(onclick="OnGetAllEvents()") Search All Active Events
-            table#eventSearch.highlight.responsive-table
+            table#eventSearch.highlight.responsive-table.clickable
                 tr
                     th Event Id
                     th Title
@@ -36,7 +36,7 @@ block layout-content
     div#purchaseConfirm.modal.blue-grey.darken-3
         div.modal-content
             h4 Confirm Purchase
-            table#purchaseTable.highlight
+            table#purchaseTable.highlight.responsive-table
                 tr
                     th Event ID
                     th Ticket

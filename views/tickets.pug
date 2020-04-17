@@ -23,6 +23,9 @@ block layout-content
             p Please fill in the form below if you wish to refund
             p Tickets of past events are non-refundable
             div.input-field
+                input#refundTxid.validate(type="text")
+                label(for="refundTxid") Txid
+            div.input-field
                 input#refundTicketId.validate(type="number")
                 label(for="refundTicketId") Ticket ID to refund
             div.input-field

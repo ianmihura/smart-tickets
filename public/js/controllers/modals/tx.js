@@ -11,6 +11,8 @@ function PopulateTxFloat() {
 
     for (var txid in txs)
         AddRowToTXTable(table, txs[txid]);
+
+    AddEventListener();
 }
 
 function AddRowToTXTable(table, tx) {
@@ -23,10 +25,20 @@ function AddRowToTXTable(table, tx) {
     var call = row.insertCell(2);
     var datetime = row.insertCell(3);
 
-    txid.innerHTML = tx.id;
+    txid.innerHTML = "<a href='#'>" + tx.id + "</a>";
     sender.innerHTML = tx.sender;
     call.innerHTML = tx.call.function;
     datetime.innerHTML = GetFormattedDate(new Date(tx.timestamp));
+}
+
+function AddEventListener() {
+    $('#txTable tr').on("click", (e) => {
+        e.stopPropagation();
+        var aText = e.target.parentElement.getElementsByTagName("a")[0].innerText;
+        OnCopy(aText);
+        LogShow("", "TXID copied");
+        M.updateTextFields();
+    });
 }
 
 function ManualAddTx() {
