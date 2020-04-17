@@ -4,6 +4,7 @@
 var eventId = "";
 var requiresId;
 var ticketPrices = [];
+var ticketDescriptions = [];
 
 function EventId() {
     if (this.eventId) return this.eventId.replace(/\s/g, '');
@@ -38,26 +39,34 @@ function GetEventDataCallback(data) {
     try {
         GetEventDataEditCallback(data);
     } catch (err) {
-        console.log(err);
+        console.log("Only shoots Data Edit Callback when we're on Edit page");
     }
 }
 
 function GetEventTicketsCallback(tickets) {
     var totalTickets = tickets["tickets_" + EventId()].value;
     $("#tickets").empty();
-    $("#tickets").append('<li class="collection-item grey darken-4"><b>(Ticket ID)</b> => Ticket details</li>');
+    $("#tickets").append('<p class="collection-item grey darken-4"><b>(Ticket ID)</b> => Ticket details</li>');
 
     for (var i = 0; i < totalTickets; i++) {
+        ticketDescriptions[i] = tickets["ticketDescription_" + i + "_" + EventId()].value;
         ticketPrices[i] = tickets["ticketPrice_" + i + "_" + EventId()].value;
 
-        $("#tickets").append('<li class="collection-item grey darken-4">'
+        $("#tickets").append('<a href="javascript:OnClickTicketId(' + i + ')" class="collection-item white-text grey darken-4">'
             + "<b>(" + i + ")</b><br> "
-            + tickets["ticketDescription_" + i + "_" + EventId()].value + "<br> "
+            + ticketDescriptions[i] + "<br> "
             + ticketPrices[i] + " Waves<br> "
             + tickets["ticketAmount_" + i + "_" + EventId()].value + " available tickets<br> "
             + tickets["ticketMax_" + i + "_" + EventId()].value + " max tickets per attendee"
-            + '</li>');
+            + '</a>');
     }
+}
+
+function OnClickTicketId(ticketId) {
+    var elTicketId = getElementById("ticketId");
+    if (elTicketId)
+        elTicketId.value = ticketId;
+    M.updateTextFields();
 }
 
 function GetCanceledCallback(data) {

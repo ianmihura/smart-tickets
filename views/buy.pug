@@ -17,7 +17,7 @@ block layout-content
             div.input-field
                 input#personalId.validate(type="text")
                 label(for="personalId") Personal ID*
-            span#price(placeholder="Price")
+            p.grey-text *only if required
             br
             br
             a.waves-effect.waves-light.btn(onclick="OnBuyTicket()") Buy
@@ -33,5 +33,18 @@ block layout-content
                     th Description
                     th Location
                     th Date
+    div#purchaseConfirm.modal.blue-grey.darken-3
+        div.modal-content
+            h4 Confirm Purchase
+            table#purchaseTable.highlight
+                tr
+                    th Event ID
+                    th Ticket
+                    th Amount
+                    th Total Price
+        div.modal-footer.blue-grey.darken-2
+            a(onclick="OnConfirmPurchase()" href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text OK
+            a(href="#!").modal-close.waves-effect.waves-green.btn-flat.white-text.left Cancel
+
     script(src="js/controllers/includes/eventSearch.js")
     script(src="js/controllers/ui/buy.js")     

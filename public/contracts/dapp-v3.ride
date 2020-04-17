@@ -227,7 +227,7 @@ func purchase(event: String, ticketId: Int, amount: Int, id: String) = {
         then throw("You send too much money. You sent: " + pmt.amount.toString() + ". Total price: " + totalPrice.toString())
     else if ((ticketsLeft - amount) < 0 ) 
         then throw("Not enough tickets left")
-    else if (getEventDateValue(event) < lastBlock.timestamp + 15000000) 
+    else if (getEventDateValue(event) < lastBlock.timestamp - 15000000) 
         then throw("This event has already happened")
     else if (getEventCanceledValue(event)) 
         then throw("This event was canceled")

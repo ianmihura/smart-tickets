@@ -20,6 +20,8 @@ function GetAllEventsCallback(data) {
 
     for (var eventId in events)
         AddRowToSearchTable(table, eventId, events[eventId]);
+
+    AddEventListener();
 }
 
 function _getEventIdFromDataId(dataId) {
@@ -38,9 +40,20 @@ function AddRowToSearchTable(table, eventId, event) {
     var location = row.insertCell(3);
     var date = row.insertCell(4);
 
-    _eventId.innerHTML = eventId;
+    _eventId.innerHTML = "<a href='#'>" + eventId + "</a>";
     title.innerHTML = event.title;
     description.innerHTML = event.description;
     location.innerHTML = event.location;
     date.innerHTML = new Date(event.date);
+}
+
+function AddEventListener() {
+    $('#eventSearch tr').on("click", (e) => {
+        e.stopPropagation();
+        var aText = e.target.parentElement.getElementsByTagName("a")[0].innerText;
+        var eventId = getElementById("eventId");
+        if (aText && eventId)
+            eventId.value = aText;
+        M.updateTextFields();
+    });
 }

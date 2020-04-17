@@ -1,18 +1,55 @@
 // Client-side Javascript
 // DOM elements manipulation & event listeners
 
+var purchaseDetails = {};
+
 function OnBuyTicket() {
     var eventId = EventId();
-    var ticketId = getElementById("ticketId").value;
-    var amount = getElementById("amount").value;
-    var price = ticketPrices[ticketId];
-    var totalPrice = amount * price;
-    var personalId = requiresId ? getElementById("personalId").value : "";
+    purchaseDetails = {
+        ticketId: getElementById("ticketId").value,
+        amount: getElementById("amount").value,
+        personalId: requiresId ? getElementById("personalId").value : ""
+    };
 
-    if (!eventId || !ticketId || !amount)
+    purchaseDetails.price = ticketPrices[purchaseDetails.ticketId];
+    purchaseDetails.totalPrice = purchaseDetails.amount * purchaseDetails.price;
+
+    if (!eventId || !purchaseDetails.ticketId || !purchaseDetails.amount)
         return LogShow("", "Please fill in the required fields");
 
-    BuyTickets(eventId, ticketId, amount, totalPrice, personalId, BuyTicketCallback);
+    var ticketName = ticketDescriptions[purchaseDetails.ticketId];
+    PopulateConfirmModal(eventId, ticketName);
+
+    M.Modal.getInstance(getElementById("purchaseConfirm")).open();
+}
+
+function PopulateConfirmModal(eventId, ticketName) {
+    var table = getElementById("purchaseTable");
+    var tableLength = table.children[0].children.length;
+
+    for (tableLength; tableLength > 1; tableLength--)
+        table.deleteRow(tableLength - 1);
+
+    var row = table.insertRow();
+    var eventIdRow = row.insertCell(0);
+    var amountRow = row.insertCell(1);
+    var ticketRow = row.insertCell(2);
+    var priceRow = row.insertCell(3);
+
+    eventIdRow.innerHTML = eventId;
+    ticketRow.innerHTML = ticketName;
+    amountRow.innerHTML = purchaseDetails.amount;
+    priceRow.innerHTML = purchaseDetails.totalPrice;
+}
+
+function OnConfirmPurchase() {
+    BuyTickets(
+        EventId(),
+        purchaseDetails.ticketId,
+        purchaseDetails.amount,
+        purchaseDetails.totalPrice,
+        purchaseDetails.personalId,
+        BuyTicketCallback);
 }
 
 function BuyTicketCallback(data) {

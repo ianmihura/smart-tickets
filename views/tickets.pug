@@ -9,8 +9,8 @@ block layout-content
             h4.center-align Checkin Pass
             p Generate your Checkin Pass to check in
             div.input-field
-                input#checkinTicket.validate(type="number")
-                label(for="checkinTicket") Ticket ID to Checkin
+                input#ticketId.validate(type="number")
+                label(for="ticketId") Ticket ID to Checkin
             div.input-field
                 input#checkinAmount.validate(type="number")
                 label(for="checkinAmount") Amount
@@ -23,8 +23,8 @@ block layout-content
             p Please fill in the form below if you wish to refund
             p Tickets of past events are non-refundable
             div.input-field
-                input#ticketId.validate(type="number")
-                label(for="ticketId") Ticket ID to refund
+                input#refundTicketId.validate(type="number")
+                label(for="refundTicketId") Ticket ID to refund
             div.input-field
                 input#amount.validate(type="number")
                 label(for="amount") Amount of tickets to refund

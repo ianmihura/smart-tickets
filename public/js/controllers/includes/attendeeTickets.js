@@ -92,17 +92,31 @@ function GetAttendeeEventsCallback(data) {
 
 function PopulateAttendeeTickets() {
     $("#attendeeTickets").empty();
-    $("#attendeeTickets").append('<li class="collection-item grey darken-4"><b>(Ticket ID)</b> => Ticket details <br> Event ID</li>');
+    $("#attendeeTickets").append('<p class="collection-item grey darken-4"><b>(Ticket ID)</b> => Ticket details <br> Event ID</li>');
 
     var i = 0;
     for (var ticketId in this.attendeeTickets) {
-        $("#attendeeTickets").append('<li class="collection-item grey darken-4">'
-            + "<b>(" + i + ")</b> <br> "
+        var _eventId = "e_" + ticketId.split("_")[4];
+        $("#attendeeTickets").append('<a href="javascript:OnClickTicket(' + i + ', \'' + _eventId + '\')" class="collection-item white-text grey darken-4">'
+            + "<b>(" + i + ")</b><br> "
             + this.attendeeTickets[ticketId].title + "<br> "
             + this.attendeeTickets[ticketId].ticketDescription + "<br> "
             + this.attendeeTickets[ticketId].value + " tickets<br> "
-            + "Event ID: e_" + ticketId.split("_")[4]
+            + "Event ID: " + _eventId
             + '</li>');
         i++;
     }
+}
+
+
+function OnClickTicket(ticketId, eventId) {
+    var elTicketId = getElementById("ticketId");
+    if (elTicketId)
+        elTicketId.value = ticketId;
+
+    var elEventId = getElementById("eventId");
+    if (elEventId)
+        elEventId.value = eventId;
+
+    M.updateTextFields();
 }

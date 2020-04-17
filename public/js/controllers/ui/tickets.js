@@ -2,37 +2,32 @@
 // DOM elements manipulation & event listeners
 
 function OnRefund() {
-    var ticketOrder = getElementById("ticketId").value;
+    var ticketOrder = getElementById("refundTicketId").value;
     var amount = getElementById("amount").value;
     var personalId = getElementById("personalId").value;
 
-    var _eventId = EventId();
-    var ticketId;
-    var i = 0;
-    for (var ticket in attendeeTickets) {
-        if (i == ticketOrder) {
-            ticketId = ticket.split("_")[2];
-            _eventId = _eventId ? _eventId : "e_" + ticket.split("_")[4];
-            break;
-        }
+    const { ticketId, _eventId } = _getTicketId(ticketOrder);
 
-        i++;
-    }
-
-    var isNotValid = _validate(_eventId, amount, personalId, ticketId);
-    if (isNotValid)
-        LogShow("", isNotValid);
+    if (!amount || ticketOrder === "")
+        return LogShow("", "Please fill in the required fields");
+    else if (!ticketId || !_eventId)
+        return LogShow("", "The ticket Id you selected is not valid");
     else
         RefundTicket(_eventId, amount, personalId, ticketId, OnRefundCallback);
 }
 
-function _validate(_eventId, amount, personalId, ticketId) {
-    if (!_eventId || !amount || !ticketId)
-        return "Please fill in the required fields";
-    else if (!ticketId)
-        return "The ticket Id you selected is not valid";
-    else
-        return false;
+function _getTicketId(ticketOrder) {
+    var _eventId = EventId();
+    var i = 0;
+    for (var attendeeTicketKey in attendeeTickets) {
+        if (i == ticketOrder)
+            return {
+                ticketId: attendeeTicketKey.split("_")[2],
+                _eventId: _eventId ? _eventId : "e_" + attendeeTicketKey.split("_")[4]
+            };
+        else
+            i++;
+    }
 }
 
 function OnRefundCallback(data) {
@@ -42,26 +37,14 @@ function OnRefundCallback(data) {
 
 // Checkin
 function OnCreateCheckinPass() {
-    var checkinTicketOrder = getElementById("checkinTicket").value;
+    var ticketOrder = getElementById("ticketId").value;
     var checkinAmount = getElementById("checkinAmount").value;
+    const { ticketId, _eventId } = _getTicketId(ticketOrder);
 
-    var _eventId = EventId();
-    var checkinTicketId;
-    var i = 0;
-    for (var attendeeTicketKey in attendeeTickets) {
-        if (i != checkinTicketOrder)
-            continue;
-
-        _eventId = _eventId ? _eventId : "e_" + attendeeTicketKey.split("_")[4];
-        checkinTicketId = attendeeTicketKey.split("_")[2];
-        i++;
-        break;
-    }
-
-    if (!_eventId || !checkinAmount || !checkinTicketId)
+    if (!_eventId || !checkinAmount || !ticketId)
         return LogShow("", "Please fill in the required fields");
 
-    var checkinPassMessage = _eventId + "," + checkinTicketId + "," + checkinAmount;
+    var checkinPassMessage = _eventId + "," + ticketId + "," + checkinAmount;
     WavesKeeperSingService(checkinPassMessage, CreateCheckinPassCallback);
 }
 

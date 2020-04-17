@@ -137,9 +137,8 @@ var trustees = {};
 function ShowStrusteesCallback(data) {
     getElementById("trustees").innerHTML = "";
     trustees = data;
-    for (var trustee in data) {
+    for (var trustee in data)
         AddTrusteeRow(data[trustee]);
-    }
 }
 
 function AddTrusteeRow(trustee) {
