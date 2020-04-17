@@ -6,6 +6,7 @@ const WALLET_NAME = "wallet_name";
 const WALLET_ADDRESS = "wallet_address";
 const WALLET_SEED = "wallet_seed";
 const TRUSTEE_ID = "trustee_id";
+const TRUSTEE_EVENT_ID = "trustee_event_id";
 
 function GetTxsFromDB() {
     try {
@@ -83,14 +84,19 @@ function ClearLoginCredentials() {
 }
 
 // Trustee Id
-function SetTrusteeId(trusteeId) {
+function SetTrusteeId(trusteeId, eventId) {
     localStorage[TRUSTEE_ID] = trusteeId;
+    localStorage[TRUSTEE_EVENT_ID] = eventId;
 }
 
 function GetTrusteeId() {
-    return localStorage[TRUSTEE_ID];
+    return {
+        trusteeId: localStorage[TRUSTEE_ID],
+        trusteeEventId: localStorage[TRUSTEE_EVENT_ID],
+    };
 }
 
 function ClearTrusteeId() {
     delete localStorage[TRUSTEE_ID];
+    delete localStorage[TRUSTEE_EVENT_ID];
 }

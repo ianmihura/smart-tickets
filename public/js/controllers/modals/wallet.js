@@ -49,6 +49,9 @@ function WalletBalanceCallback(data) {
     var loginCredentials = GetLoginCredentials();
     loginCredentials.balance = data;
 
+    if (GetTrusteeId().trusteeId)
+        loginCredentials.trustee = GetTrusteeId().trusteeEventId;
+
     LogShow("", "Login successful");
     PopulateWalletFloat(loginCredentials);
 }
@@ -62,4 +65,10 @@ function PopulateWalletFloat(data) {
 
 function _getWalletCollectionRow(data) {
     return "<li class='collection-item white-text blue-grey darken-3'>" + data + "</li";
+}
+
+function OnCheckoutTrustee() {
+    ClearTrusteeId();
+    LogShow("", "Trustee Checked out");
+    OnOpenWallet();
 }

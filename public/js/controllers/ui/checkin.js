@@ -13,7 +13,8 @@ function LoginTrusteeCallback(data) {
     for (var trusteeKey in data) {
         if (data[trusteeKey].value == GetLoginCredentials().address) {
             LogShow("", 'Login Trustee Successfull');
-            return SetTrusteeId(trusteeKey.split("_")[1]);
+            SetTrusteeId(trusteeKey.split("_")[1], EventId());
+            return;
         }
     }
 
@@ -46,7 +47,7 @@ function OnCheckin() {
     if (!eventId || !attendeeAddress || !ticketsToCheckin || !ticketId)
         return LogShow("", "Please fill in the required fields");
 
-    CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, GetTrusteeId(), CheckinCallback);
+    CheckinAttendee(eventId, attendeeAddress, ticketsToCheckin, personalId, ticketId, GetTrusteeId().trusteeId, CheckinCallback);
 }
 
 function CheckinCallback(data) {
@@ -74,7 +75,7 @@ function VerifyCallback(data) {
     var amount = message[2];
     var address = data.address;
     var personalId = "";
-    var trusteeKey = GetTrusteeId();
+    var trusteeKey = GetTrusteeId().trusteeId;
 
     if (!eventId || !amount || !address || !ticketId)
         return LogShow("", "Checkin Pass Error");
