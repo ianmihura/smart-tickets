@@ -1,6 +1,24 @@
 extends layout
 
 block layout-content
+    h1.center-align My Events
+    div.row
+        div.col.s12.m6
+            div.input-field
+                input#address(type="text")
+                label(for="address") My Address
+            a.waves-effect.waves-light.btn(onclick="OnGetMyEvents()") See Events
+        div.col.s12.m6
+            p You can edit the availability of any ticket
+            p You can cancel the event - you will not be able to withdraw the funds
+            p You can withdraw the funds only after the event finished
+    table#myEvents.highlight.responsive-table.clickable
+        tr
+            th Event Id
+            th Title
+            th Description
+            th Location
+            th Date
     h1.center-align Fetch Details
     div.row
         div.col.s12.m6

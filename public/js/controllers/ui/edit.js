@@ -3,6 +3,60 @@
 
 var eventDate;
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (GetLoginCredentials().seed)
+        getElementById("address").value = GetLoginCredentials().address;
+
+    M.updateTextFields();
+});
+
+// Get My Events
+function OnGetMyEvents() {
+    var address = getElementById("address").value;
+    GetOwnerEventsService(address, GetMyEventsCallback);
+}
+
+function GetMyEventsCallback(data) {
+    var myEvents = getElementById("myEvents");
+    for (var i = 1; i < myEvents.rows.length; i++)
+        getElementById("myEvents").deleteRow[i];
+
+    for (eventId in data)
+        GetEventDataService(eventId, PopulateMyEvents);
+}
+
+function PopulateMyEvents(data) {
+    e_data = JSON.parse(data.value);
+    eventId = "e_" + data.key.split("_")[2];
+    var myEvents = getElementById("myEvents");
+
+    var row = myEvents.insertRow();
+    var _eventId = row.insertCell(0);
+    var title = row.insertCell(1);
+    var description = row.insertCell(2);
+    var location = row.insertCell(3);
+    var date = row.insertCell(4);
+
+    _eventId.innerHTML = "<a href='#'>" + eventId + "</a>";
+    title.innerHTML = e_data.title;
+    description.innerHTML = e_data.description;
+    location.innerHTML = e_data.location;
+    date.innerHTML = new Date(e_data.date);
+
+    AddTableListener();
+}
+
+function AddTableListener() {
+    $('#myEvents tr').on("click", (e) => {
+        e.stopPropagation();
+        var aText = e.target.parentElement.getElementsByTagName("a")[0].innerText;
+        var eventId = getElementById("eventId");
+        if (aText && eventId)
+            eventId.value = aText;
+        M.updateTextFields();
+    });
+}
+
 // Get Event Details Callback
 function GetEventDataEditCallback(data) {
     getElementById("newTitle").value = data.title;
@@ -103,7 +157,7 @@ function _onShowFunds(data) {
 }
 
 function OnShowFundsCallback(data) {
-    if (!data.value)
+    if (!data.value && data.value !== 0)
         return LogShow(data, "Only the creator of the event can view the funds");
 
     LogShow(data, "Data retrieved succesfully");

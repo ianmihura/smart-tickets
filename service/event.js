@@ -11,7 +11,7 @@ function GetEvents(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -25,7 +25,7 @@ function GetEvent(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -36,7 +36,7 @@ function GetEventData(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -50,7 +50,7 @@ function GetEventTickets(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -64,7 +64,7 @@ function GetEventTicket(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -78,7 +78,25 @@ function GetEventTrustee(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
+    }
+}
+
+function GetOwnerEvents(req, res) {
+    try {
+        nodeInteraction.accountData({
+            address: main.dapp,
+            match: "e_.*"
+        }, main.nodeUrl)
+            .then(wResp => {
+                result = {};
+                for (var e in wResp)
+                    if (wResp[e].value == req.params.address)
+                        result[e] = wResp[e];
+                res.status(200).json(result);
+            }).catch(err => res.status(400).json(err));
+    } catch (err) {
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -89,7 +107,7 @@ function GetTicketDescription(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -100,7 +118,7 @@ function GetCanceled(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -111,7 +129,7 @@ function GetBalance(req, res) {
             .then(wResp => res.status(200).json(wResp))
             .catch(err => res.status(400).json(err));
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json("Internal Server Error");
     }
 }
 
@@ -124,5 +142,6 @@ module.exports = {
     GetEventTickets: GetEventTickets,
     GetEventTicket: GetEventTicket,
     GetEventTrustee: GetEventTrustee,
-    GetTicketDescription: GetTicketDescription
+    GetTicketDescription: GetTicketDescription,
+    GetOwnerEvents: GetOwnerEvents
 };

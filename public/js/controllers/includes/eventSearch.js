@@ -21,7 +21,7 @@ function GetAllEventsCallback(data) {
     for (var eventId in events)
         AddRowToSearchTable(table, eventId, events[eventId]);
 
-    AddEventListener();
+    AddTableListener();
 }
 
 function _getEventIdFromDataId(dataId) {
@@ -47,8 +47,8 @@ function AddRowToSearchTable(table, eventId, event) {
     date.innerHTML = new Date(event.date);
 }
 
-function AddEventListener() {
-    $('#eventSearch tr').on("click", (e) => {
+function AddTableListener() {
+    $('#eventSearch tr').click((e) => {
         e.stopPropagation();
         var aText = e.target.parentElement.getElementsByTagName("a")[0].innerText;
         var eventId = getElementById("eventId");
