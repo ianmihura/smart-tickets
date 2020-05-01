@@ -38,7 +38,7 @@ function _log(log) {
 
 function OnCopy(text, isId) {
     if (isId)
-        return _onCopyId(isId);
+        return _onCopyId(text);
 
     const el = document.createElement('textarea');
     var range = document.createRange();
@@ -52,7 +52,7 @@ function OnCopy(text, isId) {
     document.body.removeChild(el);
 }
 
-function _onCopy() {
+function _onCopyId(id) {
     var from = getElementById(id);
     var range = document.createRange();
     window.getSelection().removeAllRanges();

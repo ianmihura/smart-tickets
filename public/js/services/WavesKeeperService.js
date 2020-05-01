@@ -3,12 +3,9 @@
 
 function WavesKeeperAuth(message, callback) {
     try {
-        if (GetLoginCredentials().seed)
-            callback(GetLoginCredentials());
-        else
-            WavesKeeper.auth({ data: message })
-                .then(data => callback(data))
-                .catch(err => LogShow(err, "Waves Keeper returned with an error"));
+        WavesKeeper.auth({ data: message })
+            .then(data => callback(data))
+            .catch(err => LogShow(err, "Waves Keeper returned with an error"));
     } catch (err) {
         LogShow(err, "You probably don't have Waves.Keeper installed.");
     }
@@ -16,23 +13,19 @@ function WavesKeeperAuth(message, callback) {
 
 function WavesKeeperTransactionService(txData, callback) {
     try {
-        if (GetLoginCredentials().seed) {
-            LogShow("", "Tx signed with your login credentials.");
-            SignAndPublishTransaction(txData, GetLoginCredentials().seed, callback);
-        } else
-            WavesKeeper.signAndPublishTransaction(txData)
-                .then(data => {
-                    if (!data)
-                        return LogShow("Waves.Keeper returned no data", "Waves.Keeper returned no data");
-                    else if (data.code)
-                        return LogShow(err, "Waves.Keeper answered with code + " + data.code);
-                    else if (typeof data == "string")
-                        data = JSON.parse(data);
+        WavesKeeper.signAndPublishTransaction(txData)
+            .then(data => {
+                if (!data)
+                    return LogShow("Waves.Keeper returned no data", "Waves.Keeper returned no data");
+                else if (data.code)
+                    return LogShow(err, "Waves.Keeper answered with code + " + data.code);
+                else if (typeof data == "string")
+                    data = JSON.parse(data);
 
-                    AddTxToDB(data);
-                    callback(data);
-                })
-                .catch(err => LogShow(err, "Waves.Keeper returned with an error"));
+                AddTxToDB(data);
+                callback(data);
+            })
+            .catch(err => LogShow(err, "Waves.Keeper returned with an error"));
     } catch (err) {
         LogShow(err, "You probably don't have Waves.Keeper installed.");
     }
@@ -40,18 +33,14 @@ function WavesKeeperTransactionService(txData, callback) {
 
 function WavesKeeperSingService(message, callback) {
     try {
-        if (GetLoginCredentials().seed) {
-            LogShow("", "Tx verified with your login credentials.");
-            GetSignService(GetLoginCredentials().seed, message, callback);
-        } else
-            WavesKeeper.signCustomData({
-                version: 1,
-                binary: btoa(message)
-            }).then(data => {
-                // .. validations
+        WavesKeeper.signCustomData({
+            version: 1,
+            binary: btoa(message)
+        }).then(data => {
+            // .. validations
 
-                callback(data);
-            }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
+            callback(data);
+        }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
     } catch (err) {
         LogShow(err, "You probably don't have Waves.Keeper installed.");
     }
@@ -59,20 +48,16 @@ function WavesKeeperSingService(message, callback) {
 
 function WavesKeeperVerifyService(checkinPass, callback) {
     try {
-        if (GetLoginCredentials().seed) {
-            LogShow("", "Tx signed with your login credentials.");
-            GetVerifiedService(checkinPass, callback);
-        } else
-            WavesKeeper.verifyCustomData({
-                version: 1,
-                binary: btoa(checkinPass.message),
-                signature: checkinPass.signature,
-                publicKey: checkinPass.publicKey
-            }).then(data => {
-                // .. validations
+        WavesKeeper.verifyCustomData({
+            version: 1,
+            binary: btoa(checkinPass.message),
+            signature: checkinPass.signature,
+            publicKey: checkinPass.publicKey
+        }).then(data => {
+            // .. validations
 
-                callback(data);
-            }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
+            callback(data);
+        }).catch(err => LogShow(err, "Waves.Keeper returned with an error"));
     } catch (err) {
         LogShow(err, "You probably don't have Waves.Keeper installed.");
     }

@@ -8,7 +8,7 @@ function _getEventId(eventId) {
 }
 
 function CreateEvent(title, data, date, requiresId, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -31,7 +31,7 @@ function CreateEvent(title, data, date, requiresId, callback) {
 }
 
 function CreateEventTicket(eventId, price, ticketDescription, ticketAmount, ticketMax, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -55,7 +55,7 @@ function CreateEventTicket(eventId, price, ticketDescription, ticketAmount, tick
 }
 
 function BuyTickets(eventId, ticketId, amount, totalPrice, personalId, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -81,7 +81,7 @@ function BuyTickets(eventId, ticketId, amount, totalPrice, personalId, callback)
 }
 
 function EditTrusteeService(eventId, trusteeAddress, trusteeKey, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -103,7 +103,7 @@ function EditTrusteeService(eventId, trusteeAddress, trusteeKey, callback) {
 }
 
 function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticketId, trusteeKey, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -128,7 +128,7 @@ function CheckinAttendee(eventId, attendee, ticketsToCheckin, personalId, ticket
 }
 
 function RefundTicket(eventId, amount, personalId, ticketId, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -151,7 +151,7 @@ function RefundTicket(eventId, amount, personalId, ticketId, callback) {
 }
 
 function CancelEvent(eventId, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -171,7 +171,7 @@ function CancelEvent(eventId, callback) {
 }
 
 function EditEventDetails(eventId, data, date, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -193,7 +193,7 @@ function EditEventDetails(eventId, data, date, callback) {
 }
 
 function EditEventOwner(eventId, newProducer, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -214,7 +214,7 @@ function EditEventOwner(eventId, newProducer, callback) {
 }
 
 function EditEventTrustee(eventId, trustee, trusteeKey, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -236,7 +236,7 @@ function EditEventTrustee(eventId, trustee, trusteeKey, callback) {
 }
 
 function EditAvailableTickets(eventId, ticketId, newAmount, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {
@@ -258,7 +258,7 @@ function EditAvailableTickets(eventId, ticketId, newAmount, callback) {
 }
 
 function WithdrawFunds(eventId, callback) {
-    WavesKeeperTransactionService({
+    BaseTransactionService({
         type: 16,
         data: {
             fee: {

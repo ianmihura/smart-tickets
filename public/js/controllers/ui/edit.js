@@ -149,7 +149,7 @@ function CancelEventCallback(data) {
 
 // Balance
 function OnShowFunds() {
-    WavesKeeperAuth("Show the event balance", _onShowFunds);
+    BaseAuthService("Show the event balance", _onShowFunds);
 }
 
 function _onShowFunds(data) {

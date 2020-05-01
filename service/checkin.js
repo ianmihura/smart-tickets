@@ -1,20 +1,6 @@
 var ts = require('@waves/ts-lib-crypto');
 var main = require('./main.js');
 
-function Sign(req, res) {
-    try {
-        let byteArray = ts.concat([255, 255, 255, 1], ts.stringToBytes(req.body.message));
-        res.status(200).json({
-            signature: ts.signBytes(req.body.seed, byteArray),
-            message: req.body.message,
-            publicKey: ts.publicKey(req.body.seed),
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(500).send(err);
-    }
-}
-
 function Verify(req, res) {
     try {
         let byteArray = ts.concat([255, 255, 255, 1], ts.stringToBytes(req.body.message));
@@ -29,6 +15,5 @@ function Verify(req, res) {
 }
 
 module.exports = {
-    Sign: Sign,
     Verify: Verify
 };

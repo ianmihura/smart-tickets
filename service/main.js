@@ -40,25 +40,10 @@ function GetAttendeeId(attendee, personalId) {
     return "a_" + ts.base58Encode(ts.sha256(ts.stringToBytes(attendee + personalId)));
 }
 
-function GetWallet(req, res) {
-    var seed = ts.randomSeed();
-
-    res.status(200).json({
-        seed: seed,
-        address: ts.address(seed, 'T')
-    });
-}
-
 function GetBalance(req, res) {
     nodeInteraction.balance(req.params.address, nodeUrl)
         .then(wResp => res.status(200).json(wResp))
         .catch(err => res.status(400).json(err));
-}
-
-function GetAddress(req, res) {
-    res.status(200).json({
-        address: ts.address(req.body["seed"], 'T')
-    });
 }
 
 module.exports = {
@@ -66,9 +51,7 @@ module.exports = {
     GetTxById: GetTxById,
     GetEventId: GetEventId,
     GetAttendeeId: GetAttendeeId,
-    GetWallet: GetWallet,
     GetBalance: GetBalance,
-    GetAddress: GetAddress,
     dapp: dapp,
     dappM: dappM,
     oldDapp: oldDapp,

@@ -62,7 +62,7 @@ function OnCheckinPass(_checkinPass) {
     if (!checkinPass.message || !checkinPass.signature || !checkinPass.publicKey)
         return LogShow("", "CheckinPass format not valid");
 
-    WavesKeeperVerifyService(checkinPass, VerifyCallback);
+    BaseVerifyService(checkinPass, VerifyCallback);
 }
 
 function VerifyCallback(data) {

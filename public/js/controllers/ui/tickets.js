@@ -61,7 +61,7 @@ function OnCreateCheckinPass() {
         return LogShow("", "Please fill in the required fields");
 
     var checkinPassMessage = _eventId + "," + ticketId + "," + checkinAmount;
-    WavesKeeperSingService(checkinPassMessage, CreateCheckinPassCallback);
+    BaseSignService(checkinPassMessage, CreateCheckinPassCallback);
 }
 
 function CreateCheckinPassCallback(data) {

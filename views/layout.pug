@@ -14,10 +14,14 @@ html
         link(rel="stylesheet" type="text/css" href="css/style.css")
 
         script(src="js/main.js")
-        script(src="js/controllers/WavesKeeperController.js")
+        script(src="js/controllers/BaseController.js")
+        script(src="js/services/BaseService.js")
         script(src="js/services/WavesKeeperService.js")
         script(src="js/services/NodeService.js")
         script(src="js/db/localdb.js")
+
+        //- link(href="vue/js/app.js" rel="preload" as="script")
+        //- link(href="vue/js/chunk-vendors.js" rel="preload" as="script")
     body
         div#root
             div.View-disabled
@@ -27,6 +31,8 @@ html
                     block layout-content
         include includes/float.pug
         include includes/footer.pug
-        //- script(data-main="js/main" src="js/libs/require.min.js")
         
+        div#app
+        script(src="ts-lib/js/chunk-vendors.js")
+        script(src="ts-lib/js/app.js")
     
