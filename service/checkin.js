@@ -1,6 +1,7 @@
 var ts = require('@waves/ts-lib-crypto');
 var main = require('./main.js');
 
+// take to ts-lib
 function Verify(req, res) {
     try {
         let byteArray = ts.concat([255, 255, 255, 1], ts.stringToBytes(req.body.message));
