@@ -1,6 +1,6 @@
 # Smart Tickets.
 
-https://smarttickets.herokuapp.com/
+[Try the app!](https://smarttickets.herokuapp.com/)
 
 Create your event, sell tickets, checkin your attendees with blockchain technology.
 No registration necessary, you only need to hold a valid Waves wallet.
